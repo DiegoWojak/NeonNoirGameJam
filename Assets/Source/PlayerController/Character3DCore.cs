@@ -69,7 +69,7 @@ namespace Assets.Source.Render.Characters
         [Header("Ladder Climbing")]
         public float ClimbingSpeed = 4f;
         public float AnchoringDuration = 0.25f;
-        public LayerMask InteractionLayer;
+        public LayerMask ClimbingLayer;
 
         [Header("Swimming")]
         public Transform SwimmingReferencePoint;
@@ -164,6 +164,9 @@ namespace Assets.Source.Render.Characters
             _rootMotionRotationDelta = Quaternion.identity;
         }
 
+        public static Action<LayerMask> OnCollisionDetected;
+        public LayerMask InteractionLayer;
+
         void Update() {
             _forwardAxis = Mathf.Lerp(_forwardAxis, _targetForwardAxis, 1f - Mathf.Exp(-ForwardAxisSharpness * Time.deltaTime));
             _rightAxis = Mathf.Lerp(_rightAxis, _targetRightAxis, 1f - Mathf.Exp(-TurnAxisSharpness * Time.deltaTime));
@@ -171,6 +174,20 @@ namespace Assets.Source.Render.Characters
             CharacterAnimator.SetFloat("Turn", _rightAxis);
             CharacterAnimator.SetBool("OnGround", Motor.GroundingStatus.IsStableOnGround && CurrentCharacterState == CharacterState.Default);
             CharacterAnimator.SetBool("OnLiquid", CurrentCharacterState==CharacterState.Swimming);
+        }
+
+        private void OnEnable()
+        {
+            OnCollisionDetected += UpdateLayerMask;
+        }
+
+        private void OnDisable()
+        {
+            OnCollisionDetected -= UpdateLayerMask;
+        }
+
+        void UpdateLayerMask(LayerMask maskDetected) {
+            Debug.Log("Enter");
         }
 
         public void TransitionToState(CharacterState newState)
@@ -199,7 +216,7 @@ namespace Assets.Source.Render.Characters
             _ladderUpDownInput = inputs.MoveAxisForward;
             if (inputs.Interaction)
             {
-                if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, InteractionLayer, QueryTriggerInteraction.Collide) > 0)
+                if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, ClimbingLayer, QueryTriggerInteraction.Collide) > 0)
                 {
                     if (_probedColliders[0] != null)
                     {
@@ -222,6 +239,9 @@ namespace Assets.Source.Render.Characters
                             }
                         }
                     }
+                }
+                if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, InteractionLayer, QueryTriggerInteraction.Collide) > 0) {
+                    Debug.Log("Iterate");
                 }
             }
             else { 

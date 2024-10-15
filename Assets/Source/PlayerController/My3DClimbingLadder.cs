@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Source.Render.Characters
 {
-    public class My3DClimbingLadder : MonoBehaviour
+    public class My3DClimbingLadder : MonoBehaviour 
     {
         // Ladder segment
         public Vector3 LadderSegmentBottom;
@@ -15,7 +15,7 @@ namespace Assets.Source.Render.Characters
         // Points to move to when reaching one of the extremities and moving off of the ladder
         public Transform BottomReleasePoint;
         public Transform TopReleasePoint;
-
+        public LayerMask MyLayerMask;
         // Gets the position of the bottom point of the ladder segment
         public Vector3 BottomAnchorPoint
         {
