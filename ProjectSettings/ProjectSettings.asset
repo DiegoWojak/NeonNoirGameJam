@@ -776,8 +776,14 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
-    Collab: 1
+    Build: 0
+    Collab: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -791,11 +797,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: 2cbcc5df-685c-48b8-b9dc-e5e23aa1ebe0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: NeonNoir (1)
+  organizationId: caktuzz
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
