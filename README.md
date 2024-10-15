@@ -11,9 +11,16 @@ v. 0.1 NeonNoir base rep.
   Vera no es un androide común; fue creada con una mezcla de tecnología avanzada y magia oscura, lo que le otorga habilidades sobrenaturales. 
   Sin embargo, dentro de ella está atrapada el alma de una antigua bruja llamada Naomi, que fue sellada en el androide durante un experimento del Cónclave. 
 
-  
 Claves:
   Androide con alma
   Acción intensa
   Tecnología y brujería fusionadas
   
+  Dia 1 00:28:
+  -Se agrego personaje 1rd y 3rd Camera
+  -Salto, movimientos animados
+  -Iteracción con escaleras, Agua o Computadoras
+  -Se Integro Codigo de UI
+  -Algunos materiales y modelos
+
+  Missing: Integración con una UI cuando se interactue con una pc
