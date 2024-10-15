@@ -1,0 +1,8 @@
+#dependencies
+/node_modules
+/.php
+/.tif
+*/.meta
+*/*.meta
+/Assets/Art/Model/Off(DontLoadToGit)
+Assets/Art/Textures/Skybox(DontLoadToGit)

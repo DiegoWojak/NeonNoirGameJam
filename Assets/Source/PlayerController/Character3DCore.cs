@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 
 using UnityEngine;
+using static UnityEditor.IMGUI.Controls.CapsuleBoundsHandle;
 
 namespace Assets.Source.Render.Characters
 {
@@ -76,6 +77,11 @@ namespace Assets.Source.Render.Characters
         public float SwimmingMovementSharpness = 3;
         public float SwimmingOrientationSharpness = 2f;
 
+        [Header("Animation Parameters")]
+        public Animator CharacterAnimator;
+        public float ForwardAxisSharpness = 10;
+        public float TurnAxisSharpness = 5;
+
         [Header("NoClip CHEATS")]
         public float NoClipMoveSpeed = 10f;
         public float NoClipSharpness = 15;
@@ -139,10 +145,30 @@ namespace Assets.Source.Render.Characters
         private Transform FromPoint;
         RaycastHit[] hitsAlloc;
         const float MAX_HITDISTANCE = 100f;
-        
+
+        #region AnimationVariables
+        private float _forwardAxis;
+        private float _rightAxis;
+        private float _targetForwardAxis;
+        private float _targetRightAxis;
+        private Vector3 _rootMotionPositionDelta;
+        private Quaternion _rootMotionRotationDelta;
+        #endregion
+
         void Start() {
             Motor.CharacterController = this;
             TransitionToState(CharacterState.Default);
+
+            _rootMotionPositionDelta = Vector3.zero;
+            _rootMotionRotationDelta = Quaternion.identity;
+        }
+
+        void Update() {
+            _forwardAxis = Mathf.Lerp(_forwardAxis, _targetForwardAxis, 1f - Mathf.Exp(-ForwardAxisSharpness * Time.deltaTime));
+            _rightAxis = Mathf.Lerp(_rightAxis, _targetRightAxis, 1f - Mathf.Exp(-TurnAxisSharpness * Time.deltaTime));
+            CharacterAnimator.SetFloat("Forward", _forwardAxis);
+            CharacterAnimator.SetFloat("Turn", _rightAxis);
+            CharacterAnimator.SetBool("OnGround", Motor.GroundingStatus.IsStableOnGround);
         }
 
         public void TransitionToState(CharacterState newState)
@@ -215,6 +241,8 @@ namespace Assets.Source.Render.Characters
 
             switch(CurrentCharacterState){
                 case CharacterState.Default:
+                    AxisInputs(inputs.MoveAxisForward, inputs.MoveAxisRight);
+
                     _moveInputVector = cameraPlanarRotation * moveInputVector;
                     _lookInputVector = cameraPlanarDirection;
                     InputJumpDown(inputs.JumpDown);
@@ -229,6 +257,11 @@ namespace Assets.Source.Render.Characters
                     _moveInputVector = inputs.CameraRotation * moveInputVector;
                     _lookInputVector = cameraPlanarDirection;
                     break;
+            }
+
+            void AxisInputs(float axisForward, float axisRight) {
+                _targetForwardAxis = axisForward;
+                _targetRightAxis = axisRight;
             }
 
             void InputJumpDown(bool inputPress) {
@@ -386,6 +419,9 @@ namespace Assets.Source.Render.Characters
                                 _isCrouching = false;
                             }
                         }
+
+                        _rootMotionPositionDelta = Vector3.zero;
+                        _rootMotionRotationDelta = Quaternion.identity;
                         break;
                     }
                 case CharacterState.Climbing:
@@ -527,6 +563,12 @@ namespace Assets.Source.Render.Characters
         public void ProcessHitStabilityReport(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, Vector3 atCharacterPosition, Quaternion atCharacterRotation, ref HitStabilityReport hitStabilityReport)
         {
             
+        }
+
+        private void OnAnimatorMove()
+        {
+            _rootMotionPositionDelta += CharacterAnimator.deltaPosition;
+            _rootMotionRotationDelta = CharacterAnimator.deltaRotation * _rootMotionRotationDelta;
         }
 
         public void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
