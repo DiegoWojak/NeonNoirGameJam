@@ -25,3 +25,13 @@
 
   # Missing: 
   * [] **Integración con una UI cuando se interactue con una pc**
+
+  # Dia 2 9:31  - 12:38
+  * [x] Agregar Gestor manager para interactuar con datos
+  * [x] **Agregar Text manager y tener dialogos en computador A ID:0 <-- HINTS B ID:1 <-- REWARD **
+  * [x] **Integración con una UI cuando se interactue con una pc**
+  * [x] **TextMeshPro Implementado con nuevo TextAsset
+  * [x] **Se muestra mouse al interactuar con un PC**
+  * [ ] Inventario? 🥉
+  * [ ] Musica y Sonido 🥈
+  * [ ] Shaders 🥇
