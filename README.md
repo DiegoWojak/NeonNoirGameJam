@@ -17,7 +17,7 @@ Claves:
   Tecnología y brujería fusionadas
   
   Dia 1 00:28:
-  -Se agrego personaje 1rd y 3rd Camera
+  -Se agrego personaje 1rd y 3rd Camera 
   -Salto, movimientos animados
   -Iteracción con escaleras, Agua o Computadoras
   -Se Integro Codigo de UI
