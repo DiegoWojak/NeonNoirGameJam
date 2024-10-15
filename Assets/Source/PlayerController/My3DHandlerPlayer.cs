@@ -83,7 +83,8 @@ namespace Assets.Source.Render.Characters
             characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.LeftControl);
             characterInputs.CrouchHeld = Input.GetKey(KeyCode.LeftControl);
             characterInputs.NoClipDown = Input.GetKeyUp(KeyCode.O);
-            characterInputs.ClimbLadder = Input.GetKeyUp(KeyCode.E);
+            //characterInputs.ClimbLadder = Input.GetKeyUp(KeyCode.E);
+            characterInputs.Interaction = Input.GetKeyUp(KeyCode.E);
             characterInputs.ShootHeld = Input.GetButton("Fire1");
 
             if (Input.GetKeyDown(KeyCode.LeftShift))

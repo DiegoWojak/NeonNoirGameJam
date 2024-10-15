@@ -37,6 +37,7 @@ namespace Assets.Source.Render.Characters
         public bool NoClipDown;
         public bool ClimbLadder;
         public bool ShootHeld;
+        public bool Interaction;
     }
 
     public class Character3DCore : MonoBehaviour, ICharacterController
@@ -168,7 +169,8 @@ namespace Assets.Source.Render.Characters
             _rightAxis = Mathf.Lerp(_rightAxis, _targetRightAxis, 1f - Mathf.Exp(-TurnAxisSharpness * Time.deltaTime));
             CharacterAnimator.SetFloat("Forward", _forwardAxis);
             CharacterAnimator.SetFloat("Turn", _rightAxis);
-            CharacterAnimator.SetBool("OnGround", Motor.GroundingStatus.IsStableOnGround);
+            CharacterAnimator.SetBool("OnGround", Motor.GroundingStatus.IsStableOnGround && CurrentCharacterState == CharacterState.Default);
+            CharacterAnimator.SetBool("OnLiquid", CurrentCharacterState==CharacterState.Swimming);
         }
 
         public void TransitionToState(CharacterState newState)
@@ -195,7 +197,7 @@ namespace Assets.Source.Render.Characters
 
             // Handle ladder transitions
             _ladderUpDownInput = inputs.MoveAxisForward;
-            if (inputs.ClimbLadder)
+            if (inputs.Interaction)
             {
                 if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, InteractionLayer, QueryTriggerInteraction.Collide) > 0)
                 {
