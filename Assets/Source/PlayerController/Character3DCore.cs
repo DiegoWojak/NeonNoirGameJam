@@ -167,6 +167,8 @@ namespace Assets.Source.Render.Characters
         public static Action<LayerMask> OnCollisionDetected;
         public LayerMask InteractionLayer;
 
+        public bool DisableInputsFromPlayer { get { return DialogManager.Instance.UIOpened; } }
+
         void Update() {
             _forwardAxis = Mathf.Lerp(_forwardAxis, _targetForwardAxis, 1f - Mathf.Exp(-ForwardAxisSharpness * Time.deltaTime));
             _rightAxis = Mathf.Lerp(_rightAxis, _targetRightAxis, 1f - Mathf.Exp(-TurnAxisSharpness * Time.deltaTime));
@@ -241,7 +243,8 @@ namespace Assets.Source.Render.Characters
                     }
                 }
                 if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, InteractionLayer, QueryTriggerInteraction.Collide) > 0) {
-                    Debug.Log("Iterate");
+                    Debug.Log($"Iterate {DialogManager.Instance.currentString}");
+                    DialogManager.Instance?.RequestOpen();
                 }
             }
             else { 

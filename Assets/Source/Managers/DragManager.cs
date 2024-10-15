@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class DragManager : LoaderBase<DragManager>
 {
-    private static DragManager _instance;
-    public static DragManager Instance { get { return _instance; } }
-
     [HideInInspector]
     public RectTransform DefaultParentLayer { get { return InventoryGroup._defaultParentLayer; } }
     [HideInInspector]
@@ -98,11 +95,6 @@ public class DragManager : LoaderBase<DragManager>
 
     public override void Init()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-        }
-
         if (_dragOrderFix == null)
         {
             _dragOrderFix = new DragOrderFix(DefaultParentLayer);

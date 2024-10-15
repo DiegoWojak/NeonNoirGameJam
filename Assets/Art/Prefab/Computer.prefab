@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6988213860647754757}
   - component: {fileID: 2630817179682290729}
-  m_Layer: 0
+  - component: {fileID: 1441021965}
+  - component: {fileID: 1441021966}
+  m_Layer: 7
   m_Name: Computer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +49,31 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 3, z: 1.25}
   m_Center: {x: 0, y: 0.5, z: -0.45}
+--- !u!114 &1441021965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4620896901507733976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0fa28e2ef665a40b6c91ad6a88608c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogText: Test Computer 1
+--- !u!114 &1441021966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4620896901507733976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf49fc1555e27e4ab38caa75cd49c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1339484358173765921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101,6 +128,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 86e7a2634c93bc04890c1490c0f1a8ea, type: 3}
       propertyPath: m_Name
       value: baseB
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 86e7a2634c93bc04890c1490c0f1a8ea, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 86e7a2634c93bc04890c1490c0f1a8ea, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86e7a2634c93bc04890c1490c0f1a8ea, type: 3}
@@ -163,6 +198,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fb80c73aaa618c34fb091436bacc370f, type: 3}
       propertyPath: m_Name
       value: baseA
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fb80c73aaa618c34fb091436bacc370f, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: fb80c73aaa618c34fb091436bacc370f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb80c73aaa618c34fb091436bacc370f, type: 3}

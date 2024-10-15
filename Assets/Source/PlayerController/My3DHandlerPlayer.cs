@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Source.Render.Characters
 {
     //MyPlayer
-    public  class My3DHandlerPlayer : MonoBehaviour
+    public  class My3DHandlerPlayer : LoaderBase<My3DHandlerPlayer>
     {
         public Character3DCamera OrbitCamera;
         public Transform CameraFollowPoint;
@@ -20,6 +20,21 @@ namespace Assets.Source.Render.Characters
         private const string HorizontalInput = "Horizontal";
         private const string VerticalInput = "Vertical";
 
+        private bool isGameLoaded = false;
+        
+        public override void Init()
+        {
+            isLoaded = true;
+            LoaderManager.OnEverythingLoaded += AllowInteraction;
+        }
+
+        void AllowInteraction()
+        {
+            Debug.Log("Loaded");
+            isGameLoaded = true;
+            LoaderManager.OnEverythingLoaded -= AllowInteraction;
+        }
+
         private void Start()
         {
             //
@@ -32,6 +47,8 @@ namespace Assets.Source.Render.Characters
 
         private void Update()
         {
+            if (!isGameLoaded || Character.DisableInputsFromPlayer) return;
+
             if (Input.GetMouseButtonDown(0)) 
             {
                 Cursor.lockState = CursorLockMode.Locked;
