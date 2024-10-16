@@ -85,6 +85,10 @@ namespace Assets.Source.Render.Characters
             _currentFollowPosition = FollowTransform.position;
         }
 
+        public bool IsCameraClose() {
+            return TargetDistance == 0f;
+        }
+
 
         public void UpdateWithInput(float deltaTime, float zoomInput, Vector3 rotationInput) {
             if (FollowTransform) {

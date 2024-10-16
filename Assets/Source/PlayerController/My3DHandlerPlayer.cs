@@ -1,4 +1,5 @@
 ﻿
+using Assets.Source.Managers;
 using System.Linq;
 
 using UnityEngine;
@@ -83,6 +84,8 @@ namespace Assets.Source.Render.Characters
             if (Input.GetMouseButtonDown(1)) 
             {
                 OrbitCamera.TargetDistance = (OrbitCamera.TargetDistance == 0f)? OrbitCamera.DefaultDistance : 0f;
+                //
+                GameStarterManager.Instance?.CameraDistanceChange((OrbitCamera.TargetDistance == 0f));
             }
             #endregion
         }

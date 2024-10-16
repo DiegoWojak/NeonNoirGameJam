@@ -1,4 +1,5 @@
 ﻿
+using Assets.Source.Managers;
 using KinematicCharacterController;
 
 using System;
@@ -364,6 +365,7 @@ namespace Assets.Source.Render.Characters
                 case CharacterState.Swimming:
                     {
                         Motor.SetGroundSolvingActivation(false);
+                        GameStarterManager.Instance?.CameraFluidChange(true);
                         break;
                     }
                 case CharacterState.NoClip:
@@ -388,6 +390,11 @@ namespace Assets.Source.Render.Characters
                     {
                         Motor.SetMovementCollisionsSolvingActivation(true);
                         Motor.SetGroundSolvingActivation(true);
+                        break;
+                    }
+                case CharacterState.Swimming:
+                    {
+                        GameStarterManager.Instance?.CameraFluidChange(false);
                         break;
                     }
                 case CharacterState.NoClip:
