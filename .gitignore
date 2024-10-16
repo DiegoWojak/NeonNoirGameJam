@@ -7,6 +7,7 @@
 /Assets/Art/Model/Off(DontLoadToGit)
 Assets/Art/Textures/Skybox(DontLoadToGit)
 
+/[Aa]ssets/Plugins/FMOD/platforms/html5/*
 # Never ignore DLLs in the FMOD subfolder.
 !/[Aa]ssets/Plugins/FMOD/**/lib/*
 
