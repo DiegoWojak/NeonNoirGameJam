@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+using System;
 
 using UnityEngine;
 
@@ -7,6 +7,7 @@ namespace Assets.Source.Utilities
 {
     public class GameEvents: LoaderBase<GameEvents>
     {
+
         public override void Init()
         {
             isLoaded = true;
@@ -29,4 +30,6 @@ namespace Assets.Source.Utilities
             }
         }
     }
+
+    
 }

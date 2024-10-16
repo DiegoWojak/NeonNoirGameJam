@@ -1,6 +1,7 @@
 using Assets.Source;
+using Assets.Source.Managers;
 using Assets.Source.UI.Dialog;
-
+using Assets.Source.Utilities;
 using System;
 
 using UnityEngine;
@@ -28,6 +29,7 @@ public class DialogManager : LoaderBase<DialogManager>
 
         if (UIOpened == false) { 
             UIDialog?.gameObject.SetActive(true);
+            GameSoundMusicManager.Instance.PlayComputerInteracting(PredefinedSounds.ComputerInteracting);
             UpdateUItatus(true);
         }
     }
@@ -39,6 +41,7 @@ public class DialogManager : LoaderBase<DialogManager>
 
         if (UIOpened == true) { 
             UIDialog?.gameObject.SetActive(false);
+            GameSoundMusicManager.Instance.PlayComputerInteracting(PredefinedSounds.ComputerClose);
             UpdateUItatus(false);
         }
     }

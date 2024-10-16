@@ -47,9 +47,9 @@ namespace Assets.Source.Render.Characters
 
         private void Update()
         {
-            if (!isGameLoaded || Character.DisableInputsFromPlayer) return;
+            if (!isGameLoaded) return;
 
-            if (Input.GetMouseButtonDown(0)) 
+            if (Input.GetMouseButtonDown(0) && !Character.DisableInputsFromPlayer) 
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
@@ -90,19 +90,20 @@ namespace Assets.Source.Render.Characters
         private void HandleCharacterInput()
         {
             PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
-
-            characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
-            characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
-            characterInputs.CameraRotation = OrbitCamera.Transform.rotation;
-            characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
-            characterInputs.JumpHeld = Input.GetKey(KeyCode.Space); 
-            characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.LeftControl);
-            characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.LeftControl);
-            characterInputs.CrouchHeld = Input.GetKey(KeyCode.LeftControl);
-            characterInputs.NoClipDown = Input.GetKeyUp(KeyCode.O);
-            //characterInputs.ClimbLadder = Input.GetKeyUp(KeyCode.E);
-            characterInputs.Interaction = Input.GetKeyUp(KeyCode.E);
-            characterInputs.ShootHeld = Input.GetButton("Fire1");
+            if (!Character.DisableInputsFromPlayer) { 
+                characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
+                characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
+                characterInputs.CameraRotation = OrbitCamera.Transform.rotation;
+                characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
+                characterInputs.JumpHeld = Input.GetKey(KeyCode.Space); 
+                characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.LeftControl);
+                characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.LeftControl);
+                characterInputs.CrouchHeld = Input.GetKey(KeyCode.LeftControl);
+                characterInputs.NoClipDown = Input.GetKeyUp(KeyCode.O);
+                //characterInputs.ClimbLadder = Input.GetKeyUp(KeyCode.E);
+                characterInputs.Interaction = Input.GetKeyUp(KeyCode.E);
+                characterInputs.ShootHeld = Input.GetButton("Fire1");
+            }
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
