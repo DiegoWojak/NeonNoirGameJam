@@ -54,3 +54,11 @@
   * [ ] Musica y Sonido 🥈
   * [ ] Music Mechanics?
   * [ ] Agregar teleport mechanic
+  
+ # Dia 3 9:31 - 12:40
+ * ☑️ Added PostProcessingScript y Material vista Ascii
+ * ☑️ Instalación de Fmod, Linkear Project Example to Application
+ * ☑️ Added GameSoundMusicManager para administrar Gameobject que emiten sonido y sonido para la UI
+ * ☑️ Added SoundDictionary
+ * ☑️ Cambios en el MovementCore para que no se mueva al interactuar.
+ * [ ] Aprender Fmod 💀
