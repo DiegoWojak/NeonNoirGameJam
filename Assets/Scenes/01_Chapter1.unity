@@ -4915,6 +4915,7 @@ GameObject:
   - component: {fileID: 2146801654}
   - component: {fileID: 2146801653}
   - component: {fileID: 2146801656}
+  - component: {fileID: 2146801657}
   m_Layer: 0
   m_Name: Cam01
   m_TagString: MainCamera
@@ -5022,6 +5023,19 @@ MonoBehaviour:
     m_Bits: 4294967295
   ObstructionSharpness: 10000
   IgnoredColliders: []
+--- !u!114 &2146801657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146801652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03baf8173786d824486af7dd0af484a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postProcessEffectMaterial: {fileID: 2100000, guid: 1df14e1613add0d4fb333908f22081c1, type: 2}
 --- !u!1 &9171100927129419
 GameObject:
   m_ObjectHideFlags: 0

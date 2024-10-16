@@ -69,15 +69,18 @@ ENDCG
 
     SubShader
     {
+        
         Pass
         {
             ZTest Always Cull Off ZWrite Off
-            Fog { Mode off }
+            
             CGPROGRAM
             #pragma target 3.0
             #pragma vertex vert_img
             #pragma fragment frag
             ENDCG
+            
+            SetTexture[_MainTex] { combine primary * texture}
         }
     }
 }
