@@ -8643,6 +8643,7 @@ MonoBehaviour:
   InteractionLayer:
     serializedVersion: 2
     m_Bits: 128
+  m_StepDistance: 1.65
 --- !u!136 &6720104682596766079
 CapsuleCollider:
   m_ObjectHideFlags: 8

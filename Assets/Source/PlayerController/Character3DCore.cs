@@ -157,18 +157,27 @@ namespace Assets.Source.Render.Characters
         private Quaternion _rootMotionRotationDelta;
         #endregion
 
+        public static Action<LayerMask> OnCollisionDetected;
+        public LayerMask InteractionLayer;
+
+        public bool DisableInputsFromPlayer { get { return DialogManager.Instance.UIOpened; } }
+        [Header("SoundSteps")]
+        public float m_StepDistance = 2.0f;
+
+        private float m_DistanceTraveled = 0f;
+        private float m_StepRand;
+        private Vector3 m_PrevPos;
+
         void Start() {
             Motor.CharacterController = this;
             TransitionToState(CharacterState.Default);
 
             _rootMotionPositionDelta = Vector3.zero;
             _rootMotionRotationDelta = Quaternion.identity;
+
+            m_StepRand = UnityEngine.Random.Range(0.0f, 0.5f);
+            m_PrevPos = Motor.InitialTickPosition;
         }
-
-        public static Action<LayerMask> OnCollisionDetected;
-        public LayerMask InteractionLayer;
-
-        public bool DisableInputsFromPlayer { get { return DialogManager.Instance.UIOpened; } }
 
         void Update() {
             _forwardAxis = Mathf.Lerp(_forwardAxis, _targetForwardAxis, 1f - Mathf.Exp(-ForwardAxisSharpness * Time.deltaTime));
@@ -177,6 +186,15 @@ namespace Assets.Source.Render.Characters
             CharacterAnimator.SetFloat("Turn", _rightAxis);
             CharacterAnimator.SetBool("OnGround", Motor.GroundingStatus.IsStableOnGround && CurrentCharacterState == CharacterState.Default);
             CharacterAnimator.SetBool("OnLiquid", CurrentCharacterState==CharacterState.Swimming);
+
+            m_DistanceTraveled += (Motor.InitialTickPosition - m_PrevPos).magnitude;
+            if (Motor.GroundingStatus.IsStableOnGround && m_DistanceTraveled >= m_StepDistance + m_StepRand)
+            {
+                GameSoundMusicManager.Instance?.PlayPlayerFootStep();
+                m_StepRand = UnityEngine.Random.Range(0.0f, 0.5f);
+                m_DistanceTraveled = 0.0f;
+            }
+            m_PrevPos = Motor.InitialTickPosition;
         }
 
         private void OnEnable()

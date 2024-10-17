@@ -1,4 +1,5 @@
 ﻿
+using Assets.Source.Render.Characters;
 using Assets.Source.Utilities.Helpers;
 using Assets.Source.Utilities.Helpers.Gizmo;
 using FMODUnity;
@@ -35,6 +36,7 @@ namespace Assets.Source.Managers
             yield return InitDictionary();
             yield return InitComputers();
             yield return InitDoors();
+
             Callback?.Invoke();
             
         }
@@ -95,7 +97,23 @@ namespace Assets.Source.Managers
             _sound = EventReference.Find("event:/Character/Door Close");
             EvaluateEventRef(ref _sound, PredefinedSounds.CloseDoor);
 
+            _sound = EventReference.Find("event:/Character/Player Footsteps");
+            EvaluateEventRef(ref _sound, PredefinedSounds.PlayerFootStep);
+
             yield return null;
+        }
+
+        public void PlayPlayerFootStep()
+        {
+            if (!isLoaded) return;
+            if (!SoundDictionary[PredefinedSounds.PlayerFootStep].IsNull)
+            {
+                FMOD.Studio.EventInstance e = RuntimeManager.CreateInstance(SoundDictionary[PredefinedSounds.PlayerFootStep]);
+                e.set3DAttributes(RuntimeUtils.To3DAttributes((Vector3)My3DHandlerPlayer.Instance?.Character.Motor.InitialTickPosition));
+
+                e.start();
+                e.release();//Release each event instance immediately, there are fire and forget, one-shot instances. 
+            }
         }
 
 
@@ -117,6 +135,7 @@ namespace Assets.Source.Managers
 
     public enum PredefinedSounds
     {
+        PlayerFootStep,
         ComputerTurning,
         ComputerInteracting,
         ComputerClose,
