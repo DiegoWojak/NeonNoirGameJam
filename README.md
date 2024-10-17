@@ -55,10 +55,23 @@
   * [ ] Music Mechanics?
   * [ ] Agregar teleport mechanic
   
- # Dia 3 9:31 - 12:40
+ # Dia 3 9:31 - 14:40 (break) 21:50 : 02:00 
  * ☑️ Added PostProcessingScript y Material vista Ascii
  * ☑️ Instalación de Fmod, Linkear Project Example to Application
  * ☑️ Added GameSoundMusicManager para administrar Gameobject que emiten sonido y sonido para la UI
  * ☑️ Added SoundDictionary
  * ☑️ Cambios en el MovementCore para que no se mueva al interactuar.
+ * ☑️ Más efectos durante el gameplay
+ * ☑️ T-Pose Female HumanoidC , T-Pose Male Humanoid B
+ * ☑️ Más modelos 3d y algunos con rigging
+ * ☑️ Sampling Musica para juegos Waveform, Obtuve una primera canción
+ * ☑️ 2 new Char and animator added
+ * ☑️ Added new Music for the game
  * [ ] Aprender Fmod 💀
+# Missing:         
+  * [ ] Inventario? 🥉
+  * [ ] Más Sonido 🥈
+  * [ ] Music Mechanics? 🥉
+  * [ ] Agregar teleport mechanic🥉
+  * [ ] Más interacciones con otros objetos, empezar a crear un sheet de textos
+  * [ ] Agregar las nuevas animaciones de sprint, Death, jump, air jump
