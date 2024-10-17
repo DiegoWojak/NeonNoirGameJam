@@ -12,7 +12,7 @@ namespace Assets.Source.Managers
     {
         private bool _isGameLoaded = false;
 
-        public event Action<bool> OnCameraChangeRequiered;
+        public event Action OnCameraChangeRequiered;
 
         [Space(10)]
         [Header("Light Source")]
@@ -21,30 +21,62 @@ namespace Assets.Source.Managers
 
         [Header("Material PostProcessing")]
         public Material FromDistance;
-        public Material FromCloses;
+        public Material FromClose;
+        public Material FromReading;
         public Material FromWater;
+        public CharacterViewState _currentCharacterViewState { private set; get; }
+
         private PostProcessEffect _camComponent;
 
-        bool IsOnWater = false;
+        bool bufferisWatering = false;
+        bool bufferIsReading = false;
         public override void Init()
         {
             _camComponent = Camera.main.GetComponent<PostProcessEffect>();
             OnCameraChangeRequiered += ChangeShader;
             LoaderManager.OnEverythingLoaded += AllowInteraction;
+            ChangeShader();
             isLoaded = true;
         }
 
         public void CameraDistanceChange(bool _distanceZero) {
             if (OnCameraChangeRequiered != null) {
-                OnCameraChangeRequiered(_distanceZero);
+                if (!bufferisWatering && !bufferIsReading)
+                {
+                    _currentCharacterViewState = _distanceZero ? CharacterViewState.OnCameraClose : CharacterViewState.Default;
+                }
+                
+                OnCameraChangeRequiered();
             }
         }
 
         public void CameraFluidChange(bool isWatering) {
             if (OnCameraChangeRequiered != null)
             {
-                IsOnWater = isWatering;
-                OnCameraChangeRequiered(My3DHandlerPlayer.Instance.OrbitCamera.IsCameraClose());
+                bufferisWatering = isWatering;
+                _currentCharacterViewState = isWatering?CharacterViewState.OnWater: CharacterViewState.Default;
+                OnCameraChangeRequiered();
+            }
+        }
+
+        public void CameraReadingChange(bool isReading) {
+            if (OnCameraChangeRequiered != null)
+            {
+                bufferIsReading = isReading;
+                if (isReading) 
+                {
+                    _currentCharacterViewState = CharacterViewState.OnReading;
+                }
+                else {
+                    if (!bufferisWatering)
+                    {
+                        _currentCharacterViewState = My3DHandlerPlayer.Instance.OrbitCamera.IsCameraClose() ? CharacterViewState.OnCameraClose : CharacterViewState.Default;
+                    }
+                    else {
+                        _currentCharacterViewState = CharacterViewState.OnWater;
+                    }
+                }
+                OnCameraChangeRequiered();
             }
         }
 
@@ -60,10 +92,12 @@ namespace Assets.Source.Managers
             
         }
 
-        void ChangeShader(bool _IsCloseDistance) {
-            
-            _camComponent.postProcessEffectMaterial = IsOnWater ? FromWater
-                :_IsCloseDistance ? FromCloses : FromDistance;
+        void Priority() {
+        
+        }
+
+        void ChangeShader() {
+            _camComponent.postProcessEffectMaterial = GetMaterialFromViewStatus();
         }
 
         void AllowInteraction()
@@ -71,5 +105,19 @@ namespace Assets.Source.Managers
             _isGameLoaded = true;
             LoaderManager.OnEverythingLoaded -= AllowInteraction;
         }
+
+        Material GetMaterialFromViewStatus() {
+            return _currentCharacterViewState==CharacterViewState.OnCameraClose? FromClose: //FromRange
+                _currentCharacterViewState == CharacterViewState.OnWater ? FromWater:
+                _currentCharacterViewState == CharacterViewState.OnReading ? FromReading :
+                FromDistance;
+        }
+    }
+    public enum CharacterViewState
+    {
+        Default, //FromRange
+        OnWater,
+        OnReading,
+        OnCameraClose
     }
 }

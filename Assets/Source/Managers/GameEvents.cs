@@ -13,8 +13,8 @@ namespace Assets.Source.Utilities
             isLoaded = true;
         }
 
-        public event Action<int> onComputerTriggerEnter;
-        public void ComputerTriggerEnter(int id)
+        public event Action<string> onComputerTriggerEnter;
+        public void ComputerTriggerEnter(string id)
         {
             if (onComputerTriggerEnter != null)
             {
@@ -22,11 +22,28 @@ namespace Assets.Source.Utilities
             }
         }
 
-        public event Action<int> onComputerTriggerExit;
-        public void ComputerTriggerExit(int id) {
+        public event Action<string> onComputerTriggerExit;
+        public void ComputerTriggerExit(string id) {
             if (onComputerTriggerEnter != null)
             {
                 onComputerTriggerExit(id);
+            }
+        }
+
+
+        public event Action<string> onDoorTriggerEnter;
+
+        public void DoorTriggerEnter(string id) {
+            if (onDoorTriggerEnter != null) {
+                onDoorTriggerEnter(id);
+            }
+        }
+        public event Action<string> onDoorTriggerExit;
+
+        public void DoorrTriggerExit(string id) {
+            if (onDoorTriggerExit != null)
+            {
+                onDoorTriggerExit(id);
             }
         }
     }

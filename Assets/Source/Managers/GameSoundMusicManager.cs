@@ -11,12 +11,14 @@ using UnityEngine;
 
 namespace Assets.Source.Managers
 {
+    [Serializable]
     public class GameSoundMusicManager : LoaderBase<GameSoundMusicManager>
     {
         public Dictionary<PredefinedSounds, EventReference> SoundDictionary;
 
         public List<GameObject> computers = new List<GameObject>();
-
+        [SerializeField]
+        public GameObjectSoundConfig Doors = new GameObjectSoundConfig();
         public override void Init()
         {
 
@@ -32,7 +34,9 @@ namespace Assets.Source.Managers
         {
             yield return InitDictionary();
             yield return InitComputers();
+            yield return InitDoors();
             Callback?.Invoke();
+            
         }
 
         public void PlayComputerInteracting(PredefinedSounds _key)
@@ -56,6 +60,20 @@ namespace Assets.Source.Managers
             }
         }
 
+        IEnumerator InitDoors()
+        {
+            for (int i = 0; i < Doors._CAV.Count; i++)
+            {
+                if (Doors._CAV[i].GetComponent<StudioEventEmitter>() == null)
+                {
+                    GameObject _b = Doors._CAV[i];
+                    yield return FmodAutomaticHelper.CreateSoundEmitirForDoor(ref _b, 
+                        SoundDictionary[PredefinedSounds.OpenDoor], SoundDictionary[PredefinedSounds.CloseDoor]
+                        , Doors.ForOpen, Doors.ForLeave);
+                }
+            }
+        }
+
         IEnumerator InitDictionary()
         {
             SoundDictionary = new Dictionary<PredefinedSounds, EventReference>();
@@ -69,6 +87,13 @@ namespace Assets.Source.Managers
 
             _sound = EventReference.Find("event:/UI/Cancel");
             EvaluateEventRef(ref _sound, PredefinedSounds.ComputerClose);
+
+            _sound = EventReference.Find("event:/Character/Door Open");
+            EvaluateEventRef(ref _sound, PredefinedSounds.OpenDoor);
+
+
+            _sound = EventReference.Find("event:/Character/Door Close");
+            EvaluateEventRef(ref _sound, PredefinedSounds.CloseDoor);
 
             yield return null;
         }
@@ -94,6 +119,15 @@ namespace Assets.Source.Managers
     {
         ComputerTurning,
         ComputerInteracting,
-        ComputerClose
+        ComputerClose,
+        OpenDoor,
+        CloseDoor
+    }
+
+    [Serializable]
+    public class GameObjectSoundConfig {
+        public List<GameObject> _CAV;
+        public EmitterGameEvent ForOpen = EmitterGameEvent.None;
+        public EmitterGameEvent ForLeave = EmitterGameEvent.None;
     }
 }
