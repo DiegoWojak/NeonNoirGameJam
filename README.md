@@ -82,7 +82,7 @@
   * [ ] Más interacciones con otros objetos, empezar a crear un sheet de textos 🥇
   * [ ] Agregar las nuevas animaciones de sprint, Death, jump, air jump
 
-# Dia 4 10:00 - 14:16 (break) 17:00 - 19:00 (break) 20:30-
+# Dia 4 10:00 - 14:16 (break) 17:00 - 19:00 (break) 20:30- 01:00
  * ☑️ Se crea manuscrito donde irán dialogos https://docs.google.com/spreadsheets/d/16q8zXGTAFruDNnKRKDmUxjk0TJ7T6iP9iL0kil_a93E/edit?usp=sharing
  * ☑️ Cambios en los field, Skybox y Fix shaders al interactuar con objectos.
  *  UI , Texto UI View UI, 
