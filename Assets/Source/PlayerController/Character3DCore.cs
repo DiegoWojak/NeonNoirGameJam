@@ -190,9 +190,12 @@ namespace Assets.Source.Render.Characters
             CharacterAnimator.SetFloat("Turn", _rightAxis);
             CharacterAnimator.SetBool("OnGround", Motor.GroundingStatus.IsStableOnGround && CurrentCharacterState == CharacterState.Default);
             CharacterAnimator.SetBool("OnLiquid", CurrentCharacterState==CharacterState.Swimming);
-            //if (b_dashing) { 
-                CharacterAnimator.SetBool("OnDash", b_dashing);
-            //}
+            
+            CharacterAnimator.SetBool("OnDash", b_dashing);
+            
+            if (b_dashing) {
+                GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.PlayerDash);
+            }
 
             m_DistanceTraveled += (Motor.InitialTickPosition - m_PrevPos).magnitude;
             if (Motor.GroundingStatus.IsStableOnGround && m_DistanceTraveled >= m_StepDistance + m_StepRand)
@@ -705,6 +708,7 @@ namespace Assets.Source.Render.Characters
 
                                     currentVelocity += (Motor.CharacterUp * JumpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
                                     CharacterAnimator.SetTrigger("OnDoubleJump");
+                                    GameSoundMusicManager.Instance?.PlaySoundByPredefinedKey(PredefinedSounds.PlayerJump);
                                     _jumpRequested = false;
                                     _doubleJumpConsumed = true;
                                     _jumpedThisFrame = true;
@@ -723,6 +727,7 @@ namespace Assets.Source.Render.Characters
                                 {
                                     jumpDirection = Motor.GroundingStatus.GroundNormal;
                                 }
+                                GameSoundMusicManager.Instance?.PlaySoundByPredefinedKey(PredefinedSounds.PlayerJump);
 
                                 Motor.ForceUnground(0.1f);
 
@@ -806,7 +811,7 @@ namespace Assets.Source.Render.Characters
 
         protected void OnLanded()
         {
-            
+            GameSoundMusicManager.Instance?.PlayPlayerFootStep();
         }
 
         protected void OnLeaveStableGround()

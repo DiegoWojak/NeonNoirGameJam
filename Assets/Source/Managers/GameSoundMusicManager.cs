@@ -41,7 +41,7 @@ namespace Assets.Source.Managers
             
         }
 
-        public void PlayComputerInteracting(PredefinedSounds _key)
+        public void PlaySoundByPredefinedKey(PredefinedSounds _key)
         {
             RuntimeManager.PlayOneShot(SoundDictionary[_key]);
         }
@@ -86,19 +86,23 @@ namespace Assets.Source.Managers
             _sound = EventReference.Find("event:/UI/Okay");
             EvaluateEventRef(ref _sound, PredefinedSounds.ComputerInteracting);
 
-
             _sound = EventReference.Find("event:/UI/Cancel");
             EvaluateEventRef(ref _sound, PredefinedSounds.ComputerClose);
 
             _sound = EventReference.Find("event:/Character/Door Open");
             EvaluateEventRef(ref _sound, PredefinedSounds.OpenDoor);
 
-
             _sound = EventReference.Find("event:/Character/Door Close");
             EvaluateEventRef(ref _sound, PredefinedSounds.CloseDoor);
 
             _sound = EventReference.Find("event:/Character/Player Footsteps");
             EvaluateEventRef(ref _sound, PredefinedSounds.PlayerFootStep);
+
+            _sound = EventReference.Find("event:/Character/Dash");
+            EvaluateEventRef(ref _sound, PredefinedSounds.PlayerDash);
+
+            _sound = EventReference.Find("event:/Character/Jump");
+            EvaluateEventRef(ref _sound, PredefinedSounds.PlayerJump);
 
             yield return null;
         }
@@ -136,6 +140,8 @@ namespace Assets.Source.Managers
     public enum PredefinedSounds
     {
         PlayerFootStep,
+        PlayerJump,
+        PlayerDash,
         ComputerTurning,
         ComputerInteracting,
         ComputerClose,

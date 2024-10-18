@@ -30,7 +30,7 @@ public class DialogManager : LoaderBase<DialogManager>
         if (UIOpened == false) { 
             UIDialog?.gameObject.SetActive(true);
             //GameStarterManager.Instance.CameraReadingChange(true);
-            GameSoundMusicManager.Instance.PlayComputerInteracting(PredefinedSounds.ComputerInteracting);
+            GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerInteracting);
             UpdateUItatus(true);
         }
     }
@@ -43,7 +43,7 @@ public class DialogManager : LoaderBase<DialogManager>
         if (UIOpened == true) { 
             UIDialog?.gameObject.SetActive(false);
             //GameStarterManager.Instance.CameraReadingChange(false);
-            GameSoundMusicManager.Instance.PlayComputerInteracting(PredefinedSounds.ComputerClose);
+            GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose);
             UpdateUItatus(false);
         }
     }
