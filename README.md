@@ -4,15 +4,20 @@
   > Bajo un cielo cubierto de humo y neones vibrantes, conviven humanos, ciborgs y androides, en un delicado equilibrio que oculta los oscuros secretos de la élite gobernante. 
   > Las corporaciones han monopolizado la tecnología, y la clase alta vive en torres brillantes por encima de las masas que luchan por sobrevivir en las sombras.
   
-  > El protagonista, Kael, es un robot conserje y reparador con tecnologicas simple. Ha sido contratado por un misterioso cliente para 
+  > El protagonista, Vallu("Va-Ye"), es un robot conserje y reparador con tecnologicas simple. Ha sido contratado por un misterioso cliente para 
   poner en curso el arma secreta de Cónclave. 
-  > Kael ha sido programado para acatar ordenes y enfrentarse a cosas imposibles de explicar, y esta misión lo llevará para algo que no fue programado. 
+  > Vallu ha sido programado para acatar ordenes y enfrentarse a cosas imposibles de explicar, y esta misión lo llevará para algo que no fue programado. 
   
-  > Mum-4, una androide defectuoso que se ha escapado del control del Cónclave. 
-  > Mum-4 no es un androide común; fue creada con una mezcla de tecnologías avanzada y magia oscura, lo que le otorga habilidades sobrenaturales. 
+  > Llaka(Ya-Ka) , una androide defectuoso que se ha escapado del control del Cónclave. 
+  > Llaka(Ya-Ka) no es un androide común; fue creada con una mezcla de tecnologías avanzada y magia oscura, lo que le otorga habilidades sobrenaturales. 
   > Sin embargo, dentro de ella está atrapada el alma de un angel, que fue sellada en el androide durante un experimento del Cónclave.
-  > Ahora para llevar a cabo el plan, Kael deberá encontrar que paso con Mum-4 y reparar las funcionalides core.
+  > Ahora para llevar a cabo el plan, Kael deberá encontrar que paso con Llaka y reparar las funcionalides core.
 
+  > Carran(Ka-ran) , un humanoide sin movimientos con pensamientos ocultos en el Cónclave.
+  > Carran(Ka-ran) , es un humanoide es un con vigor en el cuerpo pero sin una mente cuerda, ha sido dejado en la ciudad porque ya no representa una amenaza para el orden que controla la ciudad. 
+  > Es un ser que dará apoyo a nuestro personaje durante nuestra mision principal.
+  > La mente de Chale será un enigma que ayudará a decibrar como navegar en el Cónclave.
+  
   ## Claves:
   * Androide con alma.
   * Acción intensa.
@@ -69,9 +74,21 @@
  * ☑️ Added new Music for the game
  * [ ] Aprender Fmod 💀
 # Missing:         
-  * [ ] Inventario? 🥉
+  * [ ] Inventario? 🥇
   * [ ] Más Sonido 🥈
   * [ ] Music Mechanics? 🥉
+  * [ ] Agregar ambient sounds 🥈
   * [ ] Agregar teleport mechanic🥉
-  * [ ] Más interacciones con otros objetos, empezar a crear un sheet de textos
+  * [ ] Más interacciones con otros objetos, empezar a crear un sheet de textos 🥇
   * [ ] Agregar las nuevas animaciones de sprint, Death, jump, air jump
+
+# Dia 4 10:00 - 14:16 (break) 17:00 - 19:00 (break) 20:30-
+ * ☑️ Se crea manuscrito donde irán dialogos https://docs.google.com/spreadsheets/d/16q8zXGTAFruDNnKRKDmUxjk0TJ7T6iP9iL0kil_a93E/edit?usp=sharing
+ * ☑️ Cambios en los field, Skybox y Fix shaders al interactuar con objectos.
+ *  UI , Texto UI View UI, 
+ * ☑️ Mecanica de puertas, entrar y cerrar
+ * ☑️ Sonidos de mecanica puerta abierta y cerrada
+ * ☑️ Sonidos de caminar para el personaje
+ * ☑️ Agregado escena template donde se realiza Testing y mi primera escena introduction
+ * ☑️ nuevos animaciones para doble salto, salto al muro, y dash
+ * ☑️ Se agrego sonidos para landing, dash, wall jumping, etc
