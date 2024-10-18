@@ -39,6 +39,7 @@ namespace Assets.Source.Render.Characters
         public bool ClimbLadder;
         public bool ShootHeld;
         public bool Interaction;
+        public bool Dash;
     }
 
     public class Character3DCore : MonoBehaviour, ICharacterController
@@ -97,6 +98,8 @@ namespace Assets.Source.Render.Characters
         public CharacterState CurrentCharacterState { get; private set; }
         [Header("Extras")]
         public Vector3 AdditionalDirectionForceFromJumpWall;
+        [Header("SoundSteps")]
+        public float m_StepDistance = 2.0f;
 
         private Collider[] _probedColliders = new Collider[8];
         private Vector3 _moveInputVector;
@@ -161,12 +164,12 @@ namespace Assets.Source.Render.Characters
         public LayerMask InteractionLayer;
 
         public bool DisableInputsFromPlayer { get { return DialogManager.Instance.UIOpened; } }
-        [Header("SoundSteps")]
-        public float m_StepDistance = 2.0f;
 
         private float m_DistanceTraveled = 0f;
         private float m_StepRand;
         private Vector3 m_PrevPos;
+
+        private bool b_dashing =false;
 
         void Start() {
             Motor.CharacterController = this;
@@ -182,10 +185,14 @@ namespace Assets.Source.Render.Characters
         void Update() {
             _forwardAxis = Mathf.Lerp(_forwardAxis, _targetForwardAxis, 1f - Mathf.Exp(-ForwardAxisSharpness * Time.deltaTime));
             _rightAxis = Mathf.Lerp(_rightAxis, _targetRightAxis, 1f - Mathf.Exp(-TurnAxisSharpness * Time.deltaTime));
+            _forwardAxis *= (b_dashing ? 2 : 1);
             CharacterAnimator.SetFloat("Forward", _forwardAxis);
             CharacterAnimator.SetFloat("Turn", _rightAxis);
             CharacterAnimator.SetBool("OnGround", Motor.GroundingStatus.IsStableOnGround && CurrentCharacterState == CharacterState.Default);
             CharacterAnimator.SetBool("OnLiquid", CurrentCharacterState==CharacterState.Swimming);
+            //if (b_dashing) { 
+                CharacterAnimator.SetBool("OnDash", b_dashing);
+            //}
 
             m_DistanceTraveled += (Motor.InitialTickPosition - m_PrevPos).magnitude;
             if (Motor.GroundingStatus.IsStableOnGround && m_DistanceTraveled >= m_StepDistance + m_StepRand)
@@ -195,20 +202,6 @@ namespace Assets.Source.Render.Characters
                 m_DistanceTraveled = 0.0f;
             }
             m_PrevPos = Motor.InitialTickPosition;
-        }
-
-        private void OnEnable()
-        {
-            OnCollisionDetected += UpdateLayerMask;
-        }
-
-        private void OnDisable()
-        {
-            OnCollisionDetected -= UpdateLayerMask;
-        }
-
-        void UpdateLayerMask(LayerMask maskDetected) {
-            Debug.Log("Enter");
         }
 
         public void TransitionToState(CharacterState newState)
@@ -261,6 +254,7 @@ namespace Assets.Source.Render.Characters
                         }
                     }
                 }
+                //Interact with a computer
                 if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, InteractionLayer, QueryTriggerInteraction.Collide) > 0) {
                     Debug.Log($"Iterate {DialogManager.Instance.currentString}");
                     DialogManager.Instance?.RequestOpen();
@@ -291,6 +285,8 @@ namespace Assets.Source.Render.Characters
                     _lookInputVector = cameraPlanarDirection;
                     InputJumpDown(inputs.JumpDown);
                     InputCrouchDown(inputs.CrouchDown, inputs.CrouchUp);
+                    //Only dash animation when no swimming or climbing
+                    b_dashing = inputs.Dash;
                     break;
                 case CharacterState.Swimming:
                     _jumpRequested = inputs.JumpHeld;
@@ -708,6 +704,7 @@ namespace Assets.Source.Render.Characters
                                     Motor.ForceUnground(0.1f);
 
                                     currentVelocity += (Motor.CharacterUp * JumpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
+                                    CharacterAnimator.SetTrigger("OnDoubleJump");
                                     _jumpRequested = false;
                                     _doubleJumpConsumed = true;
                                     _jumpedThisFrame = true;
@@ -720,7 +717,7 @@ namespace Assets.Source.Render.Characters
                                 if (_canWallJump)
                                 {
                                     jumpDirection = _wallJumpNormal + (AdditionalDirectionForceFromJumpWall);
-
+                                    CharacterAnimator.SetTrigger("OnDoubleJump");
                                 }
                                 else if (Motor.GroundingStatus.FoundAnyGround && !Motor.GroundingStatus.IsStableOnGround)
                                 {

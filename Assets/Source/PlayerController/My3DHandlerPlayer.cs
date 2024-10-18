@@ -110,6 +110,7 @@ namespace Assets.Source.Render.Characters
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
+                characterInputs.Dash = Input.GetKeyDown(KeyCode.LeftShift);
                 Character.Motor.ForceUnground(0.1f);
                 Character.AddVelocity(Vector3.one * 5f);
             }

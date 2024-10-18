@@ -26,7 +26,6 @@ namespace Assets.Source.Utilities.Events
 
         private void OnDoorTriggerEnter(string id)
         {
-            Debug.Log($"Trigger Door");
             if (id == this.id)
             {
                 FakeWall.SetActive(false);
