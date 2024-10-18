@@ -1,5 +1,6 @@
 ﻿
 using Assets.Source.Managers;
+using Assets.Source.Utilities;
 using KinematicCharacterController;
 
 using System;
@@ -98,6 +99,8 @@ namespace Assets.Source.Render.Characters
         public CharacterState CurrentCharacterState { get; private set; }
         [Header("Extras")]
         public Vector3 AdditionalDirectionForceFromJumpWall;
+        public bool AllowDash = false;
+
         [Header("SoundSteps")]
         public float m_StepDistance = 2.0f;
 
@@ -260,7 +263,7 @@ namespace Assets.Source.Render.Characters
                 //Interact with a computer
                 if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, InteractionLayer, QueryTriggerInteraction.Collide) > 0) {
                     Debug.Log($"Iterate {DialogManager.Instance.currentString}");
-                    DialogManager.Instance?.RequestOpen();
+                    GameEvents.Instance?.RequestInteractComputer();
                 }
             }
             else { 

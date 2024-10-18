@@ -8,35 +8,35 @@ namespace Assets.Source.Utilities.Events
         [HideInInspector]
         public string id;
         public string DialogText;
-        public void Start()
+        protected void Start()
         {
-            GameEvents.Instance.onComputerTriggerEnter += OnComputerStuffs;
-            GameEvents.Instance.onComputerTriggerExit += OnComputerExitClean;
+            GameEvents.Instance.onComputerTriggerEnter += OnComputerEnterAreaToInteract;
+            GameEvents.Instance.onComputerTriggerExit += OnComputerExitAreaToInteract;
             var _ta = GetComponent<TriggerArea>();
             id = _ta.id;
             _ta.RelatedActionOnEnter = delegate { GameEvents.Instance?.ComputerTriggerEnter(id);};
             _ta.RelatedActionOnLeave = delegate { GameEvents.Instance?.ComputerTriggerExit(id); };
         }
 
-        private void OnComputerStuffs(string id) {
+        protected virtual void OnComputerEnterAreaToInteract(string id) {
             if (id == this.id) 
             {
                 DialogManager.Instance?.OnRequestStringChange.Invoke(DialogText);
             }
         }
 
-        private void OnComputerExitClean(string id) {
+        protected virtual void OnComputerExitAreaToInteract(string id) {
             if (id == this.id)
             {
                 DialogManager.Instance?.OnRequestClean.Invoke();
             }
         }
 
-        private void OnDestroy()
+        protected void OnDestroy()
         {
             if (GameEvents.Instance != null) { 
-                GameEvents.Instance.onComputerTriggerEnter -= OnComputerStuffs;
-                GameEvents.Instance.onComputerTriggerExit -= OnComputerExitClean;
+                GameEvents.Instance.onComputerTriggerEnter -= OnComputerEnterAreaToInteract;
+                GameEvents.Instance.onComputerTriggerExit -= OnComputerExitAreaToInteract;
             }
         }
     }

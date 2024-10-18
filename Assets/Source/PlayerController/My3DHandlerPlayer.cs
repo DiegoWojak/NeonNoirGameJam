@@ -108,7 +108,7 @@ namespace Assets.Source.Render.Characters
                 characterInputs.ShootHeld = Input.GetButton("Fire1");
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Character.AllowDash && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 characterInputs.Dash = Input.GetKeyDown(KeyCode.LeftShift);
                 Character.Motor.ForceUnground(0.1f);

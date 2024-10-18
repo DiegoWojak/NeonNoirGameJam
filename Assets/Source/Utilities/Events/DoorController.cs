@@ -1,15 +1,19 @@
 ﻿
-using System;
+using Assets.Source.Utilities.Events.ComputerSecurity;
+
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Source.Utilities.Events
 {
-    public class DoorController : MonoBehaviour
+    public class DoorController : MonoBehaviour , IActivableObject
     {
         [HideInInspector]
         public string id;
         public GameObject FakeWall;
         public ParticleSystem Particle;
+        [SerializeField]
+        public UnityEvent PostAction;
 
         public DoorStatus status = DoorStatus.Unlocked;
         public void Start()
@@ -24,15 +28,15 @@ namespace Assets.Source.Utilities.Events
         }
 
 
-        private void OnDoorTriggerEnter(string id)
+        protected void OnDoorTriggerEnter(string id)
         {
-            if (id == this.id)
+            if (id == this.id && status == DoorStatus.Unlocked)
             {
                 FakeWall.SetActive(false);
             }
         }
 
-        private void OnCDoorExitTriggerExit(string id)
+        protected void OnCDoorExitTriggerExit(string id)
         {
             if (id == this.id)
             {
@@ -48,6 +52,13 @@ namespace Assets.Source.Utilities.Events
                 GameEvents.Instance.onComputerTriggerExit -= OnCDoorExitTriggerExit;
             }
         }
+
+        public virtual void Unlock()
+        {
+            status = DoorStatus.Unlocked;
+            PostAction?.Invoke();
+        }
+     
     }
 
     public enum DoorStatus { 

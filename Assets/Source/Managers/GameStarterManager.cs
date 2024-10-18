@@ -24,6 +24,7 @@ namespace Assets.Source.Managers
         public Material FromClose;
         public Material FromReading;
         public Material FromWater;
+
         public CharacterViewState _currentCharacterViewState { private set; get; }
 
         private PostProcessEffect _camComponent;

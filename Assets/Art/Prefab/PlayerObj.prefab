@@ -644,11 +644,12 @@ MonoBehaviour:
   MeshRoot: {fileID: 3641452395220206520}
   IgnoredColliders: []
   AdditionalDirectionForceFromJumpWall: {x: 0, y: 0.9, z: 0}
+  AllowDash: 1
+  m_StepDistance: 1.65
   FromPoint: {fileID: 3641452397233012186}
   InteractionLayer:
     serializedVersion: 2
     m_Bits: 128
-  m_StepDistance: 1.65
 --- !u!54 &3641452396683684147
 Rigidbody:
   m_ObjectHideFlags: 0
