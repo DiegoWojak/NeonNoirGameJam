@@ -21,7 +21,7 @@ namespace Assets.Source.Utilities.Events
         protected virtual void OnComputerEnterAreaToInteract(string id) {
             if (id == this.id) 
             {
-                DialogManager.Instance?.OnRequestStringChange.Invoke(DialogText);
+                DialogManager.Instance?.OnRequestStringChange.Invoke(this.id,DialogText);
             }
         }
 

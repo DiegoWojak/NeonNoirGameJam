@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using TMPro;
 using UnityEngine;
 
@@ -12,11 +8,17 @@ namespace Assets.Source.UI.Dialog
     {
         private int page;
         [SerializeField]
+        TMP_Text _title;
+        [SerializeField]
         TMP_Text _text;
+        string title = string.Empty;
         string msg = string.Empty;
+
         private void OnEnable()
         {
+            title = DialogManager.Instance.currentFrom;
             msg = DialogManager.Instance.currentString;
+            _title.SetText(title);
             _text.SetText(msg);
             page = 1;
         }

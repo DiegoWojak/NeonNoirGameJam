@@ -8,10 +8,11 @@ using UnityEngine;
 
 public class DialogManager : LoaderBase<DialogManager>
 {
+    public string currentFrom;
     public string currentString;
     public DialogEntity UIDialog;
-
-    public Action<string> OnRequestStringChange;
+    public GameObject Blocker;
+    public Action<string,string> OnRequestStringChange;
     public Action OnRequestClean;
     public bool UIOpened = false;
 
@@ -27,7 +28,8 @@ public class DialogManager : LoaderBase<DialogManager>
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        if (UIOpened == false) { 
+        if (UIOpened == false) {
+            Blocker.SetActive(true);
             UIDialog?.gameObject.SetActive(true);
             //GameStarterManager.Instance.CameraReadingChange(true);
             GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerInteracting);
@@ -40,12 +42,14 @@ public class DialogManager : LoaderBase<DialogManager>
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        if (UIOpened == true) { 
+        if (UIOpened == true) {
+            Blocker.SetActive(false);
             UIDialog?.gameObject.SetActive(false);
             //GameStarterManager.Instance.CameraReadingChange(false);
             GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose);
             UpdateUItatus(false);
         }
+        //Check if anyOtherUIIsOpened
     }
 
     private void UpdateUItatus(bool st) {
@@ -60,10 +64,12 @@ public class DialogManager : LoaderBase<DialogManager>
     }
 
 
-    private void ChangeString(string from) {
-        currentString = from;
+    private void ChangeString(string from, string msg) {
+        currentFrom = from;
+        currentString = msg;
     }
-    private void Clean() { 
+    private void Clean() {
+        currentFrom = "nobody";
         currentString = "none";
     }
 
