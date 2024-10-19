@@ -101,9 +101,10 @@
  * ☑️ Cambios para usar el GameEvent Manager con otro managers.
  * ☑️ Instalando Imagen de Beveradb/Audio Para separar musica creada para el juego
  * ☑️ Analizando teoria de los colores para usar más en el juego
- * ☑️ 
+ * ☑️ Added más meshs
+ * ☑️ Rediseño de UI
  ## Colores armonia y elección de ambientación
     ![image](https://github.com/user-attachments/assets/386e174e-13f4-4763-a066-7304de420d35)
     ![image](https://github.com/user-attachments/assets/67760865-6923-478b-b847-4fcce9b6cb72)
 #Missing:
- * Patines, Player Inventory
+ * Patines, Player Inventory, Más personajes hablables
