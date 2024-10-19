@@ -22,6 +22,10 @@
   * Androide con alma.
   * Acción intensa.
   * Tecnología y brujería fusionadas.
+    
+  ## Inspiración
+    ![image](https://github.com/user-attachments/assets/c3a39ad5-441e-49d3-888e-fe3042a64d1d)
+    ![image](https://github.com/user-attachments/assets/ccf8a5d9-2bed-4f2b-a836-56ce582aeb4c)
   
   # Dia 1 19:10 - 00:28
   * ☑️ Se agrego personaje 1rd y 3rd Camera 
@@ -92,3 +96,14 @@
  * ☑️ Agregado escena template donde se realiza Testing y mi primera escena introduction
  * ☑️ nuevos animaciones para doble salto, salto al muro, y dash
  * ☑️ Se agrego sonidos para landing, dash, wall jumping, etc
+# Dia 5 9:30 - 1:00 (break) 21:00 -
+ * ☑️ Se agrego mecnica de puertas con Computador, si tienen el mismo ID se desbloquean.
+ * ☑️ Cambios para usar el GameEvent Manager con otro managers.
+ * ☑️ Instalando Imagen de Beveradb/Audio Para separar musica creada para el juego
+ * ☑️ Analizando teoria de los colores para usar más en el juego
+ * ☑️ 
+ ## Colores armonia y elección de ambientación
+    ![image](https://github.com/user-attachments/assets/386e174e-13f4-4763-a066-7304de420d35)
+    ![image](https://github.com/user-attachments/assets/67760865-6923-478b-b847-4fcce9b6cb72)
+#Missing:
+ * Patines, Player Inventory
