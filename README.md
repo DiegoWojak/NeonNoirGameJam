@@ -108,3 +108,10 @@
     ![image](https://github.com/user-attachments/assets/67760865-6923-478b-b847-4fcce9b6cb72)
 #Missing:
  * Patines, Player Inventory, Más personajes hablables
+# DIa 6 10:30 - 11:30 (break) 15:30
+Music
+* ☑️ Chapter 1, Introduction Song Ready
+* ☑️ Chapter 1, First mission Sond Ready
+* ☑️ Already 3 musics ready, 1 with vocals
+Other
+* ☑️ Added DragManager y nuevo UI para el inventario
