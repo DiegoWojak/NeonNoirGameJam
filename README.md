@@ -115,3 +115,7 @@ Music
 * ☑️ Already 3 musics ready, 1 with vocals
 Other
 * ☑️ Added DragManager y nuevo UI para el inventario
+
+# DIa 7 10:30 12:30 (break) 14:30 15:28 (break)
+* ☑️Added Inventory System, Cambios en DragManager
+* ☑️Added UIManager y cambios en el DragManager
