@@ -23,6 +23,7 @@ namespace Assets.Source.Managers
         public InventoryItemData TestData2;
 #endif
 
+        public bool IsInventaryOpen { get { return UIManager.Instance._currentManagerUsing.Contains(this); } }
         public override void Init()
         {
             d_inventoryDictionary = new Dictionary<InventoryItemData, InventoryItem>();
@@ -79,7 +80,21 @@ namespace Assets.Source.Managers
             return null;
         }
 
-        
+        public Action RequestOpenInventory;
+        public Action RequestCloseInventory;
 
+        public void OpenInventory() {
+            if (RequestOpenInventory != null) {
+                RequestOpenInventory?.Invoke();
+                UIManager.Instance.RequestOpenUI(this);
+            }
+        }
+
+        public void CloseInventory() {
+            if (RequestCloseInventory != null) {
+                RequestCloseInventory?.Invoke();
+                UIManager.Instance.RequestCloseUI(this);    
+            }
+        }
     }
 }

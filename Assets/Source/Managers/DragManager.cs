@@ -133,7 +133,13 @@ public class DragManager : LoaderBase<DragManager>
 
     IEnumerator UpdateVisualRoutine(Action callback) 
     {
-        UIManager.Instance.RequestOpenUI(this);
+        UIManager.Instance.RequestOpenUI(this, (_re) => {
+            if (!_re)
+            {
+                Debug.Log($"Couln't open the UI because it was already opened");
+            }
+        });
+
         InventoryUIgo.SetActive(true);
         yield return UpdateVisualSlotLayerGroup(InventoryItemsLayer, InventorySlotLayer);
         yield return UpdateVisualSlotLayerGroup(PlayerEquippedItemsLayer, PlayerEquipedSlotLayer);
@@ -141,7 +147,13 @@ public class DragManager : LoaderBase<DragManager>
         yield return UpdateVisualInventoryLayerGroup(InventorySystem.Instance.L_inventory, InventoryItemsLayer, InventorySlotLayer);
         yield return UpdateVisualInventoryLayerGroup(InventorySystem.Instance.L_equipedItems, PlayerEquippedItemsLayer, PlayerEquipedSlotLayer);
         InventoryUIgo.SetActive(false);
-        UIManager.Instance.RequestCloseUI(this);
+        UIManager.Instance.RequestCloseUI(this, (_re) => {
+            if (!_re)
+            {
+                Debug.Log($"Couln't close because other UI was opened somewhere ant not closed");
+            }
+        }
+        );
         callback?.Invoke();
     }
 
@@ -158,6 +170,8 @@ public class DragManager : LoaderBase<DragManager>
 
     void AllowInteraction() {
         isGameLoaded = true;
+        InventorySystem.Instance.RequestOpenInventory += OpenDragUI;
+        InventorySystem.Instance.RequestCloseInventory += CloseDragUI;
         LoaderManager.OnEverythingLoaded -= AllowInteraction;
     }
 
@@ -301,5 +315,12 @@ public class DragManager : LoaderBase<DragManager>
             DragLayer.gameObject.SetActive(isOn);
             MainCanvas.gameObject.SetActive(isOn);
         }
+    }
+
+    private void OpenDragUI() {
+        InventoryUIgo.SetActive(true);
+    }
+    private void CloseDragUI() {
+        InventoryUIgo.SetActive(false);
     }
 }

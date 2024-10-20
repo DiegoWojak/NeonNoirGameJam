@@ -844,7 +844,6 @@ MonoBehaviour:
   currentFrom: 
   currentString: none
   UIDialog: {fileID: 468081143}
-  Blocker: {fileID: 3987220379195347305}
   UIOpened: 0
 --- !u!1 &651277333822213168
 GameObject:

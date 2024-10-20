@@ -15,44 +15,59 @@ namespace Assets.Source.Managers
         private GameObject _panel;
         public Stack<IInitiable> _currentManagerUsing;
 
-        public Action<bool> OnRequestOpen;
-        public Action<bool> OnRequestClose;
+        
+        
 
+        public bool IsAnyUIOpened { get { return _currentManagerUsing.Count > 0; } }
         public override void Init()
         {
             _currentManagerUsing = new Stack<IInitiable>();
-            Panel.SetActive(false);
+            ClearUI();
             isLoaded = true;
         }
 
-        public void RequestOpenUI(IInitiable _requireEnt) { 
+        private void ClearUI() { 
+            Panel.SetActive(false);
+            for(int i=0; i<Panel.transform.childCount; i++)
+            {
+                Panel.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
+        public void RequestOpenUI(IInitiable _requireEnt, Action<bool> RequestMessage = null) { 
             if(_requireEnt != null)
             {
                 _currentManagerUsing.Push(_requireEnt);
-                OnRequestOpen?.Invoke(true);
+                RequestMessage?.Invoke(true);
             }
-            { 
-            
-                OnRequestOpen?.Invoke(false); 
+            {
+                RequestMessage?.Invoke(false);
+                //OnAfterRequestOpen?.Invoke(false); 
             }
 
-            if (_currentManagerUsing.Count > 0) { 
+            if (_currentManagerUsing.Count > 0) {
+                Debug.Log("Unlocked");
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 Panel.SetActive(true);
             }
         }
 
-        public void RequestCloseUI(IInitiable _requireEnt) {
+        public void RequestCloseUI(IInitiable _requireEnt, Action<bool> RequestMessage = null) {
             if (_requireEnt != null && _currentManagerUsing.Peek() == _requireEnt)
             {
                 _currentManagerUsing.Pop();
-                OnRequestClose?.Invoke(true);
+                RequestMessage?.Invoke(true);
             }
             else {
-                OnRequestClose?.Invoke(false);
+                RequestMessage?.Invoke(false);
             }
 
-            if (_currentManagerUsing.Count < 1) { 
+            if (_currentManagerUsing.Count < 1) {
+                Debug.Log("locked");
                 Panel.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
         }
 

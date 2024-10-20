@@ -22,7 +22,7 @@ namespace Assets.Source.Render.Characters
         private const string VerticalInput = "Vertical";
 
         private bool isGameLoaded = false;
-        
+
         public override void Init()
         {
             isLoaded = true;
@@ -50,7 +50,7 @@ namespace Assets.Source.Render.Characters
         {
             if (!isGameLoaded) return;
 
-            if (Input.GetMouseButtonDown(0) && !Character.DisableInputsFromPlayer) 
+            if (Input.GetMouseButtonDown(0) && !Character.DisableInputsFromPlayer && UIManager.Instance.IsAnyUIOpened) 
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
@@ -106,6 +106,17 @@ namespace Assets.Source.Render.Characters
                 //characterInputs.ClimbLadder = Input.GetKeyUp(KeyCode.E);
                 characterInputs.Interaction = Input.GetKeyUp(KeyCode.E);
                 characterInputs.ShootHeld = Input.GetButton("Fire1");
+            }
+
+            if(Input.GetKeyDown(KeyCode.I))
+            {
+                if (!InventorySystem.Instance.IsInventaryOpen)
+                {
+                    InventorySystem.Instance.OpenInventory();   
+                }
+                else {
+                    InventorySystem.Instance.CloseInventory();
+                }
             }
 
             if (Character.AllowDash && Input.GetKeyDown(KeyCode.LeftShift))

@@ -11,7 +11,7 @@ public class DialogManager : LoaderBase<DialogManager>
     public string currentFrom;
     public string currentString;
     public DialogEntity UIDialog;
-    public GameObject Blocker;
+    
     public Action<string,string> OnRequestStringChange;
     public Action OnRequestClean;
     public bool UIOpened = false;
@@ -25,29 +25,37 @@ public class DialogManager : LoaderBase<DialogManager>
     }
     public void RequestOpen() 
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
         if (UIOpened == false) {
-            Blocker.SetActive(true);
-            UIDialog?.gameObject.SetActive(true);
-            //GameStarterManager.Instance.CameraReadingChange(true);
-            GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerInteracting);
-            UpdateUItatus(true);
+            UIManager.Instance.RequestOpenUI(this, (_request) => {
+                if (_request)
+                {
+                    UIDialog?.gameObject.SetActive(true);
+                    GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerInteracting);
+                    UpdateUItatus(true);
+                }
+                else 
+                {
+                    GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose);
+                }
+            });
         }
     }
 
     public void RequestClose() 
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
         if (UIOpened == true) {
-            Blocker.SetActive(false);
-            UIDialog?.gameObject.SetActive(false);
-            //GameStarterManager.Instance.CameraReadingChange(false);
-            GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose);
-            UpdateUItatus(false);
+            UIManager.Instance.RequestCloseUI(this, (_request) => {
+                if (_request)
+                {
+                    UIDialog?.gameObject.SetActive(false);
+                    GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose);
+                    UpdateUItatus(false);
+                }
+                else
+                {
+                    GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerTurning);
+                }
+            });
         }
         //Check if anyOtherUIIsOpened
     }

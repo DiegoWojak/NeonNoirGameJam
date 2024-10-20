@@ -166,7 +166,7 @@ namespace Assets.Source.Render.Characters
         public static Action<LayerMask> OnCollisionDetected;
         public LayerMask InteractionLayer;
 
-        public bool DisableInputsFromPlayer { get { return DialogManager.Instance.UIOpened; } }
+        public bool DisableInputsFromPlayer { get { return UIManager.Instance.IsAnyUIOpened; } }
 
         private float m_DistanceTraveled = 0f;
         private float m_StepRand;
