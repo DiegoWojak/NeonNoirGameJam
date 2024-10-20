@@ -1,32 +1,50 @@
 ﻿using Assets.Source;
+using Assets.Source.Data.Models;
+using Assets.Source.Managers;
 using Assets.Source.UI.Ordering;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DragManager : LoaderBase<DragManager>
 {
+    [System.Serializable]
+    private struct LayerGroup {
+        public string name;
+        public RectTransform _defaultParentLayer;
+        public RectTransform _slotLayer;
+    }
+
     [HideInInspector]
-    public RectTransform DefaultParentLayer { get { return InventoryGroup._defaultParentLayer; } }
+    public RectTransform InventoryItemsLayer { get { return InventoryGroup._defaultParentLayer; } }
     [HideInInspector]
-    public RectTransform SlotLayer { get { return InventoryGroup._slotLayer; } }
+    public RectTransform InventorySlotLayer { get { return InventoryGroup._slotLayer; } }
     [HideInInspector]
     public RectTransform DragLayer { get { return _dragLayer; } }
     [HideInInspector]
-    public RectTransform PlayerSlotLayer { get { return PlayerEquipedGroup._slotLayer; } }
+    public RectTransform PlayerEquipedSlotLayer { get { return PlayerEquipedGroup._slotLayer; } }
     [HideInInspector]
-    public RectTransform PlayerEquippedLayer { get { return PlayerEquipedGroup._defaultParentLayer; } }
-
-
+    public RectTransform PlayerEquippedItemsLayer { get { return PlayerEquipedGroup._defaultParentLayer; } }
+    [Space(10)]
+    [Header("Inventory UI")]
+    public GameObject InventoryUIgo;
+    [Space(10)]
+    [Header("Inventory > bag UiArea (LeftSide)")]
     [SerializeField]
     private LayerGroup InventoryGroup;
+
+    [Space(10)]
+    [Header("Inventory > equiped UiArea (RightSide)")]
     [SerializeField]
     private LayerGroup PlayerEquipedGroup;
 
+
+    [Space(10)]
+    [Header("Canvas Interactable and \n Only Visual  with not interactable properties")]
     [SerializeField]
     private RectTransform _dragLayer = null;
-
     private Rect _boundingBox;
 
     private DragableItem _currentDraggedObject = null;
@@ -37,13 +55,20 @@ public class DragManager : LoaderBase<DragManager>
     /// False = NO True YES
     /// </summary>
     public bool IsDragging { get { return CurrentDraggedObject == null ? false : true; } }
-    [System.Serializable]
-    private struct LayerGroup {
-        public string name;
-        public RectTransform _defaultParentLayer;
-        public RectTransform _slotLayer;
-    }
+    private DragOrderFix _dragOrderFix;
 
+    [SerializeField]
+    private Canvas _mainCanvas;
+    public Canvas MainCanvas { get { return _mainCanvas; } }
+    public bool IsGameReady { get { return isGameLoaded; } }
+
+
+    [Space(10)]
+    [Header("Interactables")]
+    [SerializeField]
+    private GameObject prefabClickableItem;
+
+    #region Events
     public Action<bool> RequestUI;
 
     /// <summary>
@@ -77,17 +102,14 @@ public class DragManager : LoaderBase<DragManager>
     public Action<RectTransform, DragableItem> OnBeginDrag;
     public Action<RectTransform, DragableItem> OnOtherDragItemSelected;
     public Action<RectTransform, DragSlot> OnEmptySlotDropped;
+    #endregion
 
-    private DragOrderFix _dragOrderFix;
-
-    [SerializeField]
-    private Canvas _mainCanvas;
-
-    public Canvas MainCanvas { get { return _mainCanvas; } }
 
     private bool isGameLoaded = false;
 
-    public bool IsGameReady { get { return isGameLoaded; } }
+
+    //No UI manager
+
     private void Awake()
     {
         
@@ -97,18 +119,30 @@ public class DragManager : LoaderBase<DragManager>
     {
         if (_dragOrderFix == null)
         {
-            _dragOrderFix = new DragOrderFix(DefaultParentLayer);
+            _dragOrderFix = new DragOrderFix(InventoryItemsLayer);
         }
 
         SetBoundingBoxRect(_dragLayer);
         SetDimensionCanvasToScale();
 
-        InitLayerGroup(DefaultParentLayer, SlotLayer);
-        InitLayerGroup(PlayerEquippedLayer, PlayerSlotLayer);
-
+        StartCoroutine(UpdateVisualRoutine(() => { 
+            isLoaded = true;    
+        }));
         LoaderManager.OnEverythingLoaded += AllowInteraction;
+    }
 
-        isLoaded = true;
+    IEnumerator UpdateVisualRoutine(Action callback) 
+    {
+        UIManager.Instance.RequestOpenUI(this);
+        InventoryUIgo.SetActive(true);
+        yield return UpdateVisualSlotLayerGroup(InventoryItemsLayer, InventorySlotLayer);
+        yield return UpdateVisualSlotLayerGroup(PlayerEquippedItemsLayer, PlayerEquipedSlotLayer);
+
+        yield return UpdateVisualInventoryLayerGroup(InventorySystem.Instance.L_inventory, InventoryItemsLayer, InventorySlotLayer);
+        yield return UpdateVisualInventoryLayerGroup(InventorySystem.Instance.L_equipedItems, PlayerEquippedItemsLayer, PlayerEquipedSlotLayer);
+        InventoryUIgo.SetActive(false);
+        UIManager.Instance.RequestCloseUI(this);
+        callback?.Invoke();
     }
 
     private void OnEnable()
@@ -154,21 +188,57 @@ public class DragManager : LoaderBase<DragManager>
 
     }
 
-    private void InitLayerGroup(RectTransform _TargetDefaultLayer, RectTransform _targetSlotLayer) 
+    private IEnumerator UpdateVisualSlotLayerGroup(RectTransform _targetInventoryLayer, RectTransform _targetSlotLayer) 
     {
-        if (_TargetDefaultLayer != null)
-        {
-            PlayerSlotLayer.gameObject.SetActive(true);
-        }
-
         if (_targetSlotLayer != null && DragManager.Instance != null)
         {
-            var _childs = _targetSlotLayer.childCount;
-            for (int i = 0; i < _childs; i++)
+            _targetSlotLayer.gameObject.SetActive(true);
+
+            int _childsTSL = _targetSlotLayer.childCount;
+            for (int i = 0; i < _childsTSL; i++)
             {
                 _targetSlotLayer.GetChild(i).gameObject.SetActive(true);
             }
         }
+
+        if (_targetInventoryLayer != null) {
+            _targetInventoryLayer.gameObject.SetActive(true);
+
+            int _childTIL = _targetInventoryLayer.childCount;
+            Debug.Log($"Child in {_targetInventoryLayer.name} :{ _childTIL}");
+            for (int i = 0; i < _childTIL; i++)
+            {
+                Destroy(_targetInventoryLayer.GetChild(i).gameObject);
+            }
+        }
+
+        yield return null;
+    }
+
+    private IEnumerator UpdateVisualInventoryLayerGroup(List<InventoryItem> _items, RectTransform _Inventorylayer, RectTransform _InventorySlot) 
+    { 
+        WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
+        for(int i=0;i< _items.Count;i++)
+        {
+            var _obj = Instantiate(prefabClickableItem,_Inventorylayer).GetComponent<DragableItem>();
+            _obj.UpdateParent();
+            do
+            {
+                yield return waitForFixedUpdate;
+            } while (!_obj.HasInited);
+
+            _obj.RectTranform.anchoredPosition = ((RectTransform)_InventorySlot.GetChild(i)).anchoredPosition;
+            yield return null;
+        }
+        Debug.Log($"Visual updated for {_Inventorylayer.name} Completed");
+    }
+
+    private void UpdateInventoryFromInventorySystem()
+    {
+        var _currentInventory = InventorySystem.Instance.L_equipedItems;
+        var _currentPlayerInventory = InventorySystem.Instance.L_equipedItems;
+
+
     }
 
     public void RegisterDraggedObject(DragableItem drag)
@@ -232,5 +302,4 @@ public class DragManager : LoaderBase<DragManager>
             MainCanvas.gameObject.SetActive(isOn);
         }
     }
-
 }

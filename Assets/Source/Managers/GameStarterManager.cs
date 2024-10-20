@@ -10,7 +10,6 @@ namespace Assets.Source.Managers
 {
     public class GameStarterManager : LoaderBase<GameStarterManager>
     {
-        private bool _isGameLoaded = false;
 
         public event Action OnCameraChangeRequiered;
 
@@ -93,17 +92,13 @@ namespace Assets.Source.Managers
             
         }
 
-        void Priority() {
-        
-        }
-
         void ChangeShader() {
             _camComponent.postProcessEffectMaterial = GetMaterialFromViewStatus();
         }
 
         void AllowInteraction()
         {
-            _isGameLoaded = true;
+            Debug.Log($"From {gameObject.name} the game has started");
             LoaderManager.OnEverythingLoaded -= AllowInteraction;
         }
 

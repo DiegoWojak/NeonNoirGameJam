@@ -19,7 +19,7 @@ public class DragableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
     public RectTransform RctParent => _parent;
 
     bool _hasInited = false;
-
+    public bool HasInited { get { return _hasInited; } }
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!_manager.IsGameReady) return;
