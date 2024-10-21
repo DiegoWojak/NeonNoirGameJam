@@ -1,10 +1,11 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
-public class DragableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler
+public class DragableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private DragManager _manager { get { return DragManager.Instance; } }
 
@@ -76,5 +77,15 @@ public class DragableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         DragManager.Instance.OtherDragItemSlotSelected(this);
     }
 
-    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!_manager.IsGameReady) return;
+        _manager.OnDraggableitemHover(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!_manager.IsGameReady) return;
+        _manager.OnExitItemHover(this);
+    }
 }

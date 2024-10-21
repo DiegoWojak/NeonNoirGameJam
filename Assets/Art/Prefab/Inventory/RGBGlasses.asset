@@ -16,3 +16,6 @@ MonoBehaviour:
   displayName: GlassesRGB
   icon: {fileID: 21300000, guid: 1368cbdaf07df164fb7533cf57f6686a, type: 3}
   prefab_Game: {fileID: 413728644999919448, guid: de2b8c3c1ea8de04d846722798c972ed, type: 3}
+  "toolt\xEDp_Data":
+    tooltipHeader: RGB Glasses
+    tooltipText: When wearer allow the user to see colors, sometimes even the soul.

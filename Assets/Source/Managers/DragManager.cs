@@ -105,6 +105,11 @@ public class DragManager : LoaderBase<DragManager>
 
 
     private Dictionary<InventoryItem, DragableItem> d_inventoryDragables;
+    InventoryItem _currentTargetIndexToolTip = null;
+
+    [Space(10)]
+    [Header("Tooltip System")]
+    public Tooltip TooltipSystem;
 
     private void Awake()
     {
@@ -118,6 +123,7 @@ public class DragManager : LoaderBase<DragManager>
             _dragOrderFix = new DragOrderFix(InventoryItemsLayer);
         }
         d_inventoryDragables = new Dictionary<InventoryItem, DragableItem>();
+        TooltipSystem.gameObject.SetActive(false);
         SetBoundingBoxRect(_dragLayer);
         SetDimensionCanvasToScale();
 
@@ -322,11 +328,13 @@ public class DragManager : LoaderBase<DragManager>
     private void OpenDragUI() {
         if (!InventorySystem.Instance.IsLoaded()) return;
         InventoryUIgo.SetActive(true);
+
     }
     private void CloseDragUI() {
         if (!InventorySystem.Instance.IsLoaded()) return;
 
         InventoryUIgo.SetActive(false);
+        CloseToolTipSystem();
     }
 
 
@@ -371,5 +379,47 @@ public class DragManager : LoaderBase<DragManager>
         d_inventoryDragables.Add(_item, _obj);
         
     }
-   
+
+    public void OnDraggableitemHover(DragableItem _item) {
+        if (_item == null) return;
+        
+        if(GetItemByValue(ref _item) && _currentTargetIndexToolTip != null)
+        {
+            ShowTooltipText(_currentTargetIndexToolTip.ItemData.tooltíp_Data);
+        }
+    }
+    public void OnExitItemHover(DragableItem _item) {
+        CloseToolTipSystem();
+    }
+
+    private bool GetItemByValue(ref DragableItem _item) {
+        bool _found = false;
+
+        if (d_inventoryDragables.ContainsValue(_item))
+        {
+            foreach (var e in d_inventoryDragables)
+            {
+                if (e.Value == _item)
+                {
+                    _currentTargetIndexToolTip = e.Key;
+                    _found = true;
+                    break;
+                }
+            }
+        }
+
+        return _found;
+    }
+
+    private void ShowTooltipText(InventoryItemData.ToolTipData _tooltipData) 
+    {
+        TooltipSystem.gameObject.SetActive(true);
+        TooltipSystem.SetText(_tooltipData.tooltipText,_tooltipData.tooltipHeader);
+    }
+
+    private void CloseToolTipSystem() {
+        TooltipSystem.gameObject.SetActive(false);
+        TooltipSystem.SetText(string.Empty);
+    }
+    
 }

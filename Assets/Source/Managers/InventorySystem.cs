@@ -4,7 +4,7 @@ using Assets.Source.Utilities.Helpers.Gizmo;
 
 using System;
 using System.Collections.Generic;
-
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Source.Managers
@@ -13,7 +13,17 @@ namespace Assets.Source.Managers
     [Serializable]
     public class InventorySystem : LoaderBase<InventorySystem>
     {
-        public Dictionary<InventoryItemData, InventoryItem> d_inventoryDictionary { get;  private set; }
+        public Dictionary<InventoryItemData, InventoryItem> d_InventoryDictionary 
+        { get 
+            { if (_inventoryDictionary == null)
+                {
+                    Debug.LogError(DebugUtils.GetMessageFormat($"Inventory System got a null, we are mitigatin problem, please research the problem",0));
+                    _inventoryDictionary = new Dictionary<InventoryItemData, InventoryItem>();
+                }
+                return _inventoryDictionary;
+            } 
+        }
+
         public List<InventoryItem> L_inventory { get; private set; }
 
         public List<InventoryItem> L_equipedItems { get; private set; }
@@ -25,11 +35,12 @@ namespace Assets.Source.Managers
         public InventoryItemData TestData1;
         public InventoryItemData TestData2;
 #endif
+        private Dictionary<InventoryItemData, InventoryItem>  _inventoryDictionary;
 
         public bool IsInventaryOpen { get { return UIManager.Instance._currentManagerUsing.Contains(this); } }
         public override void Init()
         {
-            d_inventoryDictionary = new Dictionary<InventoryItemData, InventoryItem>();
+            _inventoryDictionary = new Dictionary<InventoryItemData, InventoryItem>();
             L_inventory = new List<InventoryItem>();
             L_equipedItems = new List<InventoryItem>();
 #if UNITY_EDITOR
@@ -51,7 +62,7 @@ namespace Assets.Source.Managers
         public void Add(InventoryItemData refData)
         {
             InventoryItem _item;
-            if (d_inventoryDictionary.TryGetValue(refData, out InventoryItem value))
+            if (d_InventoryDictionary.TryGetValue(refData, out InventoryItem value))
             {
                 value.AddToStack();
                 _item = value;
@@ -61,7 +72,7 @@ namespace Assets.Source.Managers
             {
                 InventoryItem _newitem = new InventoryItem(refData);
                 L_inventory.Add(_newitem);
-                d_inventoryDictionary.Add(refData, _newitem);
+                d_InventoryDictionary.Add(refData, _newitem);
                 _item = _newitem;
                 OnInventoryCreate?.Invoke(_item);
             }
@@ -72,14 +83,14 @@ namespace Assets.Source.Managers
         {
             InventoryItem _item;
 
-            if (d_inventoryDictionary.TryGetValue(refData, out InventoryItem value))
+            if (d_InventoryDictionary.TryGetValue(refData, out InventoryItem value))
             {
                 value.RemoveFromStack();
                 _item = value;
                 if (value.stack == 0)
                 {
                     L_inventory.Remove(value);
-                    d_inventoryDictionary.Remove(refData);
+                    d_InventoryDictionary.Remove(refData);
                     OnInventoryDelete?.Invoke(_item);
                     return;
                 }
@@ -94,7 +105,7 @@ namespace Assets.Source.Managers
 
         public InventoryItem Get(InventoryItemData referenceData)
         {
-            if (d_inventoryDictionary.TryGetValue(referenceData, out InventoryItem value))
+            if (d_InventoryDictionary.TryGetValue(referenceData, out InventoryItem value))
             {
                 return value;
             }
