@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
 public class DragableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler
@@ -20,6 +21,9 @@ public class DragableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
     bool _hasInited = false;
     public bool HasInited { get { return _hasInited; } }
+
+    public string id;
+    public Image Icon;
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!_manager.IsGameReady) return;
@@ -62,6 +66,9 @@ public class DragableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
 
     public void UpdateParent() {
         _parent = transform.parent as RectTransform;
+        if (!_hasInited) {
+            Init();
+        }
     }
 
     public void OnDrop(PointerEventData eventData)

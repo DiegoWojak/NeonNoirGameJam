@@ -2,11 +2,13 @@
 using Assets.Source.Data.Models;
 using Assets.Source.Managers;
 using Assets.Source.UI.Ordering;
+using Assets.Source.Utilities.Helpers.Gizmo;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class DragManager : LoaderBase<DragManager>
 {
@@ -108,7 +110,7 @@ public class DragManager : LoaderBase<DragManager>
     private bool isGameLoaded = false;
 
 
-    //No UI manager
+    private Dictionary<InventoryItem, DragableItem> d_inventoryDragables;
 
     private void Awake()
     {
@@ -121,7 +123,7 @@ public class DragManager : LoaderBase<DragManager>
         {
             _dragOrderFix = new DragOrderFix(InventoryItemsLayer);
         }
-
+        d_inventoryDragables = new Dictionary<InventoryItem, DragableItem>();
         SetBoundingBoxRect(_dragLayer);
         SetDimensionCanvasToScale();
 
@@ -160,18 +162,27 @@ public class DragManager : LoaderBase<DragManager>
     private void OnEnable()
     {
         RequestUI += DragShowUI;
+        InventorySystem.Instance.RequestOpenInventory += OpenDragUI;
+        InventorySystem.Instance.RequestCloseInventory += CloseDragUI;
+        InventorySystem.Instance.OnInventoryUpdated += UpdateDraggableItem;
+        InventorySystem.Instance.OnInventoryDelete += DeleteDraggableItem;
+        InventorySystem.Instance.OnInventoryCreate += CreateDraggableItem;
     }
 
 
     private void OnDisable()
     {
         RequestUI -= DragShowUI;
+        InventorySystem.Instance.RequestOpenInventory -= OpenDragUI;
+        InventorySystem.Instance.RequestCloseInventory -= CloseDragUI;
+        InventorySystem.Instance.OnInventoryUpdated -= UpdateDraggableItem;
+        InventorySystem.Instance.OnInventoryDelete -= DeleteDraggableItem;
+        InventorySystem.Instance.OnInventoryCreate -= CreateDraggableItem;
     }
 
     void AllowInteraction() {
         isGameLoaded = true;
-        InventorySystem.Instance.RequestOpenInventory += OpenDragUI;
-        InventorySystem.Instance.RequestCloseInventory += CloseDragUI;
+
         LoaderManager.OnEverythingLoaded -= AllowInteraction;
     }
 
@@ -232,27 +243,24 @@ public class DragManager : LoaderBase<DragManager>
     private IEnumerator UpdateVisualInventoryLayerGroup(List<InventoryItem> _items, RectTransform _Inventorylayer, RectTransform _InventorySlot) 
     { 
         WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
+        InventoryItem _it;
         for(int i=0;i< _items.Count;i++)
         {
+            _it = _items[i];
             var _obj = Instantiate(prefabClickableItem,_Inventorylayer).GetComponent<DragableItem>();
             _obj.UpdateParent();
             do
             {
                 yield return waitForFixedUpdate;
             } while (!_obj.HasInited);
-
+            _obj.gameObject.name = _it.ItemData.name;
+            _obj.id = _it.ItemData.name;
+            _obj.Icon.sprite = _it.ItemData.icon;
             _obj.RectTranform.anchoredPosition = ((RectTransform)_InventorySlot.GetChild(i)).anchoredPosition;
+            d_inventoryDragables.Add(_it, _obj);
             yield return null;
         }
         Debug.Log($"Visual updated for {_Inventorylayer.name} Completed");
-    }
-
-    private void UpdateInventoryFromInventorySystem()
-    {
-        var _currentInventory = InventorySystem.Instance.L_equipedItems;
-        var _currentPlayerInventory = InventorySystem.Instance.L_equipedItems;
-
-
     }
 
     public void RegisterDraggedObject(DragableItem drag)
@@ -318,9 +326,56 @@ public class DragManager : LoaderBase<DragManager>
     }
 
     private void OpenDragUI() {
+        if (!InventorySystem.Instance.IsLoaded()) return;
         InventoryUIgo.SetActive(true);
     }
     private void CloseDragUI() {
+        if (!InventorySystem.Instance.IsLoaded()) return;
+
         InventoryUIgo.SetActive(false);
     }
+
+
+    public void UpdateDraggableItem(InventoryItem _item) {
+        if (!InventorySystem.Instance.IsLoaded()) return;
+
+        if (_item == null) {
+            var msg = "Nothing to update";
+            Debug.Log(DebugUtils.GetMessageFormat(msg, 4));
+            return;
+        }
+
+    }
+
+    public void CreateDraggableItem(InventoryItem _item)
+    {
+        if (!InventorySystem.Instance.IsLoaded()) return;
+        CreateDragableItem(ref _item);
+    }
+
+    public void DeleteDraggableItem(InventoryItem _item)
+    {
+        if (!InventorySystem.Instance.IsLoaded()) return;
+
+        if (_item.stack <= 0)
+        {
+            var _dragable = d_inventoryDragables[_item];
+            Destroy(_dragable.gameObject);
+            d_inventoryDragables.Remove(_item);
+        }
+    }
+
+    void CreateDragableItem(ref InventoryItem _item) {
+        var _obj = Instantiate(prefabClickableItem, InventoryItemsLayer).GetComponent<DragableItem>();
+        _obj.UpdateParent();
+
+        int count = d_inventoryDragables.Count;
+        _obj.RectTranform.anchoredPosition = ((RectTransform)InventorySlotLayer.GetChild(count)).anchoredPosition;
+        _obj.gameObject.name = _item.ItemData.name;
+        _obj.id = _item.ItemData.name;
+        _obj.Icon.sprite = _item.ItemData.icon;
+        d_inventoryDragables.Add(_item, _obj);
+        
+    }
+   
 }

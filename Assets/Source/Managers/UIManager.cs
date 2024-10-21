@@ -13,10 +13,7 @@ namespace Assets.Source.Managers
         public GameObject Panel { get { return _panel; } }
         [SerializeField]
         private GameObject _panel;
-        public Stack<IInitiable> _currentManagerUsing;
-
-        
-        
+        public Stack<IInitiable> _currentManagerUsing;     
 
         public bool IsAnyUIOpened { get { return _currentManagerUsing.Count > 0; } }
         public override void Init()
