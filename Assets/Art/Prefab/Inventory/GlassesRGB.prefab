@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf49fc1555e27e4ab38caa75cd49c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  id: Glasses1
 --- !u!65 &1008212214191726572
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -56,7 +56,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413728644999919448}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2, z: 0.2}
@@ -136,7 +136,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8de75ceb7829a3b469d1c8b60925a6ea, type: 2}
+  - {fileID: 2100000, guid: 7b5dc839873aa9a49b08e8d7b04ec297, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

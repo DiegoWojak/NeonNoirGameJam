@@ -5352,9 +5352,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: GlassesRGB
       objectReference: {fileID: 0}
-    - target: {fileID: 1008212214191726572, guid: de2b8c3c1ea8de04d846722798c972ed, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
+    - target: {fileID: 670651811721068434, guid: de2b8c3c1ea8de04d846722798c972ed, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.10913751
+      objectReference: {fileID: 0}
+    - target: {fileID: 670651811721068434, guid: de2b8c3c1ea8de04d846722798c972ed, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.10913751
+      objectReference: {fileID: 0}
+    - target: {fileID: 670651811721068434, guid: de2b8c3c1ea8de04d846722798c972ed, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.10913751
       objectReference: {fileID: 0}
     - target: {fileID: 3503599441373316747, guid: de2b8c3c1ea8de04d846722798c972ed, type: 3}
       propertyPath: m_RootOrder
@@ -5399,10 +5407,6 @@ PrefabInstance:
     - target: {fileID: 3503599441373316747, guid: de2b8c3c1ea8de04d846722798c972ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5186670522964095640, guid: de2b8c3c1ea8de04d846722798c972ed, type: 3}
-      propertyPath: id
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de2b8c3c1ea8de04d846722798c972ed, type: 3}

@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Pumpkin_eyes
+  m_Shader: {fileID: 4800000, guid: ce33fe05173eb544fbf93117ee83f19c, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _ALPHABLEND_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cube:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GoldText:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: ebf3f8ee76d1aa743af9c0aaaef4799f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TangentMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Amplitude: 1
+    - _AnisoFactor: 1
+    - _AnisoU: 1
+    - _AnisoV: 200
+    - _Brightness: 0.1
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _Detail: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 10
+    - _FresnelFactor: 1
+    - _FresnelPower: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _InnerFresnelFactor: 0.9
+    - _InnerFresnelPower: 1
+    - _Intensity: 0.3
+    - _Metallic: 0
+    - _Mode: 2
+    - _OcclusionStrength: 1
+    - _OutValue: 0.0327
+    - _Parallax: 0.02
+    - _Range: 1
+    - _ReflectionExposure: 1
+    - _ReflectionFactor: 1
+    - _Rim: 1
+    - _Saturation: 0.5
+    - _Sides: 3
+    - _SmoothnessTextureChannel: 0
+    - _SpecularFactor: 1
+    - _SpecularHighlights: 1
+    - _SpecularPower: 20
+    - _Speed: 0
+    - _SrcBlend: 5
+    - _UVSec: 0
+    - _ZWrite: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutColor: {r: 0.102604866, g: 0, b: 1, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
