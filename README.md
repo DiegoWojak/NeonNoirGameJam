@@ -123,3 +123,6 @@ Other
 * ☑️Added Cambios Dragable item, Inventory System Crear items, destruyen y se actualizan con solo tener un DataInventoryItem.
 * ☑️Added Script PickaleAble, poner items y hacer que el personaje los pueda agregar durante el juego
 * ☑️Added PoolManager for Unknow Reasons
+* ☑️Se agregaron particulas
+Missing:
+* PlayerSlot Afecte el gameplay del player
