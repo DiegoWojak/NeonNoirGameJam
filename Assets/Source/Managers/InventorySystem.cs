@@ -1,11 +1,11 @@
 ﻿using Assets.Source.Data.Models;
+using Assets.Source.Utilities;
 using Assets.Source.Utilities.Helpers.Gizmo;
+
 using System;
 using System.Collections.Generic;
+
 using UnityEngine;
-
-
-
 
 namespace Assets.Source.Managers
 {
@@ -33,12 +33,21 @@ namespace Assets.Source.Managers
             L_inventory = new List<InventoryItem>();
             L_equipedItems = new List<InventoryItem>();
 #if UNITY_EDITOR
-            Add(TestData1);
+            //Add(TestData1);
 #endif            
-
             isLoaded = true;
         }
-        
+
+        private void OnEnable()
+        {
+            GameEvents.Instance.onPickableItemEnter += Add;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.Instance.onPickableItemEnter -= Add;
+        }
+
         public void Add(InventoryItemData refData)
         {
             InventoryItem _item;

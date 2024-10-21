@@ -1,9 +1,9 @@
 ﻿
-
 using System;
 using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
+
 
 namespace Assets.Source.Managers
 {

@@ -8,7 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class DragManager : LoaderBase<DragManager>
 {
@@ -64,11 +63,6 @@ public class DragManager : LoaderBase<DragManager>
     public Canvas MainCanvas { get { return _mainCanvas; } }
     public bool IsGameReady { get { return isGameLoaded; } }
 
-
-    [Space(10)]
-    [Header("Interactables")]
-    [SerializeField]
-    private GameObject prefabClickableItem;
 
     #region Events
     public Action<bool> RequestUI;
@@ -230,7 +224,7 @@ public class DragManager : LoaderBase<DragManager>
             _targetInventoryLayer.gameObject.SetActive(true);
 
             int _childTIL = _targetInventoryLayer.childCount;
-            Debug.Log($"Child in {_targetInventoryLayer.name} :{ _childTIL}");
+            
             for (int i = 0; i < _childTIL; i++)
             {
                 Destroy(_targetInventoryLayer.GetChild(i).gameObject);
@@ -247,7 +241,7 @@ public class DragManager : LoaderBase<DragManager>
         for(int i=0;i< _items.Count;i++)
         {
             _it = _items[i];
-            var _obj = Instantiate(prefabClickableItem,_Inventorylayer).GetComponent<DragableItem>();
+            var _obj = PoolManager.Instance.GetUIDraggable(_Inventorylayer).GetComponent<DragableItem>();
             _obj.UpdateParent();
             do
             {
@@ -360,13 +354,13 @@ public class DragManager : LoaderBase<DragManager>
         if (_item.stack <= 0)
         {
             var _dragable = d_inventoryDragables[_item];
-            Destroy(_dragable.gameObject);
+            PoolManager.Instance.ReturnIcon(_dragable.RectTranform);
             d_inventoryDragables.Remove(_item);
         }
     }
 
     void CreateDragableItem(ref InventoryItem _item) {
-        var _obj = Instantiate(prefabClickableItem, InventoryItemsLayer).GetComponent<DragableItem>();
+        var _obj = PoolManager.Instance.GetUIDraggable(InventoryItemsLayer).GetComponent<DragableItem>();
         _obj.UpdateParent();
 
         int count = d_inventoryDragables.Count;

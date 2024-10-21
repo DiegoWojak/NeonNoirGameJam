@@ -15,4 +15,4 @@ MonoBehaviour:
   id: InventoryItem_GlassesTV
   displayName: GlassesTV
   icon: {fileID: 21300000, guid: f3b808e57cff91a4b864cf7a22c21300, type: 3}
-  prefab: {fileID: 2146233760333128804, guid: ea979872ee90e3a44b02d171a900d6c6, type: 3}
+  prefab_Game: {fileID: 2146233760333128804, guid: ea979872ee90e3a44b02d171a900d6c6, type: 3}

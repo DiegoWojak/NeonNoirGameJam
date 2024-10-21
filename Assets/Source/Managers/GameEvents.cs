@@ -1,7 +1,9 @@
 ﻿
 using Assets.Source.Utilities.Events;
+
 using System;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace Assets.Source.Utilities
@@ -66,6 +68,13 @@ namespace Assets.Source.Utilities
             DialogManager.Instance?.RequestOpen();
             if (Doors.ContainsKey(_bufferIDCComputerFocus)) { 
                 Doors[_bufferIDCComputerFocus].Unlock();
+            }
+        }
+
+        public event Action<InventoryItemData> onPickableItemEnter;
+        public void OnPickableItemEnter(InventoryItemData data) {
+            if (data != null) {
+                onPickableItemEnter(data);
             }
         }
     }
