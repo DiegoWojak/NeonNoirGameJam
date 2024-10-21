@@ -116,6 +116,10 @@ Music
 Other
 * ☑️ Added DragManager y nuevo UI para el inventario
 
-# DIa 7 10:30 12:30 (break) 14:30 15:28 (break)
+# DIa 7 10:30 12:30 (break) 14:30 15:28 (break) 16:30
 * ☑️Added Inventory System, Cambios en DragManager
 * ☑️Added UIManager y cambios en el DragManager
+* ☑️Added Nuevos cambios que permite abrir el inventario incluso si abre el mensaje de computer, además de no permitir cerrarlo hasta que cierrer el inventario
+* ☑️Added Cambios Dragable item, Inventory System Crear items, destruyen y se actualizan con solo tener un DataInventoryItem.
+* ☑️Added Script PickaleAble, poner items y hacer que el personaje los pueda agregar durante el juego
+* ☑️Added PoolManager for Unknow Reasons
