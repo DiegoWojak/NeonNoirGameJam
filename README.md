@@ -126,3 +126,5 @@ Other
 * ☑️Se agregaron particulas
 Missing:
 * PlayerSlot Afecte el gameplay del player
+# DIa 8 9:00 - 10:50
+* ☑️Added TooltipSystem to Inventory with message from the InventoryItemData
