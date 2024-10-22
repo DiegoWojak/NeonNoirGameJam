@@ -3,15 +3,17 @@ using Assets.Source.Managers;
 using System.Linq;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Source.Render.Characters
 {
     //MyPlayer
-    public  class My3DHandlerPlayer : LoaderBase<My3DHandlerPlayer>
+    public class My3DHandlerPlayer : LoaderBase<My3DHandlerPlayer>
     {
         public Character3DCamera OrbitCamera;
         public Transform CameraFollowPoint;
         public Character3DCore Character;
+        public Image[] UIDashImage;
 
         private Vector3 _lookInputVector = Vector3.zero;
 
@@ -56,6 +58,7 @@ namespace Assets.Source.Render.Characters
             }
 
             HandleCharacterInput();
+            Character.UpdateUIDash(ref UIDashImage);
         }
 
         private void LateUpdate()
@@ -119,7 +122,7 @@ namespace Assets.Source.Render.Characters
                 }
             }
 
-            if (Character.AllowDash && Input.GetKeyDown(KeyCode.LeftShift))
+            if (Character.AllowDash && Character.CanIAvailableToDash() && Input.GetKeyDown(KeyCode.LeftShift))
             {
                 characterInputs.Dash = Input.GetKeyDown(KeyCode.LeftShift);
                 Character.Motor.ForceUnground(0.1f);

@@ -1,6 +1,7 @@
 ﻿
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Source.UI.Dialog
 {
@@ -8,9 +9,12 @@ namespace Assets.Source.UI.Dialog
     {
         private int page;
         [SerializeField]
-        TMP_Text _title;
+        TextMeshProUGUI _title;
         [SerializeField]
-        TMP_Text _text;
+        TextMeshProUGUI _text;
+        [SerializeField]
+        Image _image;
+
         string title = string.Empty;
         string msg = string.Empty;
 
@@ -18,6 +22,8 @@ namespace Assets.Source.UI.Dialog
         {
             title = DialogManager.Instance.currentFrom;
             msg = DialogManager.Instance.currentString;
+            _image.sprite = DialogManager.Instance.CurrentSprite;
+
             _title.SetText($"Device Name: {title}");
             _text.SetText(msg);
             page = 1;

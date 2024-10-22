@@ -761,6 +761,8 @@ MonoBehaviour:
   IgnoredColliders: []
   AdditionalDirectionForceFromJumpWall: {x: 0, y: 0.9, z: 0}
   AllowDash: 1
+  maxChargeDash: 3
+  periodOfDashRecovery: 5
   m_StepDistance: 1.65
   FromPoint: {fileID: 3641452397233012186}
   DeviceNpcLayer:

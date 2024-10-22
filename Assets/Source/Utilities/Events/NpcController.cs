@@ -5,15 +5,19 @@ using UnityEngine.Events;
 
 namespace Assets.Source.Utilities.Events
 {
+    [System.Serializable]
     public class NpcController : MonoBehaviour
     {
         [HideInInspector]
         public string id;
         public string MyName;
         public string DialogText;
-        public UnityAction PostActionOnInteraction;
-        public InventoryItemData Gifst;
+        public Sprite photo;
+        public InventoryItemData Gift;
         public GameObject IconAlert;
+
+        [SerializeField]
+        public UnityEvent PostAction;
         public bool HasNewInteractions { get; private set; }
         private void Start()
         {
@@ -32,7 +36,7 @@ namespace Assets.Source.Utilities.Events
         public virtual void OnPlayerEnterNpcArea(string id) {
             if (id == this.id) 
             {
-                DialogManager.Instance?.OnRequestStringChange.Invoke(MyName, DialogText);
+                DialogManager.Instance?.OnRequestStringChange.Invoke(MyName, DialogText, photo);
             }
         }
 
@@ -46,7 +50,11 @@ namespace Assets.Source.Utilities.Events
 
         public bool IsConditionMeet() {
             if (!GameStarterManager.Instance.IsLoaded()) return false;        
-            return InventorySystem.Instance.d_InventoryDictionary.ContainsKey(Gifst);
+            return InventorySystem.Instance.d_InventoryDictionary.ContainsKey(Gift);
+        }
+
+        public void PostAlgo() {
+            PostAction?.Invoke();
         }
 
         private void OnDestroy()
@@ -57,5 +65,7 @@ namespace Assets.Source.Utilities.Events
                 GameEvents.Instance.onNpcTriggerExit -= OnPlayerExitNpcArea;
             }
         }
+
+
     }
 }

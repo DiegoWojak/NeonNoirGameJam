@@ -16,7 +16,7 @@ namespace Assets.Source.Utilities.Events
             id = _ta.id;
             _ta.RelatedActionOnEnter = delegate { 
                 GameEvents.Instance?.OnPickableItemEnter(inventoryItemData);
-                PoolManager.Instance.ReturnGameobject(inventoryItemData, gameObject);
+                PoolManager.Instance.ReturnInventoryGo(inventoryItemData, gameObject);
             };   
         }
     }

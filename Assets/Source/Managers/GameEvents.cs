@@ -37,7 +37,7 @@ namespace Assets.Source.Utilities
         public event Action<InventoryItemData> onPickableItemEnter;
 
 
-        public void RequestInteractComputer() {
+        public void RequestInteractInteractable() {
             DialogManager.Instance?.RequestOpen();
             if(BufferIdComputer != null)
             {
@@ -51,6 +51,7 @@ namespace Assets.Source.Utilities
                 }
             }
         }
+
 
         public void OnPickableItemEnter(InventoryItemData data) {
             if (data != null) {
@@ -81,6 +82,7 @@ namespace Assets.Source.Utilities
                 case NpcController _npc:
                     if (onNpcTriggerEnter != null)
                     {
+                        _bufferComponent = _go;
                         onNpcTriggerEnter?.Invoke(id);
                     }
                     break;
@@ -117,6 +119,7 @@ namespace Assets.Source.Utilities
                     if (onNpcTriggerExit != null)
                     {
                         onNpcTriggerExit?.Invoke(id);
+                        _bufferComponent = null;
                     }
                     break;
                 default:

@@ -1,7 +1,7 @@
 using Assets.Source;
 using Assets.Source.Managers;
 using Assets.Source.UI.Dialog;
-using Assets.Source.Utilities;
+
 using System;
 
 using UnityEngine;
@@ -10,12 +10,15 @@ public class DialogManager : LoaderBase<DialogManager>
 {
     public string currentFrom;
     public string currentString;
+    [HideInInspector]
+    public Sprite CurrentSprite;
     public DialogEntity UIDialog;
     
-    public Action<string,string> OnRequestStringChange;
+    public Action<string,string, Sprite> OnRequestStringChange;
     public Action OnRequestClean;
     public bool UIOpened = false;
-
+    [SerializeField]
+    private Sprite backupSprite;
     public override void Init() 
     {
         OnRequestStringChange += ChangeString;
@@ -72,13 +75,15 @@ public class DialogManager : LoaderBase<DialogManager>
     }
 
 
-    private void ChangeString(string from, string msg) {
+    private void ChangeString(string from, string msg, Sprite _sprite) {
         currentFrom = from;
         currentString = msg;
+        CurrentSprite = _sprite;
     }
     private void Clean() {
         currentFrom = "nobody";
         currentString = "none";
+        CurrentSprite = backupSprite;
     }
 
 }

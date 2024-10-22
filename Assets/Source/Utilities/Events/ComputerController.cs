@@ -8,6 +8,7 @@ namespace Assets.Source.Utilities.Events
         [HideInInspector]
         public string id;
         public string DialogText;
+        public Sprite sprite;
         protected TriggerArea _ta;
         protected void Start()
         {
@@ -23,7 +24,7 @@ namespace Assets.Source.Utilities.Events
         protected virtual void OnComputerEnterAreaToInteract(string id) {
             if (id == this.id) 
             {
-                DialogManager.Instance?.OnRequestStringChange.Invoke(this.id,DialogText);
+                DialogManager.Instance?.OnRequestStringChange.Invoke(this.id,DialogText, sprite);
             }
         }
 

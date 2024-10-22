@@ -5,7 +5,7 @@ using KinematicCharacterController;
 
 using System;
 using System.Collections.Generic;
-
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -103,6 +103,9 @@ namespace Assets.Source.Render.Characters
         [Header("Extras")]
         public Vector3 AdditionalDirectionForceFromJumpWall;
         public bool AllowDash = false;
+        public int maxChargeDash = 3;
+        public float periodOfDashRecovery = 5f;
+
 
         [Header("SoundSteps")]
         public float m_StepDistance = 2.0f;
@@ -176,6 +179,9 @@ namespace Assets.Source.Render.Characters
         private Vector3 m_PrevPos;
 
         private bool b_dashing =false;
+        private int currentChargeDash; // Current available dashes
+        private float recoveryTimer; // Tracks time passed to restore charges
+        private bool isRecovering = false; // Tracks if recovery is in process
 
         void Start() {
             Motor.CharacterController = this;
@@ -186,9 +192,13 @@ namespace Assets.Source.Render.Characters
 
             m_StepRand = UnityEngine.Random.Range(0.0f, 0.5f);
             m_PrevPos = Motor.InitialTickPosition;
+
+            currentChargeDash = maxChargeDash; // Start with full dash charges
+            recoveryTimer = 0f;
         }
 
         void Update() {
+            
             _forwardAxis = Mathf.Lerp(_forwardAxis, _targetForwardAxis, 1f - Mathf.Exp(-ForwardAxisSharpness * Time.deltaTime));
             _rightAxis = Mathf.Lerp(_rightAxis, _targetRightAxis, 1f - Mathf.Exp(-TurnAxisSharpness * Time.deltaTime));
             _forwardAxis *= (b_dashing ? 2 : 1);
@@ -196,11 +206,12 @@ namespace Assets.Source.Render.Characters
             CharacterAnimator.SetFloat("Turn", _rightAxis);
             CharacterAnimator.SetBool("OnGround", Motor.GroundingStatus.IsStableOnGround && CurrentCharacterState == CharacterState.Default);
             CharacterAnimator.SetBool("OnLiquid", CurrentCharacterState==CharacterState.Swimming);
-            
             CharacterAnimator.SetBool("OnDash", b_dashing);
+            
             
             if (b_dashing) {
                 GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.PlayerDash);
+                currentChargeDash--;
             }
 
             m_DistanceTraveled += (Motor.InitialTickPosition - m_PrevPos).magnitude;
@@ -211,6 +222,11 @@ namespace Assets.Source.Render.Characters
                 m_DistanceTraveled = 0.0f;
             }
             m_PrevPos = Motor.InitialTickPosition;
+
+            if (currentChargeDash < maxChargeDash)
+            {
+                StartDashRecovery();
+            }
         }
 
         public void TransitionToState(CharacterState newState)
@@ -265,9 +281,9 @@ namespace Assets.Source.Render.Characters
                 }
                 //Interact with a computer
                 if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, DeviceNpcLayer, QueryTriggerInteraction.Collide) > 0) {
-                    GameEvents.Instance?.RequestInteractComputer();
+                    GameEvents.Instance?.RequestInteractInteractable();
                 } else if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, HumanoideNpcLayer, QueryTriggerInteraction.Collide) > 0) {
-                    Debug.Log($"Iterate {DialogManager.Instance.currentString}");
+                    GameEvents.Instance?.RequestInteractInteractable();
                 }
             }
             else { 
@@ -862,8 +878,47 @@ namespace Assets.Source.Render.Characters
                             TransitionToState(CharacterState.Default);
                         }
                     }
+
+                }   
+            }
+
+        }
+
+        private void StartDashRecovery() {
+            if (!isRecovering)
+            {
+                isRecovering = true; // Start recovery if not already in process
+                recoveryTimer = 0f; // Reset timer
+            }
+
+            recoveryTimer += Time.deltaTime;
+            
+            // When enough time has passed, restore 1 dash and reset timer
+            if (recoveryTimer >= periodOfDashRecovery)
+            {
+                recoveryTimer = 0f; // Reset the timer
+                currentChargeDash++; // Gain one dash charge
+                Debug.Log("Dash Recovered! Current Dashes: " + currentChargeDash);
+
+                // Stop recovering if we reach max charges
+                if (currentChargeDash >= maxChargeDash)
+                {
+                    currentChargeDash = maxChargeDash;
+                    isRecovering = false; // Stop recovery process
                 }
             }
+        }
+
+        public void UpdateUIDash(ref UnityEngine.UI.Image[] _imgs) {
+            var percent = Mathf.Clamp((recoveryTimer / periodOfDashRecovery), 0f, 1f);
+            for (int i = 0; i < maxChargeDash; i++) {
+                _imgs[i].fillAmount = currentChargeDash < i ? 0 : currentChargeDash == i ? percent : 1;
+            }
+            
+        }
+
+        public bool CanIAvailableToDash() {
+            return currentChargeDash > 0;
         }
     }
 }

@@ -903,6 +903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 
   DialogText: Recompensa Agua
+  sprite: {fileID: 0}
 --- !u!65 &372240189
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1524,6 +1525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 
   DialogText: Hints Agua
+  sprite: {fileID: 0}
 --- !u!65 &578363288
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4457,6 +4459,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 637836356432054996, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637836356432054996, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637836356432054996, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637836356432054996, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637836356432054996, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 651277332620957052, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
       propertyPath: FromAbove
       value: 
@@ -4533,6 +4555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 00_Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 651277333556549375, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: backupSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 65f0e363b74cf5845ab8c3fbc14f39ac, type: 3}
     - target: {fileID: 651277333822213169, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
       propertyPath: Character
       value: 
@@ -4545,6 +4571,30 @@ PrefabInstance:
       propertyPath: CameraFollowPoint
       value: 
       objectReference: {fileID: 6720104681941989118}
+    - target: {fileID: 2739463208405068080, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739463208405068080, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739463208405068080, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739463208405068080, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739463208405068080, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739463208405068080, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3987220379195347305, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -4594,6 +4644,30 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6027520827404279860, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452060357684685716, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452060357684685716, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452060357684685716, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452060357684685716, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452060357684685716, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7452060357684685716, guid: 1f930d6e20b14fc4d82ebf9f8a7af37d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -5008,6 +5082,7 @@ MonoBehaviour:
   DialogText: Hello and welcome <br><br> En pasto caminado, no crece malesa <br>Esta
     todo pintado, donde hay dibujos es donde ha logrado llegar. <br>Presiona E para
     interactiar <br> Shift para Correr
+  sprite: {fileID: 0}
 --- !u!212 &5100103743167605944
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5097,6 +5172,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2632715266120289396, guid: 553d049cd6a804549a4b4223df5c828a, type: 3}
+      propertyPath: MyName
+      value: Laser Cop
+      objectReference: {fileID: 0}
+    - target: {fileID: 2632715266120289396, guid: 553d049cd6a804549a4b4223df5c828a, type: 3}
+      propertyPath: DialogText
+      value: Hey there!
+      objectReference: {fileID: 0}
     - target: {fileID: 5863211580880475476, guid: 553d049cd6a804549a4b4223df5c828a, type: 3}
       propertyPath: m_RootOrder
       value: 8

@@ -74,11 +74,11 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _VortexFade: 1.542
-    - _WarpDepth: 0.553
-    - _WarpSize: 0.118
-    - _WarpSpeed: 0.33
-    - _WarpTileX: 5.38
-    - _WarpTileY: 2.42
+    - _WarpDepth: 0.204
+    - _WarpSize: 0.043
+    - _WarpSpeed: 4.52
+    - _WarpTileX: 5.17
+    - _WarpTileY: 6.18
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0, g: 0.8491547, b: 1, a: 1}

@@ -28,6 +28,14 @@ namespace Assets.Source.Managers
         [SerializeField]
         private PoolData GlassesTV;
 
+        [Space(10)]
+        [Header ("Particle System")]
+        public int initialPool = 10;
+        [SerializeField]
+        private GameObject _DashPrefabRender;
+        private Queue<GameObject> _DashPool = new Queue<GameObject>();
+        [SerializeField]
+        private Transform _dashPoolIndex;
         public override void Init()
         {
             for (int i = 0; i < UIPoolSize; i++)
@@ -36,6 +44,14 @@ namespace Assets.Source.Managers
                 icon.gameObject.name = "pooled";
                 icon.gameObject.SetActive(false); // Inactivos por defecto
                 UIPool.Enqueue(icon);
+            }
+
+            for (int i = 0; i < initialPool; i++) 
+            {
+                GameObject _go = Instantiate(_DashPrefabRender, _dashPoolIndex);
+                _go.gameObject.name = "pooled";
+                _go.gameObject.SetActive(false);
+                _DashPool.Enqueue(_go);
             }
 
             AddToDictionaryAndQueu(ref GlassesRGB);
@@ -70,7 +86,32 @@ namespace Assets.Source.Managers
             UIPool.Enqueue(icon);
         }
 
-        public GameObject GetGameobjectPool(InventoryItemData _inventoryItemData) {
+        public GameObject GetDashObject(Transform _t)
+        {
+            if (_DashPool.Count > 0)
+            {
+                GameObject _go = _DashPool.Dequeue();
+                _go.SetActive(true); // Activar el ícono
+                _go.transform.SetParent(_t);
+                _go.transform.localPosition = Vector3.zero;
+                _go.transform.localRotation = Quaternion.identity;
+                return _go;
+            }
+            else
+            {
+                // Si no hay íconos disponibles, crea uno nuevo
+                GameObject _go = Instantiate(_DashPrefabRender,_t);
+                return _go;
+            }
+        }
+
+        public void ReturnDashObject(GameObject obj) {
+            obj.transform.SetParent(_dashPoolIndex);
+            obj.SetActive(false);
+            _DashPool.Enqueue(obj);
+        }
+
+        public GameObject GetInventoryGameobjectPool(InventoryItemData _inventoryItemData) {
             if (!InventoryItemsPool.ContainsKey(_inventoryItemData)) {
                 string msg = $"There is no Gameobject with {_inventoryItemData.name} name, Create one Before";
                 Debug.Log(DebugUtils.GetMessageFormat(msg,0));
@@ -91,7 +132,7 @@ namespace Assets.Source.Managers
             }
         }
 
-        public void ReturnGameobject(InventoryItemData _inventoryItemData, GameObject go)
+        public void ReturnInventoryGo(InventoryItemData _inventoryItemData, GameObject go)
         {
             switch (_inventoryItemData)
             {
