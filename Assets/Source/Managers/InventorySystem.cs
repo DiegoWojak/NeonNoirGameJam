@@ -129,7 +129,18 @@ namespace Assets.Source.Managers
             }
         }
 
+        bool TVGlass = false;
+        public bool HasTVGlasses()
+        {
+            return TVGlass;
+        }
+
 #if UNITY_EDITOR
+        [ContextMenu("Test Inventory Glass")]
+        public void AllowTVGlasses() {
+            TVGlass = true;
+        }
+
         [ContextMenu("DoCreate")]
         public void TestAdd() {
             Add(TestData2);

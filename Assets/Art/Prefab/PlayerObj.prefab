@@ -763,6 +763,7 @@ MonoBehaviour:
   AllowDash: 1
   maxChargeDash: 3
   periodOfDashRecovery: 5
+  Visor: {fileID: 3641452397233012187}
   m_StepDistance: 1.65
   FromPoint: {fileID: 3641452397233012186}
   DeviceNpcLayer:

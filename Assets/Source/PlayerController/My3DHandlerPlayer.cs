@@ -45,14 +45,14 @@ namespace Assets.Source.Render.Characters
 
             OrbitCamera.SetFollowTranform(CameraFollowPoint);
 
-            OrbitCamera.IgnoredColliders = Character.GetComponentsInChildren<Collider>().ToList();
+            OrbitCamera.IgnoredColliders.AddRange(Character.GetComponentsInChildren<Collider>().ToList());
         }
 
         private void Update()
         {
             if (!isGameLoaded) return;
 
-            if (Input.GetMouseButtonDown(0) && !Character.DisableInputsFromPlayer && UIManager.Instance.IsAnyUIOpened) 
+            if (Input.GetMouseButtonDown(0) && !Character.DisableInputsFromPlayer && !UIManager.Instance.IsAnyUIOpened) 
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
@@ -84,10 +84,12 @@ namespace Assets.Source.Render.Characters
 
             OrbitCamera.UpdateWithInput(Time.deltaTime, scrollInput, _lookInputVector); // Apply ingputs
 
-            if (Input.GetMouseButtonDown(1)) 
+            if (!isGameLoaded) return;
+
+            if (Input.GetMouseButtonDown(1) && InventorySystem.Instance.HasTVGlasses()) 
             {
                 OrbitCamera.TargetDistance = (OrbitCamera.TargetDistance == 0f)? OrbitCamera.DefaultDistance : 0f;
-                //
+                Character.EnableVision((OrbitCamera.TargetDistance == 0f));
                 GameStarterManager.Instance?.CameraDistanceChange((OrbitCamera.TargetDistance == 0f));
             }
             #endregion

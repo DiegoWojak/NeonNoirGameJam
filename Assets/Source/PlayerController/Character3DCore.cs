@@ -105,7 +105,8 @@ namespace Assets.Source.Render.Characters
         public bool AllowDash = false;
         public int maxChargeDash = 3;
         public float periodOfDashRecovery = 5f;
-
+        [Header("Visor")]
+        public GameObject Visor;
 
         [Header("SoundSteps")]
         public float m_StepDistance = 2.0f;
@@ -919,6 +920,10 @@ namespace Assets.Source.Render.Characters
 
         public bool CanIAvailableToDash() {
             return currentChargeDash > 0;
+        }
+
+        public void EnableVision(bool enable) { 
+            Visor.SetActive(enable);
         }
     }
 }
