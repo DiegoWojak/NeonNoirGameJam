@@ -21,11 +21,11 @@ Shader "Custom/WireframeSping"
             #pragma vertex vert
             #pragma geometry geom
             #pragma fragment frag
+            #pragma multi_compile_instancing
 
             #include "UnityCG.cginc"
 
             float _WireThickness;
-            int _ColorIndex;
             float _RotationAngle;
             float3 _RotationAxis;
 
@@ -40,6 +40,7 @@ Shader "Custom/WireframeSping"
                 float4 projectionSpaceVertex : SV_POSITION;
                 float4 worldSpacePosition : TEXCOORD1;
                 UNITY_VERTEX_OUTPUT_STEREO_EYE_INDEX
+                UNITY_VERTEX_INPUT_INSTANCE_ID 
             };
 
             struct g2f
@@ -49,6 +50,10 @@ Shader "Custom/WireframeSping"
                 float4 dist : TEXCOORD1;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
+
+            UNITY_INSTANCING_BUFFER_START(Props)
+            UNITY_DEFINE_INSTANCED_PROP(int, _ColorIndex)
+            UNITY_INSTANCING_BUFFER_END(Props)
 
             v2g vert (appdata v)
             {
@@ -149,7 +154,7 @@ Shader "Custom/WireframeSping"
                         fixed4(1.0, 1.0, 1.0, 1.0)   // White
                     };
 
-                int index = clamp(_ColorIndex,0,10);
+                int index = clamp(UNITY_ACCESS_INSTANCED_PROP(Props, _ColorIndex),0,10);
                 fixed4 wireColor = colors[index];
 
                 fixed4 finalColor = wireColor;

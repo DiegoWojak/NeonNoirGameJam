@@ -8,15 +8,17 @@ namespace Assets.Source.Utilities.Events
         [HideInInspector]
         public string id;
         public string DialogText;
+        protected TriggerArea _ta;
         protected void Start()
         {
             GameEvents.Instance.onComputerTriggerEnter += OnComputerEnterAreaToInteract;
             GameEvents.Instance.onComputerTriggerExit += OnComputerExitAreaToInteract;
-            var _ta = GetComponent<TriggerArea>();
+            _ta = GetComponent<TriggerArea>();
             id = _ta.id;
-            _ta.RelatedActionOnEnter = delegate { GameEvents.Instance?.ComputerTriggerEnter(id);};
-            _ta.RelatedActionOnLeave = delegate { GameEvents.Instance?.ComputerTriggerExit(id); };
+            LinkTriggers();
         }
+
+
 
         protected virtual void OnComputerEnterAreaToInteract(string id) {
             if (id == this.id) 
@@ -32,12 +34,23 @@ namespace Assets.Source.Utilities.Events
             }
         }
 
-        protected void OnDestroy()
+        void OnDestroy()
         {
             if (GameEvents.Instance != null) { 
                 GameEvents.Instance.onComputerTriggerEnter -= OnComputerEnterAreaToInteract;
                 GameEvents.Instance.onComputerTriggerExit -= OnComputerExitAreaToInteract;
             }
+            PostDestroy();
+        }
+
+        protected virtual void PostDestroy() { 
+            //clean
+        }
+
+        protected virtual void LinkTriggers() 
+        {
+            _ta.RelatedActionOnEnter = delegate { GameEvents.Instance?.OnComponentWithTriggerEnter(this, id); };
+            _ta.RelatedActionOnLeave = delegate { GameEvents.Instance?.OnComponentWithTriggerExit(this, id); };
         }
     }
 }

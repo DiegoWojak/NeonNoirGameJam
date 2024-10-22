@@ -18,7 +18,7 @@ namespace Assets.Source.UI.Dialog
         {
             title = DialogManager.Instance.currentFrom;
             msg = DialogManager.Instance.currentString;
-            _title.SetText(title);
+            _title.SetText($"Device Name: {title}");
             _text.SetText(msg);
             page = 1;
         }

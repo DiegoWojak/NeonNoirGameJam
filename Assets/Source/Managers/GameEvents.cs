@@ -1,6 +1,6 @@
 ﻿
 using Assets.Source.Utilities.Events;
-
+using Assets.Source.Utilities.Events.ComputerDoor;
 using System;
 using System.Collections.Generic;
 
@@ -10,8 +10,8 @@ namespace Assets.Source.Utilities
 {
     public class GameEvents: LoaderBase<GameEvents>
     {
-        private string _bufferIDCComputerFocus = "none";
-        public string BufferIdComputer { get { return _bufferIDCComputerFocus; } }
+        private MonoBehaviour _bufferComponent;
+        public MonoBehaviour BufferIdComputer { get { return _bufferComponent; } }
         private Dictionary<string, DoorController> Doors;
 
         public override void Init()
@@ -28,56 +28,102 @@ namespace Assets.Source.Utilities
         }
 
         public event Action<string> onComputerTriggerEnter;
-        public void ComputerTriggerEnter(string id)
-        {
-            if (onComputerTriggerEnter != null)
-            {
-                _bufferIDCComputerFocus = id;
-                onComputerTriggerEnter(id);
-            }
-        }
-
         public event Action<string> onComputerTriggerExit;
-        public void ComputerTriggerExit(string id) {
-            if (onComputerTriggerEnter != null)
-            {
-                _bufferIDCComputerFocus = "none";
-                onComputerTriggerExit(id);
-            }
-        }
-
-
         public event Action<string> onDoorTriggerEnter;
-
-        public void DoorTriggerEnter(string id) {
-            if (onDoorTriggerEnter != null) {
-                onDoorTriggerEnter(id);
-            }
-        }
         public event Action<string> onDoorTriggerExit;
+        public event Action<string> onNpcTriggerEnter;
+        public event Action<string> onNpcTriggerExit;
 
-        public void DoorrTriggerExit(string id) {
-            if (onDoorTriggerExit != null)
-            {
-                onDoorTriggerExit(id);
-            }
-        }
+        public event Action<InventoryItemData> onPickableItemEnter;
 
 
         public void RequestInteractComputer() {
             DialogManager.Instance?.RequestOpen();
-            if (Doors.ContainsKey(_bufferIDCComputerFocus)) { 
-                Doors[_bufferIDCComputerFocus].Unlock();
+            if(BufferIdComputer != null)
+            {
+                switch (BufferIdComputer) {
+                    case ComputerSecurityController c:
+                        c.UnlockDoor();
+                        break;
+                    default:
+                        Debug.LogError("There is not component register, activate debug");
+                        break;
+                }
             }
         }
 
-        public event Action<InventoryItemData> onPickableItemEnter;
         public void OnPickableItemEnter(InventoryItemData data) {
             if (data != null) {
                 onPickableItemEnter(data);
             }
         }
-    }
 
-    
+        public void OnComponentWithTriggerEnter(MonoBehaviour _go, string id) { 
+            switch (_go)
+            {
+                case DoorController _door:
+                    if (onDoorTriggerEnter != null) { 
+                        onDoorTriggerEnter?.Invoke(id);
+                    }
+                    break;
+                case ComputerSecurityController _sccomputer:
+                    if (onComputerTriggerEnter != null) {
+                        _bufferComponent = _go;
+                        onComputerTriggerEnter?.Invoke(id);
+                    }
+                    break;
+                case ComputerController _computer:
+                    if (onComputerTriggerEnter != null)
+                    {
+                        onComputerTriggerEnter?.Invoke(id);
+                    }
+                    break;
+                case NpcController _npc:
+                    if (onNpcTriggerEnter != null)
+                    {
+                        onNpcTriggerEnter?.Invoke(id);
+                    }
+                    break;
+                default:
+                    Debug.LogWarning($"The current: {_go.name} is trying to TriggerEnter but has not Observer");
+                    break;
+            }
+        }
+
+        public void OnComponentWithTriggerExit(MonoBehaviour _go, string id)
+        {
+            switch (_go)
+            {
+                case DoorController _door:
+                    if (onDoorTriggerExit != null)
+                    {
+                        onDoorTriggerExit?.Invoke(id);
+                    }
+                    break;
+                case ComputerSecurityController _sccomputer:
+                    if (onComputerTriggerExit != null)
+                    {
+                        onComputerTriggerExit?.Invoke(id);
+                        _bufferComponent = null;
+                    }
+                    break;
+                case ComputerController _computer:
+                    if (onComputerTriggerExit != null)
+                    {
+                        onComputerTriggerExit?.Invoke(id);
+                    }
+                    break;
+                case NpcController _npc:
+                    if (onNpcTriggerExit != null)
+                    {
+                        onNpcTriggerExit?.Invoke(id);
+                    }
+                    break;
+                default:
+                    Debug.LogWarning($"The current: {_go.name} is trying to TriggerExit but has not Observer");
+                    break;
+            }
+        }
+        
+    }   
 }

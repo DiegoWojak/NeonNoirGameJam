@@ -23,8 +23,8 @@ namespace Assets.Source.Utilities.Events
 
             var _ta =GetComponent<TriggerArea>();
             id = _ta.id;
-            _ta.RelatedActionOnEnter = delegate { GameEvents.Instance?.DoorTriggerEnter(id); };
-            _ta.RelatedActionOnLeave = delegate { GameEvents.Instance?.DoorrTriggerExit(id); };
+            _ta.RelatedActionOnEnter = delegate { GameEvents.Instance?.OnComponentWithTriggerEnter(this,id); };
+            _ta.RelatedActionOnLeave = delegate { GameEvents.Instance?.OnComponentWithTriggerExit(this,id); };
         }
 
 
@@ -44,7 +44,7 @@ namespace Assets.Source.Utilities.Events
             }
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (GameEvents.Instance != null)
             {

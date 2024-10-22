@@ -7,7 +7,10 @@ using System;
 using System.Collections.Generic;
 
 using UnityEngine;
+
+#if UNITY_EDITOR
 using static UnityEditor.IMGUI.Controls.CapsuleBoundsHandle;
+#endif
 
 namespace Assets.Source.Render.Characters
 {
@@ -164,8 +167,8 @@ namespace Assets.Source.Render.Characters
         #endregion
 
         public static Action<LayerMask> OnCollisionDetected;
-        public LayerMask InteractionLayer;
-
+        public LayerMask DeviceNpcLayer;
+        public LayerMask HumanoideNpcLayer;
         public bool DisableInputsFromPlayer { get { return UIManager.Instance.IsAnyUIOpened; } }
 
         private float m_DistanceTraveled = 0f;
@@ -261,9 +264,10 @@ namespace Assets.Source.Render.Characters
                     }
                 }
                 //Interact with a computer
-                if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, InteractionLayer, QueryTriggerInteraction.Collide) > 0) {
-                    Debug.Log($"Iterate {DialogManager.Instance.currentString}");
+                if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, DeviceNpcLayer, QueryTriggerInteraction.Collide) > 0) {
                     GameEvents.Instance?.RequestInteractComputer();
+                } else if (Motor.CharacterOverlap(Motor.TransientPosition, Motor.TransientRotation, _probedColliders, HumanoideNpcLayer, QueryTriggerInteraction.Collide) > 0) {
+                    Debug.Log($"Iterate {DialogManager.Instance.currentString}");
                 }
             }
             else { 
