@@ -45,6 +45,9 @@ namespace Assets.Source.Utilities
                     case ComputerSecurityController c:
                         c.UnlockDoor();
                         break;
+                    case NpcController n:
+                        
+                        break;
                     default:
                         Debug.LogError("There is not component register, activate debug");
                         break;
