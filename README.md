@@ -126,5 +126,13 @@ Other
 * ☑️Se agregaron particulas
 Missing:
 * PlayerSlot Afecte el gameplay del player
-# DIa 8 9:00 - 10:50
+# DIa 8 9:00 - 10:50 15:30
 * ☑️Added TooltipSystem to Inventory with message from the InventoryItemData
+* ☑️Added particle to items, and used VisorShader To let see it through
+* ☑️Added new Texture to UI Dialog computer
+* ☑️ Limpieza de codigo, NPC Controller added
+* ☑️ UI DASH Charge, 3 Charge for Dashing
+* ☑️ Más animaciones para 2 personajes
+* ☑️ Se agregaron nuevos photo de personajes, more DataInventoryItems para los poderes
+Missing:
+* Testear la interacción de los NPC
