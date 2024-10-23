@@ -4,7 +4,7 @@ using Assets.Source.Utilities.Helpers.Gizmo;
 
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEngine;
 
 namespace Assets.Source.Managers
@@ -26,7 +26,12 @@ namespace Assets.Source.Managers
 
         public List<InventoryItem> L_inventory { get; private set; }
 
-        public List<InventoryItem> L_equipedItems { get; private set; }
+        public List<InventoryItem> L_equipedItems {
+            get 
+                {
+                    return L_inventory.FindAll(x => x.IsEquipped == true);
+                } 
+        }
 
         public Action<InventoryItem> OnInventoryUpdated;
         public Action<InventoryItem> OnInventoryCreate;
@@ -42,7 +47,6 @@ namespace Assets.Source.Managers
         {
             _inventoryDictionary = new Dictionary<InventoryItemData, InventoryItem>();
             L_inventory = new List<InventoryItem>();
-            L_equipedItems = new List<InventoryItem>();
 #if UNITY_EDITOR
             //Add(TestData1);
 #endif            

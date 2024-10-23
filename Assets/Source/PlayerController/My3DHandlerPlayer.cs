@@ -104,13 +104,14 @@ namespace Assets.Source.Render.Characters
                 characterInputs.CameraRotation = OrbitCamera.Transform.rotation;
                 characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
                 characterInputs.JumpHeld = Input.GetKey(KeyCode.Space); 
-                characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.LeftControl);
-                characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.LeftControl);
-                characterInputs.CrouchHeld = Input.GetKey(KeyCode.LeftControl);
+                characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.Z);
+                characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.Z);
+                characterInputs.CrouchHeld = Input.GetKey(KeyCode.Z);
                 characterInputs.NoClipDown = Input.GetKeyUp(KeyCode.O);
                 //characterInputs.ClimbLadder = Input.GetKeyUp(KeyCode.E);
                 characterInputs.Interaction = Input.GetKeyUp(KeyCode.E);
                 characterInputs.ShootHeld = Input.GetButton("Fire1");
+                characterInputs.RunDownHeld = Input.GetKey(KeyCode.LeftControl);
             }
 
             if(Input.GetKeyDown(KeyCode.I))

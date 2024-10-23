@@ -260,7 +260,9 @@ public class DragManager : LoaderBase<DragManager>
             d_inventoryDragables.Add(_it, _obj);
             yield return null;
         }
+#if UNITY_EDITOR
         Debug.Log($"Visual updated for {_Inventorylayer.name} Completed");
+#endif
     }
 
     public void RegisterDraggedObject(DragableItem drag)

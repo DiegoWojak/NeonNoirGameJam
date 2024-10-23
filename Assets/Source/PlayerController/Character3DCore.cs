@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Windows;
+
 
 #if UNITY_EDITOR
 using static UnityEditor.IMGUI.Controls.CapsuleBoundsHandle;
@@ -44,6 +46,7 @@ namespace Assets.Source.Render.Characters
         public bool ShootHeld;
         public bool Interaction;
         public bool Dash;
+        public bool RunDownHeld;
     }
 
     public class Character3DCore : MonoBehaviour, ICharacterController
@@ -105,6 +108,9 @@ namespace Assets.Source.Render.Characters
         public bool AllowDash = false;
         public int maxChargeDash = 3;
         public float periodOfDashRecovery = 5f;
+        [SerializeField]
+        private DashFrameBehaviour _dashFrameBehavior;
+
         [Header("Visor")]
         public GameObject Visor;
 
@@ -183,6 +189,22 @@ namespace Assets.Source.Render.Characters
         private int currentChargeDash; // Current available dashes
         private float recoveryTimer; // Tracks time passed to restore charges
         private bool isRecovering = false; // Tracks if recovery is in process
+        [SerializeField]
+        public struct DashFrameBehaviour {
+            [HideInInspector]
+            public float lastDashTime;
+            [HideInInspector]
+            public float dashStarttime;
+            [SerializeField]
+            public float framerateCooldown;
+
+            public void Clear() {
+                lastDashTime = 0f;
+                dashStarttime = 0f;
+                framerateCooldown = 0.3f;
+            }
+        }
+        bool _isWalking = false;
 
         void Start() {
             Motor.CharacterController = this;
@@ -193,6 +215,9 @@ namespace Assets.Source.Render.Characters
 
             m_StepRand = UnityEngine.Random.Range(0.0f, 0.5f);
             m_PrevPos = Motor.InitialTickPosition;
+
+            _dashFrameBehavior = new DashFrameBehaviour();
+            _dashFrameBehavior.Clear();
 
             currentChargeDash = maxChargeDash; // Start with full dash charges
             recoveryTimer = 0f;
@@ -213,6 +238,7 @@ namespace Assets.Source.Render.Characters
             if (b_dashing) {
                 GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.PlayerDash);
                 currentChargeDash--;
+                CronometricConsumeDashFrameRate();
             }
 
             m_DistanceTraveled += (Motor.InitialTickPosition - m_PrevPos).magnitude;
@@ -287,14 +313,14 @@ namespace Assets.Source.Render.Characters
                     GameEvents.Instance?.RequestInteractInteractable();
                 }
             }
-            else { 
+            else {
                 _jumpInputIsHeld = inputs.JumpHeld;
                 _crouchInputIsHeld = inputs.CrouchHeld;
             }
             //
 
             Vector3 moveInputVector = Vector3.ClampMagnitude(new Vector3(inputs.MoveAxisRight, 0f, inputs.MoveAxisForward), 1f);
-            
+
             Vector3 cameraPlanarDirection = Vector3.ProjectOnPlane(inputs.CameraRotation * Vector3.forward, Motor.CharacterUp).normalized;
             if (cameraPlanarDirection.sqrMagnitude == 0f)
             {
@@ -303,6 +329,13 @@ namespace Assets.Source.Render.Characters
             Quaternion cameraPlanarRotation = Quaternion.LookRotation(cameraPlanarDirection, Motor.CharacterUp);
 
             _shootingHeld = inputs.ShootHeld;
+
+            _isWalking = inputs.RunDownHeld;
+            if (_isWalking) 
+            {
+                inputs.MoveAxisForward /= 2.5f;
+                inputs.MoveAxisRight /= 2.5f;
+            }
 
             switch(CurrentCharacterState){
                 case CharacterState.Default:
@@ -771,6 +804,13 @@ namespace Assets.Source.Render.Characters
                             currentVelocity.z += _dir.z * _internalVelocityAdd.sqrMagnitude;
                             _internalVelocityAdd = Vector3.zero;
                         }
+
+                        if (_isWalking)
+                        {
+                            currentVelocity.x /= 1.7f;
+                            currentVelocity.z /= 1.3f;
+                        }
+
                         break;
                     }
                 case CharacterState.Swimming:
@@ -913,17 +953,27 @@ namespace Assets.Source.Render.Characters
         public void UpdateUIDash(ref UnityEngine.UI.Image[] _imgs) {
             var percent = Mathf.Clamp((recoveryTimer / periodOfDashRecovery), 0f, 1f);
             for (int i = 0; i < maxChargeDash; i++) {
-                _imgs[i].fillAmount = currentChargeDash < i ? 0 : currentChargeDash == i ? percent : 1;
+                _imgs[i].fillAmount = !AllowDash?0:(currentChargeDash) < i ? 0 : currentChargeDash == i ? percent : 1;
             }
             
         }
 
         public bool CanIAvailableToDash() {
-            return currentChargeDash > 0;
+            return currentChargeDash > 0 && CanDashFrameRate();
         }
 
         public void EnableVision(bool enable) { 
             Visor.SetActive(enable);
         }
+
+        void CronometricConsumeDashFrameRate() {
+            _dashFrameBehavior.lastDashTime = Time.time;
+            _dashFrameBehavior.dashStarttime = Time.time;
+        }
+
+        bool CanDashFrameRate() {
+            return Time.time >= _dashFrameBehavior.lastDashTime + _dashFrameBehavior.framerateCooldown;
+        }
+
     }
 }

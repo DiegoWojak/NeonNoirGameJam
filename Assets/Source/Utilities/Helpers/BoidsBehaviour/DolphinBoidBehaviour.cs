@@ -92,7 +92,6 @@ namespace Assets.Source.Utilities.Helpers.BoidsBehaviour
             return Random.Range(0, _pointsLenght);
         }
         void UpdateNoiseEffect() {
-            Debug.Log($"Update Noie Effect");
             noiseOffset = Random.value * 10.0f;
         }
     }

@@ -27,12 +27,12 @@ namespace Assets.Source.UI.Ordering
             _rect = (_comp).rect;
             var _width = _rect.width;
             var _height = _rect.height;
-
-            Debug.Log(String.Format(" Object : {0} \n Information: \n " +
+#if UNITY_EDITOR
+            Debug.Log(string.Format(" Object : {0} \n Information: \n " +
                 "_Width : {1} _Heigh {2}",
                 _comp.gameObject.name,
                 _width, _height));
-
+#endif
             DragManager.Instance.OnBeginDrag+= StoreFirstDragInformation ;
             DragManager.Instance.OnDraggedItem += HandleUI;
             DragManager.Instance.OnEmptySlotDropped += StorSlotInfotmation;

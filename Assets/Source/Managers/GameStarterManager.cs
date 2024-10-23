@@ -95,7 +95,7 @@ namespace Assets.Source.Managers
 
         void AllowInteraction()
         {
-            Debug.Log($"From {gameObject.name} the game has started");
+            Debug.Log($"Start Game");
             LoaderManager.OnEverythingLoaded -= AllowInteraction;
         }
 

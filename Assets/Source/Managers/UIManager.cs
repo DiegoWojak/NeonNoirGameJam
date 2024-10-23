@@ -43,7 +43,9 @@ namespace Assets.Source.Managers
             }
 
             if (_currentManagerUsing.Count > 0) {
-                Debug.Log("Unlocked");
+#if UNITY_EDITOR
+                Debug.Log("Unlocking");
+#endif
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 Panel.SetActive(true);
@@ -61,7 +63,9 @@ namespace Assets.Source.Managers
             }
 
             if (_currentManagerUsing.Count < 1) {
+#if UNITY_EDITOR
                 Debug.Log("locked");
+#endif
                 Panel.SetActive(false);
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;

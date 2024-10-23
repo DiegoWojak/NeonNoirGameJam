@@ -106,9 +106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
-  MyName: 
-  DialogText: 
-  photo: {fileID: 0}
+  MyName: barry
+  DialogText: Hey there this is a test
+  photo: {fileID: 21300000, guid: 7820eb29d1857314ea65fa2c6794b4ba, type: 3}
   Gift: {fileID: 0}
   IconAlert: {fileID: 0}
   PostAction:

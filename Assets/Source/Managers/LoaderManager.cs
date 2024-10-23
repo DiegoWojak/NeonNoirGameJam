@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Source.Utilities.Helpers.Gizmo;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,8 +27,9 @@ namespace Assets.Source
             StartCoroutine(CoroutineLoad());
         }
 
-
+        private string messasge = string.Empty;
         private IEnumerator CoroutineLoad() {
+
             while (_stacks.Count > 0)
             {
                 var loader = _stacks.Dequeue();
@@ -36,13 +38,21 @@ namespace Assets.Source
                 // Wait until the loader has finished loading
                 while (!loader.IsLoaded())
                 {
+#if UNITY_EDITOR
                     Debug.Log("Loading");
+#endif
                     yield return new WaitForSeconds(0.5f);
                 }
-                Debug.Log($"Loaded  <-- {(loader as MonoBehaviour).name}");
+#if UNITY_EDITOR
+                messasge = DebugUtils.GetMessageFormat($"Loaded  <-- {(loader as MonoBehaviour).name}", 1);
+                Debug.Log(messasge);
+#endif
                 yield return new WaitForSeconds(0.5f);
             }
-            Debug.Log("Everything is loaded");
+#if UNITY_EDITOR
+            messasge = DebugUtils.GetMessageFormat($"Everything Loaded", 1);
+            Debug.Log(messasge);
+#endif
             isEverythingLoaded = true;
             OnEverythingLoaded?.Invoke();
         }

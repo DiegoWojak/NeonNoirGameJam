@@ -9,6 +9,7 @@ namespace Assets.Source.Data.Models
         public int stack { get; private set; }
         public InventoryItemData ItemData { get; private set; }
        
+        public bool IsEquipped { get; private set; }
         public InventoryItem(InventoryItemData _dataref) 
         {
             stack = 0;

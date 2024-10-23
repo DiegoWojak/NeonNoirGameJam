@@ -1,7 +1,6 @@
 
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class PostProcessEffect : MonoBehaviour
 {
     public Material postProcessEffectMaterial;
