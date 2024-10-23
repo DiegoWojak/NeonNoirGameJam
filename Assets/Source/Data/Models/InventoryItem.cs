@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Source.Managers.Components;
+using System;
 using UnityEngine;
 
 namespace Assets.Source.Data.Models
@@ -24,6 +25,11 @@ namespace Assets.Source.Data.Models
         public void RemoveFromStack()
         {
             stack--;
+        }
+
+
+        public void Equip() {
+            IsEquipped = true;
         }
     }
 }

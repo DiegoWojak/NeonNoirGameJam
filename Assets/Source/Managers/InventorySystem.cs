@@ -150,6 +150,12 @@ namespace Assets.Source.Managers
             Add(TestData2);
         }
 
+        [ContextMenu("Editcreated")]
+        public void Testedit() {
+            InventoryItem _o = L_inventory.Find(x=>x.ItemData == TestData2);
+            _o.Equip();
+        }
+
         [ContextMenu("DoRemove")]
         public void TestRemove()
         {

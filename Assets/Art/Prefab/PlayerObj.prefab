@@ -732,8 +732,8 @@ MonoBehaviour:
   AirAccelerationSpeed: 5
   Drag: 0.1
   AllowJumpingWhenSliding: 1
-  AllowDoubleJump: 1
-  AllowWallJump: 1
+  AllowDoubleJump: 0
+  AllowWallJump: 0
   JumpSpeed: 15
   JumpPreGroundingGraceTime: 0
   JumpPostGroundingGraceTime: 0
@@ -760,7 +760,7 @@ MonoBehaviour:
   MeshRoot: {fileID: 3641452395220206520}
   IgnoredColliders: []
   AdditionalDirectionForceFromJumpWall: {x: 0, y: 0.9, z: 0}
-  AllowDash: 1
+  AllowDash: 0
   maxChargeDash: 3
   periodOfDashRecovery: 5
   Visor: {fileID: 3641452397233012187}

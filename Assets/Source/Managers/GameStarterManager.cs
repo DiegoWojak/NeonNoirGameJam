@@ -1,7 +1,9 @@
-﻿using Assets.Source.Render.Characters;
+﻿using Assets.Source.Managers.Components;
+using Assets.Source.Render.Characters;
 using System;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Source.Managers
 {
@@ -27,11 +29,23 @@ namespace Assets.Source.Managers
 
         bool bufferisWatering = false;
         bool bufferIsReading = false;
+
+        [Space(10)]
+        [Header("Effect Table")]
+        [SerializeField]
+        private System.Collections.Generic.List<EffectDictionary> d_Effect;
+
+        public EffectsManagerComponent _EffectsComponent { private set; get; }
+
         public override void Init()
         {
             _camComponent = Camera.main.GetComponent<PostProcessEffect>();
             OnCameraChangeRequiered += ChangeShader;
             LoaderManager.OnEverythingLoaded += AllowInteraction;
+
+            _EffectsComponent = new EffectsManagerComponent(6, d_Effect);
+            _EffectsComponent.ApplyAllEffectsFromEquippedInventory();
+
             ChangeShader();
             isLoaded = true;
         }
@@ -81,7 +95,6 @@ namespace Assets.Source.Managers
         private void OnEnable()
         {
             
-
         }
 
         private void OnDisable()
@@ -94,7 +107,7 @@ namespace Assets.Source.Managers
         }
 
         void AllowInteraction()
-        {
+        {           
             Debug.Log($"Start Game");
             LoaderManager.OnEverythingLoaded -= AllowInteraction;
         }

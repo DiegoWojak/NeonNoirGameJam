@@ -1,6 +1,7 @@
 
 using UnityEngine;
 
+
 [CreateAssetMenu(menuName  = "Inventory Item Data")]
 public class InventoryItemData : ScriptableObject
 {
@@ -14,5 +15,6 @@ public class InventoryItemData : ScriptableObject
     public string displayName;
     public Sprite icon;
     public GameObject prefab_Game;
-    public ToolTipData tooltíp_Data;
+    public ToolTipData tooltíp_Data;    
+
 }
