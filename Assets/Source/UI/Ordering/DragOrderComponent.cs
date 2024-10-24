@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Source.UI.Ordering
 {
-    public class DragOrderFix
+    public class DragOrderComponent
     {
         private Rect _rect;
         TargetsData _currentTargetRect;
@@ -22,7 +22,7 @@ namespace Assets.Source.UI.Ordering
         }
 
         RectTransform[] _stacks = new RectTransform[2];
-        public DragOrderFix(RectTransform _comp) { 
+        public DragOrderComponent(RectTransform _comp, Action<DragableItem, DragableItem> ActionSwitch, Action<DragableItem> ActionMoving) { 
             
             _rect = (_comp).rect;
             var _width = _rect.width;
@@ -37,8 +37,13 @@ namespace Assets.Source.UI.Ordering
             DragManager.Instance.OnDraggedItem += HandleUI;
             DragManager.Instance.OnEmptySlotDropped += StorSlotInfotmation;
             DragManager.Instance.OnOtherDragItemSelected += StoreOtherDragItemInformation;
+
+            OnSwitchingItem += ActionSwitch;
+            OnMovingItem += ActionMoving;
         }
 
+        public Action<DragableItem, DragableItem> OnSwitchingItem;
+        public Action<DragableItem> OnMovingItem;
 
         private void HandleUI(RectTransform _parent, DragableItem _itemInfo) {
             if (_stacks[1] != null)
@@ -56,11 +61,14 @@ namespace Assets.Source.UI.Ordering
 
                 _current.anchoredPosition = _otherTarget._vector2;
                 _other.anchoredPosition = _currentTargetRect._vector2;
+                OnSwitchingItem?.Invoke(_current.GetComponent<DragableItem>(), _other.GetComponent<DragableItem>());
             }
             else {
                 _itemInfo.transform.SetParent(_currentTargetRect._parent);
                 _itemInfo.RectTranform.anchoredPosition = _currentTargetRect._vector2;
                 _itemInfo.UpdateParent();
+
+                OnMovingItem?.Invoke(_itemInfo);
             }
 
             ClearStack();

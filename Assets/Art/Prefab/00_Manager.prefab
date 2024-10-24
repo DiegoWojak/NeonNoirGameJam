@@ -640,7 +640,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1452023549767767666}
   m_Father: {fileID: 651277333182859177}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -663,48 +664,375 @@ MonoBehaviour:
   FromReading: {fileID: 2100000, guid: 43322c58cdf2ceb47a3524463fef1c47, type: 2}
   FromWater: {fileID: 2100000, guid: 619fd5581d70a7742ab8fe5af7ff7282, type: 2}
   d_Effect:
-  - _relatedItem: {fileID: 11400000, guid: 61c292dd9f09b3d4caa97bfeb247cf48, type: 2}
-    OnEquippingItemEffect:
-      m_PersistentCalls:
-        m_Calls: []
-    OnRemoveItemEffect:
-      m_PersistentCalls:
-        m_Calls: []
-  - _relatedItem: {fileID: 11400000, guid: c8013c3df5c69b3438ebb4c0d2caf437, type: 2}
-    OnEquippingItemEffect:
-      m_PersistentCalls:
-        m_Calls: []
-    OnRemoveItemEffect:
-      m_PersistentCalls:
-        m_Calls: []
-  - _relatedItem: {fileID: 11400000, guid: fbcc6178d47cea141b71ac87e5d5c222, type: 2}
-    OnEquippingItemEffect:
-      m_PersistentCalls:
-        m_Calls: []
-    OnRemoveItemEffect:
-      m_PersistentCalls:
-        m_Calls: []
   - _relatedItem: {fileID: 11400000, guid: b713f9356af6b764b9f3264c2e5ba15e, type: 2}
     OnEquippingItemEffect:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipCatSkill
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     OnRemoveItemEffect:
       m_PersistentCalls:
-        m_Calls: []
-  - _relatedItem: {fileID: 11400000, guid: b74451fa30452ed48826b53ca0ed4cc0, type: 2}
-    OnEquippingItemEffect:
-      m_PersistentCalls:
-        m_Calls: []
-    OnRemoveItemEffect:
-      m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipCatSkill
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - _relatedItem: {fileID: 11400000, guid: e6f264894acc5f54fa3bbd410043a5b3, type: 2}
     OnEquippingItemEffect:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipWolfSkill
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     OnRemoveItemEffect:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipWolfSkill
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _relatedItem: {fileID: 11400000, guid: fbcc6178d47cea141b71ac87e5d5c222, type: 2}
+    OnEquippingItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipTVGlasses
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    OnRemoveItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipTVGlasses
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _relatedItem: {fileID: 11400000, guid: 61c292dd9f09b3d4caa97bfeb247cf48, type: 2}
+    OnEquippingItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: HeartMode
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    OnRemoveItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: HeartMode
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _relatedItem: {fileID: 11400000, guid: c8013c3df5c69b3438ebb4c0d2caf437, type: 2}
+    OnEquippingItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipRGBGlasses
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    OnRemoveItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipRGBGlasses
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _relatedItem: {fileID: 11400000, guid: b74451fa30452ed48826b53ca0ed4cc0, type: 2}
+    OnEquippingItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipWings
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    OnRemoveItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipWings
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  Helper: {fileID: 2322594368075457904}
 --- !u!1 &651277333082556401
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,7 +1205,7 @@ MonoBehaviour:
   CurrentSprite: {fileID: 0}
   UIDialog: {fileID: 468081143}
   UIOpened: 0
-  backupSprite: {fileID: 21300000, guid: 881798b77426a8f47b533dcc4767e9e5, type: 3}
+  backupSprite: {fileID: 21300000, guid: 65f0e363b74cf5845ab8c3fbc14f39ac, type: 3}
 --- !u!1 &651277333822213168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,6 +1682,57 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1101207988372841515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1452023549767767666}
+  - component: {fileID: 2322594368075457904}
+  m_Layer: 0
+  m_Name: Helper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1452023549767767666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101207988372841515}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 651277332620957051}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2322594368075457904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101207988372841515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18a635374c8db244b68b5b6652afdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hasTVGlasses: 0
+  _HasRGBGlasses: 0
+  _CanDash: 0
+  _CanDoubleJump: 0
+  _CanWallJump: 0
+  _CanSwim: 0
+  _CanSpeakAnimal: 0
 --- !u!1 &1205583041523881718
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2656,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff560b1ed677704c92750c25e08e0f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDragColor: {r: 0, g: 0, b: 0, a: 0}
+  OnHoverColor: {r: 0, g: 0, b: 0, a: 0}
+  OnNormalColor: {r: 0, g: 0, b: 0, a: 0}
   id: 
   Icon: {fileID: 0}
 --- !u!1 &2935840269989826194
@@ -4263,6 +4645,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _indexSlot: 0
+--- !u!1 &5568002735663374687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 49989890243453875}
+  m_Layer: 0
+  m_Name: Wolf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &49989890243453875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5568002735663374687}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3782711973356257970}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5604428482378459067
 GameObject:
   m_ObjectHideFlags: 0
@@ -4931,6 +5344,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _indexSlot: 0
+--- !u!1 &7512749579366085200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4218434413277866580}
+  m_Layer: 0
+  m_Name: Wing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4218434413277866580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7512749579366085200}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3782711973356257970}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7681235910414584796
 GameObject:
   m_ObjectHideFlags: 0
@@ -5111,6 +5555,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _indexSlot: 0
+--- !u!1 &8004784005541319178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5381612490259624961}
+  m_Layer: 0
+  m_Name: Heart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5381612490259624961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004784005541319178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3782711973356257970}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8157967718616890319
 GameObject:
   m_ObjectHideFlags: 0
@@ -5380,6 +5855,10 @@ Transform:
   - {fileID: 5927143818833497192}
   - {fileID: 8629449507616097961}
   - {fileID: 674385365756083503}
+  - {fileID: 49989890243453875}
+  - {fileID: 5381612490259624961}
+  - {fileID: 4218434413277866580}
+  - {fileID: 2148135755432193294}
   m_Father: {fileID: 651277333182859177}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5406,6 +5885,22 @@ MonoBehaviour:
     inventoryItemData: {fileID: 11400000, guid: fbcc6178d47cea141b71ac87e5d5c222, type: 2}
     poolindex: {fileID: 8629449507616097961}
     initialPoolSize: 5
+  HeartMode:
+    inventoryItemData: {fileID: 11400000, guid: 61c292dd9f09b3d4caa97bfeb247cf48, type: 2}
+    poolindex: {fileID: 5381612490259624961}
+    initialPoolSize: 3
+  WallCatJump:
+    inventoryItemData: {fileID: 11400000, guid: b713f9356af6b764b9f3264c2e5ba15e, type: 2}
+    poolindex: {fileID: 2148135755432193294}
+    initialPoolSize: 3
+  WingHelp:
+    inventoryItemData: {fileID: 11400000, guid: b74451fa30452ed48826b53ca0ed4cc0, type: 2}
+    poolindex: {fileID: 4218434413277866580}
+    initialPoolSize: 3
+  WolfDash:
+    inventoryItemData: {fileID: 11400000, guid: e6f264894acc5f54fa3bbd410043a5b3, type: 2}
+    poolindex: {fileID: 49989890243453875}
+    initialPoolSize: 3
   initialPool: 5
   _DashPrefabRender: {fileID: 2148282926211873306, guid: 9d4f5fcc1a0ee9a4588af0d8d7998bfc, type: 3}
   _dashPoolIndex: {fileID: 674385365756083503}
@@ -5669,6 +6164,37 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &8826111681743394755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2148135755432193294}
+  m_Layer: 0
+  m_Name: Cat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2148135755432193294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8826111681743394755}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3782711973356257970}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7813014089785367817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5678,51 +6204,51 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2429594694692684940, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2429594694692684940, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2429594694692684940, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1340.9258
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2429594694692684940, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 717.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2429594694692684940, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 670.4629
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2429594694692684940, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -463.505
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4596882926287994173, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4596882926287994173, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4596882926287994173, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1340.9258
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4596882926287994173, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4596882926287994173, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 670.4629
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4596882926287994173, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7338716792082861033, guid: ab691cbf7318b014e937ba05ac4a7053, type: 3}
       propertyPath: m_AnchorMax.y

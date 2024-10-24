@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using UnityEngine.Events;
 using UnityEngine;
+using Assets.Source.Utilities.Helpers;
 
 
 
@@ -12,22 +13,28 @@ namespace Assets.Source.Managers.Components
     public class EffectsManagerComponent
     {
         private List<EffectDictionary> d_Effect;
-        private int ItemCapacity;
-
-        public EffectsManagerComponent(int _ItemsCapacity, List<EffectDictionary> _dic) { 
-            ItemCapacity = _ItemsCapacity;
+        
+        [SerializeField]
+        private ApplyEffectFunctionsHelper Helper;
+        public EffectsManagerComponent(List<EffectDictionary> _dic, ApplyEffectFunctionsHelper Helper) { 
             d_Effect = _dic;
-        }
+            this.Helper = Helper;
+            ApplyAllVisualEffectsFromEquippedInventory();
 
-        public void ApplyAllEffectsFromEquippedInventory() {
-            var _list_equipped = InventorySystem.Instance.L_equipedItems;
-            int _to = Mathf.Min(ItemCapacity,_list_equipped.Count);
+            DragManager.OnItemHasCHanged += ApplyAllVisualEffectsFromEquippedInventory;
+        }    
 
-            for (int i = 0; i < _to; i++)
+        public void ApplyAllVisualEffectsFromEquippedInventory() {
+            var _items = InventorySystem.Instance.d_InventoryDictionary;
+            foreach (var item in _items)
             {
-                if (_list_equipped[i] != null){
-                    var _result = d_Effect.Find(x => x._relatedItem == _list_equipped[i].ItemData);
-                    _result.OnEquippingItemEffect?.Invoke();
+                var _i = d_Effect.Find(x => x._relatedItem == item.Key);
+                if (item.Value.IsEquipped)
+                {
+                    _i.OnEquippingItemEffect?.Invoke();
+                }
+                else {
+                    _i.OnRemoveItemEffect?.Invoke();
                 }
             }
         }
@@ -38,6 +45,25 @@ namespace Assets.Source.Managers.Components
 
         public void ApplyEffectFromEquippedItem(EffectDictionary _effect) {
             _effect.OnEquippingItemEffect?.Invoke();
+        }
+
+
+        public bool HasEquippedTvGlasses()
+        {
+            return Helper._hasTVGlasses;
+        }
+
+        public bool CanWallJump() {
+            return Helper._CanWallJump;
+        }
+
+        public bool CanDoubleJump()
+        {
+            return Helper._CanDoubleJump;
+        }
+
+        public bool CanDash() {
+            return Helper._CanDash;
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using Assets.Source.Managers.Components;
 using Assets.Source.Render.Characters;
+using Assets.Source.Utilities.Helpers;
 using System;
 
 using UnityEngine;
@@ -35,6 +36,8 @@ namespace Assets.Source.Managers
         [SerializeField]
         private System.Collections.Generic.List<EffectDictionary> d_Effect;
 
+        [SerializeField]
+        private ApplyEffectFunctionsHelper Helper;
         public EffectsManagerComponent _EffectsComponent { private set; get; }
 
         public override void Init()
@@ -43,8 +46,8 @@ namespace Assets.Source.Managers
             OnCameraChangeRequiered += ChangeShader;
             LoaderManager.OnEverythingLoaded += AllowInteraction;
 
-            _EffectsComponent = new EffectsManagerComponent(6, d_Effect);
-            _EffectsComponent.ApplyAllEffectsFromEquippedInventory();
+            _EffectsComponent = new EffectsManagerComponent(d_Effect, Helper);
+            _EffectsComponent.ApplyAllVisualEffectsFromEquippedInventory();
 
             ChangeShader();
             isLoaded = true;

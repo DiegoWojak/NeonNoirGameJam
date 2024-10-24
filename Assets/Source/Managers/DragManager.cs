@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class DragManager : LoaderBase<DragManager>
 {
@@ -56,7 +57,7 @@ public class DragManager : LoaderBase<DragManager>
     /// False = NO True YES
     /// </summary>
     public bool IsDragging { get { return CurrentDraggedObject == null ? false : true; } }
-    private DragOrderFix _dragOrderFix;
+    private DragOrderComponent _dragOrderFix;
 
     [SerializeField]
     private Canvas _mainCanvas;
@@ -120,8 +121,10 @@ public class DragManager : LoaderBase<DragManager>
     {
         if (_dragOrderFix == null)
         {
-            _dragOrderFix = new DragOrderFix(InventoryItemsLayer);
+            _dragOrderFix = new DragOrderComponent(InventoryItemsLayer, OnItemHasSwitch, OnMovingItem);
+            
         }
+
         d_inventoryDragables = new Dictionary<InventoryItem, DragableItem>();
         TooltipSystem.gameObject.SetActive(false);
         SetBoundingBoxRect(_dragLayer);
@@ -178,6 +181,7 @@ public class DragManager : LoaderBase<DragManager>
         InventorySystem.Instance.OnInventoryUpdated -= UpdateDraggableItem;
         InventorySystem.Instance.OnInventoryDelete -= DeleteDraggableItem;
         InventorySystem.Instance.OnInventoryCreate -= CreateDraggableItem;
+
     }
 
     void AllowInteraction() {
@@ -413,15 +417,69 @@ public class DragManager : LoaderBase<DragManager>
         return _found;
     }
 
+    private static LTDescr delay;
+
     private void ShowTooltipText(InventoryItemData.ToolTipData _tooltipData) 
     {
-        TooltipSystem.gameObject.SetActive(true);
-        TooltipSystem.SetText(_tooltipData.tooltipText,_tooltipData.tooltipHeader);
+        delay = LeanTween.delayedCall(0.5f, () =>
+        {
+            TooltipSystem.gameObject.SetActive(true);
+            TooltipSystem.SetText(_tooltipData.tooltipText,_tooltipData.tooltipHeader);
+        });
     }
 
     private void CloseToolTipSystem() {
+        if(delay != null)
+        {
+            LeanTween.cancel(delay.uniqueId);
+        }
         TooltipSystem.gameObject.SetActive(false);
         TooltipSystem.SetText(string.Empty);
     }
-    
+
+    private void OnItemHasSwitch(DragableItem item1, DragableItem item2)
+    {
+        foreach (var e in d_inventoryDragables)
+        {
+            if (e.Value == item1)
+            {
+                //e.Key 
+                UpdateDictionaryValues(item1, e.Key);
+            }
+
+            if (e.Value == item2)
+            {
+                UpdateDictionaryValues(item2, e.Key);
+            }
+        }
+
+        OnItemHasCHanged?.Invoke();
+    }
+
+    private void OnMovingItem(DragableItem item1) {
+        foreach (var e in d_inventoryDragables)
+        { 
+            if(e.Value == item1)
+            {
+                UpdateDictionaryValues(item1, e.Key);
+            }
+        }
+
+        OnItemHasCHanged?.Invoke();
+    }
+
+    public static Action OnItemHasCHanged;
+
+    private void UpdateDictionaryValues(DragableItem item, InventoryItem _item) 
+    {
+        if (item.RctParent == PlayerEquippedItemsLayer)
+        {
+            _item.Equip();
+        }
+        else
+        {
+            _item.UnEquip();
+        }
+    }
+
 }

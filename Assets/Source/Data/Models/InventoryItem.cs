@@ -31,5 +31,9 @@ namespace Assets.Source.Data.Models
         public void Equip() {
             IsEquipped = true;
         }
+
+        public void UnEquip() {
+            IsEquipped = false;
+        }
     }
 }

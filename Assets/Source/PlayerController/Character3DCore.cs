@@ -69,8 +69,23 @@ namespace Assets.Source.Render.Characters
 
         [Header("Jumping")]
         public bool AllowJumpingWhenSliding = false;
-        public bool AllowDoubleJump = false;
-        public bool AllowWallJump = false;
+        public bool AllowDoubleJump 
+        {
+            get
+            {
+                if (!GameStarterManager.Instance.IsLoaded()) return false;
+                return GameStarterManager.Instance._EffectsComponent.CanDoubleJump();
+            }
+        }
+        public bool AllowWallJump
+        {
+            get
+            {
+                if (!GameStarterManager.Instance.IsLoaded()) return false;
+                return GameStarterManager.Instance._EffectsComponent.CanWallJump();
+            }
+        }
+
         public float JumpSpeed = 10f;
         public float JumpPreGroundingGraceTime = 0f;
         public float JumpPostGroundingGraceTime = 0f;
@@ -105,7 +120,15 @@ namespace Assets.Source.Render.Characters
         public CharacterState CurrentCharacterState { get; private set; }
         [Header("Extras")]
         public Vector3 AdditionalDirectionForceFromJumpWall;
-        public bool AllowDash = false;
+        public bool AllowDash
+        {
+            get
+            {
+                if (!GameStarterManager.Instance.IsLoaded()) return false;
+                return GameStarterManager.Instance._EffectsComponent.CanDash();
+            }
+        }
+
         public int maxChargeDash = 3;
         public float periodOfDashRecovery = 5f;
         [SerializeField]

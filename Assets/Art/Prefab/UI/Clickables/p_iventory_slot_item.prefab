@@ -61,20 +61,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 74549914ece6b0d41b61d2e155be1994, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 2
   m_FillAmount: 1
-  m_FillClockwise: 1
+  m_FillClockwise: 0
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
@@ -90,6 +90,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff560b1ed677704c92750c25e08e0f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDragColor: {r: 0.95294124, g: 0.09411766, b: 0.09411766, a: 0}
+  OnHoverColor: {r: 0.09411766, g: 0.36862746, b: 0.95294124, a: 0}
+  OnNormalColor: {r: 1, g: 1, b: 1, a: 0}
   id: 
   Icon: {fileID: 7033222108780936431}
 --- !u!1 &8167945947700277349
@@ -150,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: e40dbbac528fde04c8c22ce1b6c58cab, type: 2}
+  m_Material: {fileID: 2100000, guid: 27e969f6553b0d649a64dc84211f5276, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}

@@ -12,6 +12,11 @@ namespace Assets.Source.Managers
             public InventoryItemData inventoryItemData;
             public Transform poolindex;
             public int initialPoolSize;
+
+            public void ReturnToPool(Transform _child)
+            {
+                _child.SetParent(poolindex);
+            }
         }
         [Header("UI Elements")]
         public RectTransform UIPrefab;
@@ -27,6 +32,16 @@ namespace Assets.Source.Managers
         private PoolData GlassesRGB;
         [SerializeField]
         private PoolData GlassesTV;
+        [SerializeField]
+        private PoolData HeartMode;
+        [SerializeField]
+        private PoolData WallCatJump;
+        [SerializeField]
+        private PoolData WingHelp;
+        [SerializeField]
+        private PoolData WolfDash;
+
+
 
         [Space(10)]
         [Header ("Particle System")]
@@ -56,6 +71,12 @@ namespace Assets.Source.Managers
 
             AddToDictionaryAndQueu(ref GlassesRGB);
             AddToDictionaryAndQueu(ref GlassesTV);
+            AddToDictionaryAndQueu(ref WolfDash);
+            AddToDictionaryAndQueu(ref WingHelp);
+            AddToDictionaryAndQueu(ref WallCatJump);
+            AddToDictionaryAndQueu(ref HeartMode);
+            
+
 
             isLoaded = true;
         }
@@ -66,7 +87,7 @@ namespace Assets.Source.Managers
             {
                 RectTransform icon = UIPool.Dequeue();
                 icon.gameObject.SetActive(true); // Activar el ícono
-                icon.parent = _parent;
+                icon.SetParent(_parent);
                 return icon;
             }
             else
@@ -134,27 +155,42 @@ namespace Assets.Source.Managers
 
         public void ReturnInventoryGo(InventoryItemData _inventoryItemData, GameObject go)
         {
+            go.SetActive(false);
+            go.gameObject.name = "pooled";
+            PoolData _pool;
             switch (_inventoryItemData)
             {
                 case var item when item == GlassesRGB.inventoryItemData:
-                    go.SetActive(false);
-                    go.gameObject.name = "pooled";
-                    go.transform.SetParent(GlassesRGB.poolindex);
-                    InventoryItemsPool[_inventoryItemData].Enqueue(go);
+                    _pool = GlassesRGB;
                     break;
 
                 case var item when item == GlassesTV.inventoryItemData:
-                    go.SetActive(false);
-                    go.gameObject.name = "pooled";
-                    go.transform.SetParent(GlassesTV.poolindex);
-                    InventoryItemsPool[_inventoryItemData].Enqueue(go);
+                    _pool = GlassesTV;
                     break;
 
-                // Add more cases if needed
-                default:
-                    Debug.LogWarning("Unknown inventory item data");
+                case var item when item == WolfDash.inventoryItemData:
+                    _pool = WolfDash;
                     break;
+
+                case var item when item == WingHelp.inventoryItemData:
+                    _pool = WingHelp;
+                    break;
+
+                case var item when item == WallCatJump.inventoryItemData:
+                    _pool = WallCatJump;
+                    break;
+
+                case var item when item == HeartMode.inventoryItemData:
+                    _pool = HeartMode;
+                    break;
+
+                default:
+                    Debug.LogError("Unknown inventory item data");
+                    return;
             }
+
+            _pool.ReturnToPool(go.transform);
+            InventoryItemsPool[_inventoryItemData].Enqueue(go);
         }
 
         private void AddToDictionaryAndQueu(ref PoolData _poolData) {

@@ -86,7 +86,7 @@ namespace Assets.Source.Render.Characters
 
             if (!isGameLoaded) return;
 
-            if (Input.GetMouseButtonDown(1) && InventorySystem.Instance.HasTVGlasses()) 
+            if (Input.GetMouseButtonDown(1) && GameStarterManager.Instance._EffectsComponent.HasEquippedTvGlasses()) 
             {
                 OrbitCamera.TargetDistance = (OrbitCamera.TargetDistance == 0f)? OrbitCamera.DefaultDistance : 0f;
                 Character.EnableVision((OrbitCamera.TargetDistance == 0f));

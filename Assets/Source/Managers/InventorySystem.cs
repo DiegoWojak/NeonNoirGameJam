@@ -1,4 +1,5 @@
 ﻿using Assets.Source.Data.Models;
+using Assets.Source.UI.Ordering;
 using Assets.Source.Utilities;
 using Assets.Source.Utilities.Helpers.Gizmo;
 
@@ -49,13 +50,19 @@ namespace Assets.Source.Managers
             L_inventory = new List<InventoryItem>();
 #if UNITY_EDITOR
             //Add(TestData1);
-#endif            
+#endif                 
             isLoaded = true;
         }
+
+
+        
 
         private void OnEnable()
         {
             GameEvents.Instance.onPickableItemEnter += Add;
+
+            
+            
         }
 
         private void OnDisable()
@@ -102,7 +109,7 @@ namespace Assets.Source.Managers
             }
             else {
                 var msg = "You dont event have the item";
-                UnityEngine.Debug.Log(DebugUtils.GetMessageFormat(msg,4));
+                Debug.Log(DebugUtils.GetMessageFormat(msg,4));
                 _item = null;
             }
         }
@@ -133,20 +140,13 @@ namespace Assets.Source.Managers
             }
         }
 
-        bool TVGlass = false;
-        public bool HasTVGlasses()
-        {
-            return TVGlass;
-        }
+        
 
 #if UNITY_EDITOR
-        [ContextMenu("Test Inventory Glass")]
-        public void AllowTVGlasses() {
-            TVGlass = true;
-        }
 
         [ContextMenu("DoCreate")]
         public void TestAdd() {
+            Add(TestData1);
             Add(TestData2);
         }
 

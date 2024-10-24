@@ -13,7 +13,8 @@ public class MaterialPropertyChange : MonoBehaviour
         MaterialPropertyBlock props = new MaterialPropertyBlock();
         props.SetInt("_ColorIndex", ColorIndex);
 
-        var renderer = GetComponent<MeshRenderer>();
+        Renderer renderer = GetComponent<MeshRenderer>();
+        if(renderer == null ) renderer = GetComponent<SkinnedMeshRenderer>();
         renderer.SetPropertyBlock(props);
     }
 
