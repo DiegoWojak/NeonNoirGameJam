@@ -126,7 +126,7 @@ Other
 * ☑️Se agregaron particulas
 Missing:
 * PlayerSlot Afecte el gameplay del player
-# DIa 8 9:00 - 10:50 15:30
+# DIa 8 9:00 - 10:50 15:30 01:20
 * ☑️Added TooltipSystem to Inventory with message from the InventoryItemData
 * ☑️Added particle to items, and used VisorShader To let see it through
 * ☑️Added new Texture to UI Dialog computer
@@ -136,3 +136,13 @@ Missing:
 * ☑️ Se agregaron nuevos photo de personajes, more DataInventoryItems para los poderes
 Missing:
 * Testear la interacción de los NPC
+
+# Dia 9 9:00 14:00 15:00 23:40
+* No se pudo crear nuevo para luz en luces, se reutiliza un material extra
+* Más cambios en UI
+* Interaciones
+* Más cambios en escena
+  
+# Dia 10 9:00 1:10 (break)
+* Creacion de EffectItemsComponents para asignacion de que hace cada item
+* Falta implementancion ..
