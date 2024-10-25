@@ -35,6 +35,7 @@ namespace Assets.Source.Utilities
         public event Action<string> onNpcTriggerExit;
         public event Action<string, AudioIntensityController> onAudioItensityController;
         public event Action onPlayerFallingOffScreen;
+        public event Action<string,Vector3, Quaternion> onCheckPointEnter;
         public event Action<InventoryItemData> onPickableItemEnter;
 
 
@@ -99,6 +100,11 @@ namespace Assets.Source.Utilities
                 case FallingOffScreenController fallingOffScreenController:
                     if (onPlayerFallingOffScreen != null) {
                         onPlayerFallingOffScreen?.Invoke();
+                    }
+                    break;
+                case CheckPointController checkPointController:
+                    if (onCheckPointEnter != null) {
+                        onCheckPointEnter?.Invoke(id, checkPointController.transform.position,checkPointController.transform.rotation)
                     }
                     break;
                 default:

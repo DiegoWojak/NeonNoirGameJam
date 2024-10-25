@@ -52,19 +52,20 @@ namespace Assets.Source.Managers
         public Vector3 PointToSpawmSaved { get; private set; }
         public Quaternion RotationToSpawmSaved { get; private set; }
 
+        private Material _bufferMat;
         public override void Init()
         {
             _camComponent = Camera.main.GetComponent<PostProcessEffect>();
             OnCameraChangeRequiered += ChangeShader;
             LoaderManager.OnEverythingLoaded += AllowInteraction;
-
+            _bufferMat = FromDistance;
             _EffectsComponent = new EffectsManagerComponent(d_Effect, Helper);
             _EffectsComponent.ApplyAllVisualEffectsFromEquippedInventory();
 
             PointToSpawmSaved = My3DHandlerPlayer.Instance.Character.Motor.Transform.position;
             RotationToSpawmSaved = My3DHandlerPlayer.Instance.Character.Motor.Transform.rotation;
             GameEvents.Instance.onPlayerFallingOffScreen += RespawntoCheckPoint;
-
+            GameEvents.Instance.onCheckPointEnter += SaveNewPosition;
             ChangeShader();
             isLoaded = true;
         }
@@ -123,7 +124,6 @@ namespace Assets.Source.Managers
 
         void ChangeShader() {
             _camComponent.postProcessEffectMaterial = GetMaterialFromViewStatus();
-            _camComponent.postIntermedialMaterial = FromRGBGlasses;
         }
 
         void AllowInteraction()
@@ -145,7 +145,7 @@ namespace Assets.Source.Managers
             return _currentCharacterViewState == CharacterViewState.OnCameraClose ? FromClose : //FromRange
                 _currentCharacterViewState == CharacterViewState.OnWater ? FromWater :
                 _currentCharacterViewState == CharacterViewState.OnReading ? FromReading :
-                FromDistance;
+                !_change?FromDistance:FromRGBGlasses;
         }
 
         [ContextMenu("Let the player Move")]
@@ -155,6 +155,18 @@ namespace Assets.Source.Managers
 
         void RespawntoCheckPoint() {
             My3DHandlerPlayer.Instance.Character.Motor.SetPositionAndRotation(PointToSpawmSaved,RotationToSpawmSaved);
+        }
+
+        void SaveNewPosition(string id, Vector3 position, Quaternion rotation)
+        {
+            PointToSpawmSaved = position;
+            RotationToSpawmSaved = rotation;
+        }
+
+        bool _change = false;
+        public void ChangedefaultMaterial(bool change) {
+            _change = change;
+            ChangeShader();
         }
     }
     public enum CharacterViewState

@@ -28,6 +28,9 @@ namespace Assets.Source.Render.Characters
         public override void Init()
         {
             isLoaded = true;
+#if UNITY_WEBGL
+            Application.targetFrameRate = 60;
+#endif
             LoaderManager.OnEverythingLoaded += AllowInteraction;
         }
 
@@ -78,9 +81,9 @@ namespace Assets.Source.Render.Characters
                 _lookInputVector = Vector3.zero;
             }
             float scrollInput = -Input.GetAxis(MouseScrollInput);
-            #if UNITY_WEBGL
+#if UNITY_WEBGL
             scrollInput = 0f;
-            #endif
+#endif
 
             OrbitCamera.UpdateWithInput(Time.deltaTime, scrollInput, _lookInputVector); // Apply ingputs
 

@@ -37,6 +37,7 @@ namespace Assets.Source.Managers.Components
                     _i.OnRemoveItemEffect?.Invoke();
                 }
             }
+
         }
 
         public void RemoveEffectFromInventory(EffectDictionary _effect) {

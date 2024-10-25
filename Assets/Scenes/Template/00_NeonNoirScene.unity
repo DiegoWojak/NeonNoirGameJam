@@ -909,6 +909,7 @@ MonoBehaviour:
   id: 
   DialogText: Recompensa Agua
   sprite: {fileID: 0}
+  ButtonIcon: {fileID: 0}
 --- !u!65 &372240189
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1531,6 +1532,7 @@ MonoBehaviour:
   id: 
   DialogText: Hints Agua
   sprite: {fileID: 0}
+  ButtonIcon: {fileID: 0}
 --- !u!65 &578363288
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5442,6 +5444,7 @@ MonoBehaviour:
     todo pintado, donde hay dibujos es donde ha logrado llegar. <br>Presiona E para
     interactiar <br> Shift para Correr
   sprite: {fileID: 0}
+  ButtonIcon: {fileID: 0}
 --- !u!212 &5100103743167605944
 SpriteRenderer:
   m_ObjectHideFlags: 0
