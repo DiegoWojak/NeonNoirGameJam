@@ -1,10 +1,12 @@
 ﻿using Assets.Source.Managers.Components;
 using Assets.Source.Render.Characters;
+using Assets.Source.Utilities;
 using Assets.Source.Utilities.Helpers;
 using System;
 
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Playables;
 
 namespace Assets.Source.Managers
 {
@@ -40,6 +42,15 @@ namespace Assets.Source.Managers
         private ApplyEffectFunctionsHelper Helper;
         public EffectsManagerComponent _EffectsComponent { private set; get; }
 
+        public PlayableDirector Director;
+
+        [SerializeField]
+        public bool Begin { get; private set; }
+
+
+        public Vector3 PointToSpawmSaved { get; private set; }
+        public Quaternion RotationToSpawmSaved { get; private set; }
+
         public override void Init()
         {
             _camComponent = Camera.main.GetComponent<PostProcessEffect>();
@@ -48,6 +59,10 @@ namespace Assets.Source.Managers
 
             _EffectsComponent = new EffectsManagerComponent(d_Effect, Helper);
             _EffectsComponent.ApplyAllVisualEffectsFromEquippedInventory();
+
+            PointToSpawmSaved = My3DHandlerPlayer.Instance.Character.Motor.Transform.position;
+            RotationToSpawmSaved = My3DHandlerPlayer.Instance.Character.Motor.Transform.rotation;
+            GameEvents.Instance.onPlayerFallingOffScreen += RespawntoCheckPoint;
 
             ChangeShader();
             isLoaded = true;
@@ -59,7 +74,7 @@ namespace Assets.Source.Managers
                 {
                     _currentCharacterViewState = _distanceZero ? CharacterViewState.OnCameraClose : CharacterViewState.Default;
                 }
-                
+
                 OnCameraChangeRequiered();
             }
         }
@@ -68,7 +83,7 @@ namespace Assets.Source.Managers
             if (OnCameraChangeRequiered != null)
             {
                 bufferisWatering = isWatering;
-                _currentCharacterViewState = isWatering?CharacterViewState.OnWater: CharacterViewState.Default;
+                _currentCharacterViewState = isWatering ? CharacterViewState.OnWater : CharacterViewState.Default;
                 OnCameraChangeRequiered();
             }
         }
@@ -77,7 +92,7 @@ namespace Assets.Source.Managers
             if (OnCameraChangeRequiered != null)
             {
                 bufferIsReading = isReading;
-                if (isReading) 
+                if (isReading)
                 {
                     _currentCharacterViewState = CharacterViewState.OnReading;
                 }
@@ -97,12 +112,12 @@ namespace Assets.Source.Managers
 
         private void OnEnable()
         {
-            
+
         }
 
         private void OnDisable()
         {
-            
+
         }
 
         void ChangeShader() {
@@ -110,16 +125,34 @@ namespace Assets.Source.Managers
         }
 
         void AllowInteraction()
-        {           
-            Debug.Log($"Start Game");
+        {
+            if (Director != null)
+            {
+                Debug.Log($"PlayCinematic");
+                Director.Play();
+            }
+            else {
+                Debug.Log($"Not Cinematic Applied, Game just running");
+                StartGame();
+            }
+
             LoaderManager.OnEverythingLoaded -= AllowInteraction;
         }
 
         Material GetMaterialFromViewStatus() {
-            return _currentCharacterViewState==CharacterViewState.OnCameraClose? FromClose: //FromRange
-                _currentCharacterViewState == CharacterViewState.OnWater ? FromWater:
+            return _currentCharacterViewState == CharacterViewState.OnCameraClose ? FromClose : //FromRange
+                _currentCharacterViewState == CharacterViewState.OnWater ? FromWater :
                 _currentCharacterViewState == CharacterViewState.OnReading ? FromReading :
                 FromDistance;
+        }
+
+        [ContextMenu("Let the player Move")]
+        public void StartGame() {
+            Begin = true;
+        }
+
+        void RespawntoCheckPoint() {
+            My3DHandlerPlayer.Instance.Character.Motor.SetPositionAndRotation(PointToSpawmSaved,RotationToSpawmSaved);
         }
     }
     public enum CharacterViewState

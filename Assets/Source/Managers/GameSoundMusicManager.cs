@@ -1,5 +1,6 @@
 ﻿
 using Assets.Source.Render.Characters;
+using Assets.Source.Utilities.Events;
 using Assets.Source.Utilities.Helpers;
 using Assets.Source.Utilities.Helpers.Gizmo;
 using FMODUnity;
@@ -20,9 +21,18 @@ namespace Assets.Source.Managers
         public List<GameObject> computers = new List<GameObject>();
         [SerializeField]
         public GameObjectSoundConfig Doors = new GameObjectSoundConfig();
+
+        public AudioIntensityComponent _audioIntensityController { get; private set; }
+        [SerializeField]
+        private StudioEventEmitter _audioEmiter;
         public override void Init()
         {
-
+            if (_audioEmiter == null)
+            {
+                var go = GameObject.Find("BackgroundMusic");
+                if (go != null) _audioEmiter = go.GetComponent<StudioEventEmitter>();
+            }
+            _audioIntensityController = new AudioIntensityComponent(_audioEmiter);
             StartCoroutine(
                 SoundInitialization(
                     () => {
@@ -38,7 +48,7 @@ namespace Assets.Source.Managers
             yield return InitDoors();
 
             Callback?.Invoke();
-            
+
         }
 
         public void PlaySoundByPredefinedKey(PredefinedSounds _key)
@@ -69,7 +79,7 @@ namespace Assets.Source.Managers
                 if (Doors._CAV[i].GetComponent<StudioEventEmitter>() == null)
                 {
                     GameObject _b = Doors._CAV[i];
-                    yield return FmodAutomaticHelper.CreateSoundEmitirForDoor(ref _b, 
+                    yield return FmodAutomaticHelper.CreateSoundEmitirForDoor(ref _b,
                         SoundDictionary[PredefinedSounds.OpenDoor], SoundDictionary[PredefinedSounds.CloseDoor]
                         , Doors.ForOpen, Doors.ForLeave);
                 }
@@ -135,6 +145,7 @@ namespace Assets.Source.Managers
                 Debug.Log(_msg);
             }
         }
+
     }
 
     public enum PredefinedSounds

@@ -13,6 +13,7 @@ namespace Assets.Source.Utilities.Events
         public string MyName;
         public string DialogText;
         public Sprite photo;
+        public Sprite btnIcon;
         public InventoryItemData Gift;
         public GameObject IconAlert;
 
@@ -36,7 +37,7 @@ namespace Assets.Source.Utilities.Events
         public virtual void OnPlayerEnterNpcArea(string id) {
             if (id == this.id) 
             {
-                DialogManager.Instance?.OnRequestStringChange.Invoke(MyName, DialogText, photo);
+                DialogManager.Instance?.OnRequestStringChange.Invoke(MyName, DialogText, photo, btnIcon);
             }
         }
 

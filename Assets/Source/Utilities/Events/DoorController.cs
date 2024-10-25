@@ -32,7 +32,7 @@ namespace Assets.Source.Utilities.Events
         {
             if (id == this.id && status == DoorStatus.Unlocked)
             {
-                FakeWall.SetActive(false);
+                FakeWall?.SetActive(false);
             }
         }
 
@@ -40,7 +40,7 @@ namespace Assets.Source.Utilities.Events
         {
             if (id == this.id)
             {
-                FakeWall.SetActive(true);
+                FakeWall?.SetActive(true);
             }
         }
 

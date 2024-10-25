@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_AsciiArtFx 1
-  m_Shader: {fileID: 4800000, guid: e5c76dc47e82a4f46bd5b9a46bff7ae1, type: 3}
+  m_Name: GlassesTVHiden
+  m_Shader: {fileID: 4800000, guid: cb4c17899493c2d48b8e6626d27090a2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 11f911233068e5843b28d0757f6f4cbb, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -56,14 +56,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
+    m_Ints:
+    - _ColorIndex: 2
     m_Floats:
-    - _Alpha: 0.98
     - _BumpScale: 1
+    - _ColorIndex: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FastTime: 0.075
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -71,14 +71,16 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Scale: 1.7
-    - _SlowTime: 1
+    - _RotationAngle: 20.9
+    - _SPIN_FEATURE_OFF: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
+    - _WireThickness: 378
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.6901961, g: 0.29411766, b: 0.33476517, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RotationAxis: {r: 0, g: 0, b: 90, a: 1}
   m_BuildTextureStacks: []

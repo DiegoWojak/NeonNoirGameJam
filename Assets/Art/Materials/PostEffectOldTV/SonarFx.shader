@@ -27,10 +27,11 @@ Shader "Custom/Hidden/SonarFX"
         _SonarWaveParams ("Wave Params", Vector) = (1, 20, 20, 10)
         _SonarWaveVector ("Wave Vector", Vector) = (0, 0, 1, 0)
         _SonarAddColor   ("Add Color",   Color)  = (0, 0, 0, 0)
+        _Alpha("Alpha", Range(0,1)) = 1
     }
     SubShader
     {
-        Tags { "RenderType" = "Opaque" }
+        Tags { "RenderType" = "Transparent"  }
 
         CGPROGRAM
 
@@ -47,7 +48,7 @@ Shader "Custom/Hidden/SonarFX"
         float4 _SonarWaveParams; // Amp, Exp, Interval, Speed
         float3 _SonarWaveVector;
         float3 _SonarAddColor;
-
+        float _Alpha;
         void surf(Input IN, inout SurfaceOutput o)
         {
 #ifdef SONAR_DIRECTIONAL
@@ -72,6 +73,7 @@ Shader "Custom/Hidden/SonarFX"
 
             // Apply to the surface.
             o.Albedo = _SonarBaseColor;
+            o.Alpha = _Alpha;
             o.Emission = _SonarWaveColor * w + _SonarAddColor;
         }
 

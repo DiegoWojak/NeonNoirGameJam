@@ -12,13 +12,18 @@ public class DialogManager : LoaderBase<DialogManager>
     public string currentString;
     [HideInInspector]
     public Sprite CurrentSprite;
+    [HideInInspector]
+    public Sprite CurrentSpriteBtn;
+
     public DialogEntity UIDialog;
     
-    public Action<string,string, Sprite> OnRequestStringChange;
+    public Action<string,string, Sprite, Sprite> OnRequestStringChange;
     public Action OnRequestClean;
     public bool UIOpened = false;
     [SerializeField]
     private Sprite backupSprite;
+    [SerializeField]
+    private Sprite backupSpriteBtn;
     public override void Init() 
     {
         OnRequestStringChange += ChangeString;
@@ -75,15 +80,17 @@ public class DialogManager : LoaderBase<DialogManager>
     }
 
 
-    private void ChangeString(string from, string msg, Sprite _sprite) {
+    private void ChangeString(string from, string msg, Sprite _sprite, Sprite _btnSprite) {
         currentFrom = from;
         currentString = msg;
-        CurrentSprite = _sprite;
+        CurrentSprite = _sprite!=null?_sprite:backupSprite;
+        CurrentSpriteBtn = _btnSprite != null ?_btnSprite:backupSpriteBtn;
     }
     private void Clean() {
         currentFrom = "nobody";
         currentString = "none";
         CurrentSprite = backupSprite;
+        CurrentSpriteBtn = backupSpriteBtn;
     }
 
 }

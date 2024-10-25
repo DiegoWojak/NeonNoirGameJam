@@ -704,6 +704,7 @@ MonoBehaviour:
   _title: {fileID: 9191432024351185710}
   _text: {fileID: 7813014088748164645}
   _image: {fileID: 4591576581900138639}
+  _iconBtn: {fileID: 5230074898053381162}
 --- !u!114 &6398435105784213819
 MonoBehaviour:
   m_ObjectHideFlags: 0

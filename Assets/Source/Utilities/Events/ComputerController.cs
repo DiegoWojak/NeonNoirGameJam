@@ -10,6 +10,7 @@ namespace Assets.Source.Utilities.Events
         public string DialogText;
         public Sprite sprite;
         protected TriggerArea _ta;
+        public Sprite ButtonIcon;
         protected void Start()
         {
             GameEvents.Instance.onComputerTriggerEnter += OnComputerEnterAreaToInteract;
@@ -24,7 +25,7 @@ namespace Assets.Source.Utilities.Events
         protected virtual void OnComputerEnterAreaToInteract(string id) {
             if (id == this.id) 
             {
-                DialogManager.Instance?.OnRequestStringChange.Invoke(this.id,DialogText, sprite);
+                DialogManager.Instance?.OnRequestStringChange.Invoke(this.id,DialogText, sprite, ButtonIcon);
             }
         }
 

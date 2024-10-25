@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4134111926339550236}
   - component: {fileID: 7203408213616971586}
   m_Layer: 0
-  m_Name: GlowSunFlare
+  m_Name: RGBParticleFounder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

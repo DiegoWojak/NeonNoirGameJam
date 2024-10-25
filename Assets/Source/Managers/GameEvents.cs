@@ -33,7 +33,8 @@ namespace Assets.Source.Utilities
         public event Action<string> onDoorTriggerExit;
         public event Action<string> onNpcTriggerEnter;
         public event Action<string> onNpcTriggerExit;
-
+        public event Action<string, AudioIntensityController> onAudioItensityController;
+        public event Action onPlayerFallingOffScreen;
         public event Action<InventoryItemData> onPickableItemEnter;
 
 
@@ -87,6 +88,17 @@ namespace Assets.Source.Utilities
                     {
                         _bufferComponent = _go;
                         onNpcTriggerEnter?.Invoke(id);
+                    }
+                    break;
+
+                case AudioIntensityController audioIntensityController:
+                    if (onAudioItensityController != null) {
+                        onAudioItensityController?.Invoke(id, audioIntensityController);
+                    }
+                    break;
+                case FallingOffScreenController fallingOffScreenController:
+                    if (onPlayerFallingOffScreen != null) {
+                        onPlayerFallingOffScreen?.Invoke();
                     }
                     break;
                 default:

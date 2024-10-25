@@ -24,7 +24,7 @@ namespace Assets.Source.Render.Characters
         private const string VerticalInput = "Vertical";
 
         private bool isGameLoaded = false;
-
+        private bool isGameStarted { get { return GameStarterManager.Instance.Begin; } }
         public override void Init()
         {
             isLoaded = true;
@@ -50,7 +50,7 @@ namespace Assets.Source.Render.Characters
 
         private void Update()
         {
-            if (!isGameLoaded) return;
+            if (!isGameLoaded || !isGameStarted) return;
 
             if (Input.GetMouseButtonDown(0) && !Character.DisableInputsFromPlayer && !UIManager.Instance.IsAnyUIOpened) 
             {
@@ -136,6 +136,13 @@ namespace Assets.Source.Render.Characters
         }
 
 
+        bool test = false;
+        [ContextMenu("Stop Animator for working")]
+        public void ChangeLayerAnimatorPriority() {
+
+            Character.CharacterAnimator.SetLayerWeight(1,test?0:1);
+            test = !test;
+        }
 
     }
 }

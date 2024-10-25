@@ -14,7 +14,8 @@ namespace Assets.Source.UI.Dialog
         TextMeshProUGUI _text;
         [SerializeField]
         Image _image;
-
+        [SerializeField]
+        Image _iconBtn;
         string title = string.Empty;
         string msg = string.Empty;
 
@@ -23,7 +24,7 @@ namespace Assets.Source.UI.Dialog
             title = DialogManager.Instance.currentFrom;
             msg = DialogManager.Instance.currentString;
             _image.sprite = DialogManager.Instance.CurrentSprite;
-
+            _iconBtn.sprite = DialogManager.Instance.CurrentSpriteBtn;
             _title.SetText($"Device Name: {title}");
             _text.SetText(msg);
             page = 1;
