@@ -146,3 +146,10 @@ Missing:
 # Dia 10 9:00 1:10 (break)
 * Creacion de EffectItemsComponents para asignacion de que hace cada item
 * Falta implementancion ..
+
+# Dia 11 --
+* Modificando niveles
+* Implementacion NPC controller, Falling controller
+* SHader RGB
+# Dia 12 --
+* Nuevo shader para TV
