@@ -1,6 +1,6 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Custom/WireframeSping"
+Shader "Custom/WireframeSpingToHide"
 {
      Properties
     {
@@ -17,12 +17,13 @@ Shader "Custom/WireframeSping"
     {
         Tags { "RenderType"="Opaque" }
 
-        Stencil{
-            ref [_ID]
-            comp equal
+        Stencil
+        {
+            Ref [_ID]
+            Comp NotEqual // Compare if the stencil ref (ID) matches
             Pass Keep
+            Fail Replace // Replace the stencil buffer with the object ID if it doesn't match
         }
-
         Pass
         {
             CGPROGRAM
@@ -39,6 +40,7 @@ Shader "Custom/WireframeSping"
             float _WireThickness;
             float _RotationAngle;
             float3 _RotationAxis;
+            int _ID;
 
             struct appdata
             {
@@ -170,7 +172,6 @@ Shader "Custom/WireframeSping"
 
                 int index = clamp(UNITY_ACCESS_INSTANCED_PROP(Props, _ColorIndex),0,10);
                 fixed4 wireColor = colors[index];
-
                 fixed4 finalColor = wireColor;
                 finalColor.a = 1;
 

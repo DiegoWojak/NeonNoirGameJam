@@ -104,7 +104,7 @@ namespace Assets.Source.Utilities
                     break;
                 case CheckPointController checkPointController:
                     if (onCheckPointEnter != null) {
-                        onCheckPointEnter?.Invoke(id, checkPointController.transform.position,checkPointController.transform.rotation)
+                        onCheckPointEnter?.Invoke(id, checkPointController.transform.position, checkPointController.transform.rotation);
                     }
                     break;
                 default:

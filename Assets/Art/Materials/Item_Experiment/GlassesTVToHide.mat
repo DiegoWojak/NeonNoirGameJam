@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GlassesTVHiden
-  m_Shader: {fileID: 4800000, guid: cb4c17899493c2d48b8e6626d27090a2, type: 3}
+  m_Name: GlassesTVToHide
+  m_Shader: {fileID: 4800000, guid: 21d789a38c900344f9955a23ac8dc0f6, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -57,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
-    - _ColorIndex: 2
+    - _ColorIndex: 1
     - _ID: 1
     m_Floats:
     - _BumpScale: 1
