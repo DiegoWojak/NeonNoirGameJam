@@ -780,6 +780,7 @@ MonoBehaviour:
   FromClose: {fileID: 2100000, guid: 3150bdc28de2e804c9d90d6deff5337d, type: 2}
   FromReading: {fileID: 2100000, guid: 43322c58cdf2ceb47a3524463fef1c47, type: 2}
   FromWater: {fileID: 2100000, guid: 619fd5581d70a7742ab8fe5af7ff7282, type: 2}
+  FromRGBGlasses: {fileID: 2100000, guid: 43322c58cdf2ceb47a3524463fef1c47, type: 2}
   d_Effect:
   - _relatedItem: {fileID: 11400000, guid: b713f9356af6b764b9f3264c2e5ba15e, type: 2}
     OnEquippingItemEffect:
@@ -1203,6 +1204,7 @@ MonoBehaviour:
     - {fileID: 0}
     ForOpen: 3
     ForLeave: 4
+  _audioEmiter: {fileID: 0}
 --- !u!1 &651277333182859223
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,9 @@ Shader "Custom/Hidden/EdgeDetection"
         _EdgeColor ("Edge Color", Color) = (1,1,1,1)
         _BackgroundColor ("Background Color", Color) = (0,0,0,1)
         _EdgeThreshold ("Edge Threshold", Range(0,1)) = 0.1
+        _Circle1Center ("Circle 1 Center", Vector) = (0.5, 0.5, 0, 0) // Center of circle 1
+        _Circle2Center ("Circle 2 Center", Vector) = (0.5, 0.5, 0, 0) // Center of circle 2
+        _CircleRadius ("Circle Radius", Float) = 0.25 // Radius of both circles
     }
     SubShader
     {
@@ -37,6 +40,9 @@ Shader "Custom/Hidden/EdgeDetection"
             float4 _EdgeColor;
             float4 _BackgroundColor;
             float _EdgeThreshold;
+            float2 _Circle1Center;
+            float2 _Circle2Center;
+            float _CircleRadius;
 
             v2f vert (appdata v)
             {
@@ -51,25 +57,34 @@ Shader "Custom/Hidden/EdgeDetection"
                 float2 texelSize = 1.0 / _ScreenParams.xy; // size of a single texel
                 float4 col = tex2D(_MainTex, i.uv);
 
-                // Sample neighboring pixels for edge detection (Sobel)
-                float3 sampleTL = tex2D(_MainTex, i.uv + texelSize * float2(-1, 1)).rgb; // Top left
-                float3 sampleT = tex2D(_MainTex, i.uv + texelSize * float2(0, 1)).rgb;   // Top
-                float3 sampleTR = tex2D(_MainTex, i.uv + texelSize * float2(1, 1)).rgb;  // Top right
-                float3 sampleL = tex2D(_MainTex, i.uv + texelSize * float2(-1, 0)).rgb;  // Left
-                float3 sampleR = tex2D(_MainTex, i.uv + texelSize * float2(1, 0)).rgb;   // Right
-                float3 sampleBL = tex2D(_MainTex, i.uv + texelSize * float2(-1, -1)).rgb;// Bottom left
-                float3 sampleB = tex2D(_MainTex, i.uv + texelSize * float2(0, -1)).rgb;  // Bottom
-                float3 sampleBR = tex2D(_MainTex, i.uv + texelSize * float2(1, -1)).rgb; // Bottom right
+                if (dot(col, float3(0.299, 0.587, 0.114)) < 0.05) {
+                    return float4(0.0, 0.0, 0.0, 1.0);
+                }
 
-                // Sobel edge detection filter
-                float3 horizontalEdge = (sampleTL + 2.0 * sampleL + sampleBL) - (sampleTR + 2.0 * sampleR + sampleBR);
-                float3 verticalEdge = (sampleTL + 2.0 * sampleT + sampleTR) - (sampleBL + 2.0 * sampleB + sampleBR);
-                float edgeStrength = length(horizontalEdge + verticalEdge);
+                float dist1 = distance(i.uv, _Circle1Center);
+                float dist2 = distance(i.uv, _Circle2Center);
 
-                // Compare edge strength to the threshold to determine edge
-                if (edgeStrength > _EdgeThreshold)
-                    return _EdgeColor; // Edge color
-                else
+                // Check if pixel is inside either circle
+                bool insideCircle1 = dist1 < _CircleRadius;
+                bool insideCircle2 = dist2 < _CircleRadius;
+
+                if (insideCircle1 || insideCircle2)
+                {
+                    // Sample only 4 points instead of 9 for edge detection
+                    float3 texSampleTL = tex2D(_MainTex, i.uv + texelSize * float2(-1, 1)).rgb;
+                    float3 texSampleTR = tex2D(_MainTex, i.uv + texelSize * float2(1, 1)).rgb;
+                    float3 texSampleBL = tex2D(_MainTex, i.uv + texelSize * float2(-1, -1)).rgb;
+                    float3 texSampleBR = tex2D(_MainTex, i.uv + texelSize * float2(1, -1)).rgb;
+
+                    half3 sobelX = texSampleTL - texSampleTR;
+                    half3 sobelY = texSampleBL - texSampleBR;
+
+                    half edge = length(sobelX + sobelY);
+
+                    if (edge > _EdgeThreshold)
+                        return _EdgeColor; // Edge color
+                }
+
                     return _BackgroundColor; // Background color
             }
             ENDCG

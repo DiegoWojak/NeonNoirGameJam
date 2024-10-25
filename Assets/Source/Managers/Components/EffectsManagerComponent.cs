@@ -47,7 +47,9 @@ namespace Assets.Source.Managers.Components
             _effect.OnEquippingItemEffect?.Invoke();
         }
 
-
+        public bool HasRGBGlasses() {
+            return Helper._HasRGBGlasses;
+        }
         public bool HasEquippedTvGlasses()
         {
             return Helper._hasTVGlasses;
@@ -65,6 +67,7 @@ namespace Assets.Source.Managers.Components
         public bool CanDash() {
             return Helper._CanDash;
         }
+
 
     }
 

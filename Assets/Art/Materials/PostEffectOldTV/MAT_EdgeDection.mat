@@ -26,8 +26,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EdgeThreshold: 0.1
+    - _CircleRadius: 0.42
+    - _EdgeThreshold: 0.12
     m_Colors:
-    - _BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BackgroundColor: {r: 0.064613745, g: 0.15636548, b: 0.41509432, a: 0.6862745}
+    - _Circle1Center: {r: 0.25, g: 0.5, b: 0, a: 0}
+    - _Circle2Center: {r: 0.75, g: 0.5, b: 0, a: 0}
+    - _EdgeColor: {r: 0.58544505, g: 0.8784314, b: 0.47058824, a: 1}
   m_BuildTextureStacks: []

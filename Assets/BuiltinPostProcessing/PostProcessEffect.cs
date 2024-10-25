@@ -1,26 +1,28 @@
 
+using Assets.Source.Managers;
+using Assets.Source.Utilities.Helpers;
 using UnityEngine;
 
 public class PostProcessEffect : MonoBehaviour
 {
     public Material postProcessEffectMaterial;
-    bool AditionalShaderTest = false;
-    public Material Testmaterial;
+    public Material postIntermedialMaterial;
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         if (postProcessEffectMaterial != null)
         {
 
-            if (AditionalShaderTest)
+            if (GameStarterManager.Instance._EffectsComponent.HasRGBGlasses() && postIntermedialMaterial!=null)
             {
-                RenderTexture temp = RenderTexture.GetTemporary(source.width, source.height);
+                /*RenderTexture temp = RenderTexture.GetTemporary(source.width/2, source.height/2);
 
                 // Apply the ASCII shader first
                 Graphics.Blit(source, temp, postProcessEffectMaterial);
                 // Apply the Edge Detection shader after ASCII
-                Graphics.Blit(temp, destination, Testmaterial);
+                Graphics.Blit(temp, destination, postIntermedialMaterial);
 
-                RenderTexture.ReleaseTemporary(temp);
+                RenderTexture.ReleaseTemporary(temp);*/
+                Graphics.Blit(source, destination, postIntermedialMaterial);
             }
             else { 
                 Graphics.Blit(source, destination,postProcessEffectMaterial);
@@ -33,10 +35,4 @@ public class PostProcessEffect : MonoBehaviour
     }
 
 
-#if UNITY_EDITOR
-    [ContextMenu("Test Shader")]
-    public void TestShader(){
-        AditionalShaderTest = true;
-    }
-#endif
 }

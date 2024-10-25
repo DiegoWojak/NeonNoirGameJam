@@ -25,6 +25,7 @@ namespace Assets.Source.Managers
         public Material FromClose;
         public Material FromReading;
         public Material FromWater;
+        public Material FromRGBGlasses;
 
         public CharacterViewState _currentCharacterViewState { private set; get; }
 
@@ -122,6 +123,7 @@ namespace Assets.Source.Managers
 
         void ChangeShader() {
             _camComponent.postProcessEffectMaterial = GetMaterialFromViewStatus();
+            _camComponent.postIntermedialMaterial = FromRGBGlasses;
         }
 
         void AllowInteraction()
