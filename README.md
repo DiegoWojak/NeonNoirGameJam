@@ -151,5 +151,7 @@ Missing:
 * Modificando niveles
 * Implementacion NPC controller, Falling controller
 * SHader RGB
-# Dia 12 --
+# Dia 12 -- 9:00 - 13:10  (break) 17:00 - 01:00
 * Nuevo shader para TV
+* Ajustando intro
+* Main menu y SceneLoadManager
