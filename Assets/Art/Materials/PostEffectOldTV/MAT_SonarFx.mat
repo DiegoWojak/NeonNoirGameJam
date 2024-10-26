@@ -58,7 +58,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.466
+    - _Alpha: 0.904
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -78,9 +78,9 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SonarAddColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SonarBaseColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.40392157}
-    - _SonarWaveColor: {r: 0.10196078, g: 0.9531852, b: 1, a: 0.25490198}
-    - _SonarWaveParams: {r: 1, g: 40, b: 40, a: 10}
-    - _SonarWaveVector: {r: 0, g: 0, b: 0.2, a: 0}
+    - _SonarAddColor: {r: 0.024430407, g: 0.084905684, b: 0.052652206, a: 0.35686275}
+    - _SonarBaseColor: {r: 0.5754717, g: 0.14500491, b: 0.035288375, a: 0.85882354}
+    - _SonarWaveColor: {r: 0.71752787, g: 0, b: 1, a: 0}
+    - _SonarWaveParams: {r: 7.34, g: 40, b: 40, a: 10}
+    - _SonarWaveVector: {r: 5.34, g: 0, b: 0.2, a: 1.47}
   m_BuildTextureStacks: []

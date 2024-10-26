@@ -1,7 +1,11 @@
-﻿using Assets.Source.Utilities.Helpers.Gizmo;
+﻿#if UNITY_EDITOR
+using Assets.Source.Utilities.Helpers.Gizmo;
+#endif
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 
@@ -21,6 +25,9 @@ namespace Assets.Source
         private LoadingVisualSetup loadingVisualSetup;
 
         public static Action OnEverythingLoaded;
+
+        public static LoaderManager Instance { get { return _instance; } }
+        private static LoaderManager _instance;
         private void OnEnable()
         {
             _stacks = new Queue<IInitiable>();
@@ -29,6 +36,17 @@ namespace Assets.Source
             }
             isEverythingLoaded = false;
             StartCoroutine(CoroutineLoad());
+        }
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
+                return;
+            }
+
         }
 
         private string messasge = string.Empty;
@@ -63,7 +81,31 @@ namespace Assets.Source
             isEverythingLoaded = true;
             OnEverythingLoaded?.Invoke();
         }
+
+
+        public void EnqueueProcess(Action Pre, IEnumerator ProcessToLoad, Action Post) {
+            StartCoroutine(MainEnumator(Pre,ProcessToLoad,Post));
+        }
+
+        private IEnumerator MainEnumator(Action pre, IEnumerator _pr , Action Post) { 
+            loadingVisualSetup.LoadingPage.SetActive(true);
+            pre?.Invoke();
+
+            while (_pr.MoveNext())
+            {
+                if (_pr.Current is float progress)
+                {
+                    loadingVisualSetup.SetText(progress);
+                }
+                yield return _pr.Current;
+            }
+
+            Post?.Invoke();
+            loadingVisualSetup.LoadingPage.SetActive(false);
+        }
     }
+
+    
 
     [Serializable]
     public struct LoadingVisualSetup {
@@ -72,6 +114,11 @@ namespace Assets.Source
 
         public void SetText(int stackSize, int totalSize) {
             float percent = ((float)(totalSize-stackSize) / totalSize * 100);
+            Text.text = $"Loading: {percent:F0}%";
+        }
+
+        public void SetText(float  percent)
+        {
             Text.text = $"Loading: {percent:F0}%";
         }
 

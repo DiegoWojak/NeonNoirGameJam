@@ -23,38 +23,38 @@ namespace Assets.Source.Render.Characters
         private const string HorizontalInput = "Horizontal";
         private const string VerticalInput = "Vertical";
 
-        private bool isGameLoaded = false;
-        private bool isGameStarted { get { return GameStarterManager.Instance.Begin; } }
+        private bool isGameStarted { get { return GameStarterManager.Instance.GameBegin; } }
         public override void Init()
         {
             isLoaded = true;
 #if UNITY_WEBGL
             Application.targetFrameRate = 60;
 #endif
-            LoaderManager.OnEverythingLoaded += AllowInteraction;
+            //LoaderManager.OnEverythingLoaded += AllowInteraction;
         }
 
         void AllowInteraction()
         {
             Debug.Log("Loaded");
-            isGameLoaded = true;
-            LoaderManager.OnEverythingLoaded -= AllowInteraction;
+            //isGameLoaded = true;
+            //LoaderManager.OnEverythingLoaded -= AllowInteraction;
         }
 
-        private void Start()
+        public void SetCamera()
         {
-            //
+            
             Cursor.lockState = CursorLockMode.Locked;
-
+            Cursor.visible = false;
             OrbitCamera.SetFollowTranform(CameraFollowPoint);
 
             OrbitCamera.IgnoredColliders.AddRange(Character.GetComponentsInChildren<Collider>().ToList());
+            HandleCameraInput();
         }
 
         private void Update()
         {
-            if (!isGameLoaded || !isGameStarted) return;
-
+            if (!isGameStarted) return;
+            
             if (Input.GetMouseButtonDown(0) && !Character.DisableInputsFromPlayer && !UIManager.Instance.IsAnyUIOpened) 
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -66,6 +66,8 @@ namespace Assets.Source.Render.Characters
 
         private void LateUpdate()
         {
+            if (!isGameStarted) return;
+
             HandleCameraInput();
             Character.PostInputUpdate(Time.deltaTime, OrbitCamera.transform.forward, ref OrbitCamera.Camera);
         }
@@ -87,7 +89,7 @@ namespace Assets.Source.Render.Characters
 
             OrbitCamera.UpdateWithInput(Time.deltaTime, scrollInput, _lookInputVector); // Apply ingputs
 
-            if (!isGameLoaded) return;
+            if (!isGameStarted) return;
 
             if (Input.GetMouseButtonDown(1) && GameStarterManager.Instance._EffectsComponent.HasEquippedTvGlasses()) 
             {

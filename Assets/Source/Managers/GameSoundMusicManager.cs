@@ -18,9 +18,9 @@ namespace Assets.Source.Managers
     {
         public Dictionary<PredefinedSounds, EventReference> SoundDictionary;
 
-        public List<GameObject> computers = new List<GameObject>();
+        /*public List<GameObject> computers = new List<GameObject>();
         [SerializeField]
-        public GameObjectSoundConfig Doors = new GameObjectSoundConfig();
+        public GameObjectSoundConfig Doors = new GameObjectSoundConfig();*/
 
         public AudioIntensityComponent _audioIntensityController { get; private set; }
         [SerializeField]
@@ -44,8 +44,8 @@ namespace Assets.Source.Managers
         IEnumerator SoundInitialization(Action Callback)
         {
             yield return InitDictionary();
-            yield return InitComputers();
-            yield return InitDoors();
+            /*yield return InitComputers();
+            yield return InitDoors();*/
 
             Callback?.Invoke();
 
@@ -57,7 +57,7 @@ namespace Assets.Source.Managers
         }
 
 
-        IEnumerator InitComputers()
+        /*IEnumerator InitComputers()
         {
             if (SoundDictionary.TryGetValue(PredefinedSounds.ComputerTurning, out EventReference _sound))
             {
@@ -84,7 +84,7 @@ namespace Assets.Source.Managers
                         , Doors.ForOpen, Doors.ForLeave);
                 }
             }
-        }
+        }*/
 
         IEnumerator InitDictionary()
         {

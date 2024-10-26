@@ -109,6 +109,7 @@ MonoBehaviour:
   MyName: barry
   DialogText: Hey there this is a test
   photo: {fileID: 21300000, guid: 7820eb29d1857314ea65fa2c6794b4ba, type: 3}
+  btnIcon: {fileID: 0}
   Gift: {fileID: 0}
   IconAlert: {fileID: 0}
   PostAction:
@@ -410,6 +411,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f13339b5eb1ff24fad7b609c329c9a5, type: 3}
+--- !u!1 &5575905445364658318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2035582688616703362, guid: 5f13339b5eb1ff24fad7b609c329c9a5, type: 3}
+  m_PrefabInstance: {fileID: 5863211581223900428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1980065434153546294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5575905445364658318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07bd402c98134b040a33a4175fa6ac24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ColorIndex: 8
 --- !u!4 &6256896962993582823 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5f13339b5eb1ff24fad7b609c329c9a5, type: 3}

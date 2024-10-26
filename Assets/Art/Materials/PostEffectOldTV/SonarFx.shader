@@ -31,8 +31,13 @@ Shader "Custom/Hidden/SonarFX"
     }
     SubShader
     {
-        Tags { "RenderType" = "Transparent"  }
-
+        Tags 
+        { 
+            "RenderType" = "Opaque"
+            "Queue" = "Transparent" 
+        }
+        Blend SrcAlpha One 
+        BlendOp Add // (Default)Add -Sub -Max -Min -RevSub
         CGPROGRAM
 
         #pragma surface surf Lambert
@@ -70,11 +75,17 @@ Shader "Custom/Hidden/SonarFX"
 
             // Amplify.
             w *= _SonarWaveParams.x;
-
-            // Apply to the surface.
-            o.Albedo = _SonarBaseColor;
-            o.Alpha = _Alpha;
-            o.Emission = _SonarWaveColor * w + _SonarAddColor;
+            if (dot(_SonarAddColor, float3(0.299, 0.587, 0.114)) < 0.05) {
+                    o.Albedo = float3(0.,0.,0.);
+                    o.Alpha = 0;
+                    o.Emission = float3(0.,0.,0.);
+            }else{
+                // Apply to the surface.
+                o.Albedo = _SonarBaseColor;
+                o.Alpha = _Alpha;
+                o.Emission = _SonarWaveColor * w + _SonarAddColor;
+                //o.Emission = float3(0.,0.,0.);
+            }
         }
 
         ENDCG

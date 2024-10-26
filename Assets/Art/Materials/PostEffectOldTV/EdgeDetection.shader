@@ -10,6 +10,7 @@ Shader "Custom/Hidden/EdgeDetection"
         _Circle1Center ("Circle 1 Center", Vector) = (0.5, 0.5, 0, 0) // Center of circle 1
         _Circle2Center ("Circle 2 Center", Vector) = (0.5, 0.5, 0, 0) // Center of circle 2
         _CircleRadius ("Circle Radius", Float) = 0.25 // Radius of both circles
+        [Toggle(MORE_CALCULATION)]_MORE_CALCULATION("Better Calculation", Float) = 0
     }
     SubShader
     {
@@ -21,6 +22,7 @@ Shader "Custom/Hidden/EdgeDetection"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma shader_feature MORE_CALCULATION
 
             #include "UnityCG.cginc"
 
@@ -70,19 +72,37 @@ Shader "Custom/Hidden/EdgeDetection"
 
                 if (insideCircle1 || insideCircle2)
                 {
-                    // Sample only 4 points instead of 9 for edge detection
-                    float3 texSampleTL = tex2D(_MainTex, i.uv + texelSize * float2(-1, 1)).rgb;
-                    float3 texSampleTR = tex2D(_MainTex, i.uv + texelSize * float2(1, 1)).rgb;
-                    float3 texSampleBL = tex2D(_MainTex, i.uv + texelSize * float2(-1, -1)).rgb;
-                    float3 texSampleBR = tex2D(_MainTex, i.uv + texelSize * float2(1, -1)).rgb;
+                    #ifdef _MORE_CALCULATION
+                        float3 sampleTL = tex2D(_MainTex, i.uv + texelSize * float2(-1, 1)).rgb; // Top left
+                        float3 sampleT = tex2D(_MainTex, i.uv + texelSize * float2(0, 1)).rgb;   // Top
+                        float3 sampleTR = tex2D(_MainTex, i.uv + texelSize * float2(1, 1)).rgb;  // Top right
+                        float3 sampleL = tex2D(_MainTex, i.uv + texelSize * float2(-1, 0)).rgb;  // Left
+                        float3 sampleR = tex2D(_MainTex, i.uv + texelSize * float2(1, 0)).rgb;   // Right
+                        float3 sampleBL = tex2D(_MainTex, i.uv + texelSize * float2(-1, -1)).rgb;// Bottom left
+                        float3 sampleB = tex2D(_MainTex, i.uv + texelSize * float2(0, -1)).rgb;  // Bottom
+                        float3 sampleBR = tex2D(_MainTex, i.uv + texelSize * float2(1, -1)).rgb; // Bottom right
 
-                    half3 sobelX = texSampleTL - texSampleTR;
-                    half3 sobelY = texSampleBL - texSampleBR;
-
-                    half edge = length(sobelX + sobelY);
-
-                    if (edge > _EdgeThreshold)
+                        float3 horizontalEdge = (sampleTL + 2.0 * sampleL + sampleBL) - (sampleTR + 2.0 * sampleR + sampleBR);
+                        float3 verticalEdge = (sampleTL + 2.0 * sampleT + sampleTR) - (sampleBL + 2.0 * sampleB + sampleBR);
+                        float edgeStrength = length(horizontalEdge + verticalEdge);
+                        if (edgeStrength > _EdgeThreshold)
                         return _EdgeColor; // Edge color
+                    #else
+                        // Sample only 4 points instead of 9 for edge detection
+                        float3 texSampleTL = tex2D(_MainTex, i.uv + texelSize * float2(-1, 1)).rgb;
+                        float3 texSampleTR = tex2D(_MainTex, i.uv + texelSize * float2(1, 1)).rgb;
+                        float3 texSampleBL = tex2D(_MainTex, i.uv + texelSize * float2(-1, -1)).rgb;
+                        float3 texSampleBR = tex2D(_MainTex, i.uv + texelSize * float2(1, -1)).rgb;
+
+                        half3 sobelX = texSampleTL - texSampleTR;
+                        half3 sobelY = texSampleBL - texSampleBR;
+
+                        half edge = length(sobelX + sobelY);
+                        if (edge > _EdgeThreshold)
+                            return _EdgeColor; // Edge color
+                    #endif
+
+
                 }
 
                     return _BackgroundColor; // Background color

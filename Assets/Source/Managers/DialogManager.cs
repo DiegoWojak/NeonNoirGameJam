@@ -34,7 +34,7 @@ public class DialogManager : LoaderBase<DialogManager>
     public void RequestOpen() 
     {
         if (UIOpened == false) {
-            UIManager.Instance.RequestOpenUI(this, (_request) => {
+            UIManager.Instance.RequestOpenUI(this, true ,(_request) => {
                 if (_request)
                 {
                     UIDialog?.gameObject.SetActive(true);

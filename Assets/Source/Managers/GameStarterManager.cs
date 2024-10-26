@@ -46,28 +46,29 @@ namespace Assets.Source.Managers
         public PlayableDirector Director;
 
         [SerializeField]
-        public bool Begin { get; private set; }
-
+        public bool GameBegin { get; private set; }
 
         public Vector3 PointToSpawmSaved { get; private set; }
         public Quaternion RotationToSpawmSaved { get; private set; }
 
+
         private Material _bufferMat;
+        [SerializeField]
+        private GameObject MainCamera;
+        [SerializeField]
+        private GameObject Player;
         public override void Init()
         {
-            _camComponent = Camera.main.GetComponent<PostProcessEffect>();
+            _camComponent = MainCamera.GetComponent<PostProcessEffect>();
             OnCameraChangeRequiered += ChangeShader;
-            LoaderManager.OnEverythingLoaded += AllowInteraction;
             _bufferMat = FromDistance;
             _EffectsComponent = new EffectsManagerComponent(d_Effect, Helper);
-            _EffectsComponent.ApplyAllVisualEffectsFromEquippedInventory();
 
-            PointToSpawmSaved = My3DHandlerPlayer.Instance.Character.Motor.Transform.position;
-            RotationToSpawmSaved = My3DHandlerPlayer.Instance.Character.Motor.Transform.rotation;
             GameEvents.Instance.onPlayerFallingOffScreen += RespawntoCheckPoint;
             GameEvents.Instance.onCheckPointEnter += SaveNewPosition;
-            ChangeShader();
+            
             isLoaded = true;
+
         }
 
         public void CameraDistanceChange(bool _distanceZero) {
@@ -126,21 +127,6 @@ namespace Assets.Source.Managers
             _camComponent.postProcessEffectMaterial = GetMaterialFromViewStatus();
         }
 
-        void AllowInteraction()
-        {
-            if (Director != null)
-            {
-                Debug.Log($"PlayCinematic");
-                Director.Play();
-            }
-            else {
-                Debug.Log($"Not Cinematic Applied, Game just running");
-                StartGame();
-            }
-
-            LoaderManager.OnEverythingLoaded -= AllowInteraction;
-        }
-
         Material GetMaterialFromViewStatus() {
             return _currentCharacterViewState == CharacterViewState.OnCameraClose ? FromClose : //FromRange
                 _currentCharacterViewState == CharacterViewState.OnWater ? FromWater :
@@ -150,11 +136,55 @@ namespace Assets.Source.Managers
 
         [ContextMenu("Let the player Move")]
         public void StartGame() {
-            Begin = true;
+            //Find StartPoint
+            //Find EndPoint
+            _EffectsComponent.ApplyAllVisualEffectsFromEquippedInventory();
+            ChangeShader();
+            //PointToSpawmSaved = My3DHandlerPlayer.Instance.Character.Motor.Transform.position;
+            //RotationToSpawmSaved = My3DHandlerPlayer.Instance.Character.Motor.Transform.rotation;
+            MainCamera.SetActive(true);
+            Player.SetActive(true);
+
+            RespawntoCheckPointForce(true);
+            My3DHandlerPlayer.Instance.SetCamera();
+
+            if (Director != null)
+            {
+                BlockInteraction();
+                Debug.Log($"PlayCinematic");
+                Director.Play();
+            }
+            else
+            {
+                Debug.Log($"Not Cinematic Applied, Game just running");
+                GameBegin = true;
+            }
+            
         }
+
+
+        public void PreStartGame() {
+            GameObject _go = GameObject.Find("STARTPOINT");
+            SaveNewPosition("", _go.transform.position, _go.transform.rotation);
+        }
+
+        private void BlockInteraction() {
+            UIManager.Instance.RequestOpenUI(this, false);
+        }
+
+        public void AllowInteraction() {
+            UIManager.Instance.RequestCloseUI(this);
+            GameBegin = true;
+        }
+
 
         void RespawntoCheckPoint() {
             My3DHandlerPlayer.Instance.Character.Motor.SetPositionAndRotation(PointToSpawmSaved,RotationToSpawmSaved);
+        }
+
+        void RespawntoCheckPointForce(bool force = false)
+        {
+            My3DHandlerPlayer.Instance.Character.Motor.SetPositionAndRotation(PointToSpawmSaved, RotationToSpawmSaved, force);
         }
 
         void SaveNewPosition(string id, Vector3 position, Quaternion rotation)

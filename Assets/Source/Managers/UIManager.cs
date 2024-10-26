@@ -31,7 +31,7 @@ namespace Assets.Source.Managers
             }
         }
 
-        public void RequestOpenUI(IInitiable _requireEnt, Action<bool> RequestMessage = null) { 
+        public void RequestOpenUI(IInitiable _requireEnt, bool BlockView = true ,Action<bool> RequestMessage = null) { 
             if(_requireEnt != null)
             {
                 _currentManagerUsing.Push(_requireEnt);
@@ -48,7 +48,7 @@ namespace Assets.Source.Managers
 #endif
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-                Panel.SetActive(true);
+                Panel.SetActive(BlockView);
             }
         }
 

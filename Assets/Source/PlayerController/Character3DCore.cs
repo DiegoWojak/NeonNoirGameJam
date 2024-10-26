@@ -118,8 +118,10 @@ namespace Assets.Source.Render.Characters
         public Transform MeshRoot;
         public List<Collider> IgnoredColliders = new List<Collider>();
         public CharacterState CurrentCharacterState { get; private set; }
+        [Space(10)]
         [Header("Extras")]
         public Vector3 AdditionalDirectionForceFromJumpWall;
+        
         public bool AllowDash
         {
             get
@@ -129,6 +131,8 @@ namespace Assets.Source.Render.Characters
             }
         }
 
+        [Space(10)]
+        [Header("Dash attributes")]
         public int maxChargeDash = 3;
         public float periodOfDashRecovery = 5f;
         [SerializeField]
@@ -800,7 +804,11 @@ namespace Assets.Source.Render.Characters
                                 Vector3 jumpDirection = Motor.CharacterUp;
                                 if (_canWallJump)
                                 {
-                                    jumpDirection = _wallJumpNormal + (AdditionalDirectionForceFromJumpWall);
+                                    jumpDirection = _wallJumpNormal + (new Vector3(
+                                        Mathf.Sign(currentVelocity.x) * Motor.CharacterRight.x * AdditionalDirectionForceFromJumpWall.x, 
+                                        AdditionalDirectionForceFromJumpWall.y,
+                                        Motor.CharacterForward.z * AdditionalDirectionForceFromJumpWall.z));//
+                                    
                                     CharacterAnimator.SetTrigger("OnDoubleJump");
                                 }
                                 else if (Motor.GroundingStatus.FoundAnyGround && !Motor.GroundingStatus.IsStableOnGround)

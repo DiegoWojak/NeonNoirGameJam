@@ -138,7 +138,7 @@ public class DragManager : LoaderBase<DragManager>
 
     IEnumerator UpdateVisualRoutine(Action callback) 
     {
-        UIManager.Instance.RequestOpenUI(this, (_re) => {
+        UIManager.Instance.RequestOpenUI(this, true,(_re) => {
             if (!_re)
             {
                 Debug.Log($"Couln't open the UI because it was already opened");
