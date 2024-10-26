@@ -1,11 +1,13 @@
 ﻿
 using Assets.Source.Managers;
 using Assets.Source.Utilities;
+using Assets.Source.Utilities.Helpers.Gizmo;
 using KinematicCharacterController;
 
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -121,7 +123,7 @@ namespace Assets.Source.Render.Characters
         [Space(10)]
         [Header("Extras")]
         public Vector3 AdditionalDirectionForceFromJumpWall;
-        
+        private Vector3 _additionalDirectionNormalized;
         public bool AllowDash
         {
             get
@@ -672,9 +674,45 @@ namespace Assets.Source.Render.Characters
                 case CharacterState.Default:
                     {
                         if (AllowWallJump && !Motor.GroundingStatus.IsStableOnGround && !hitStabilityReport.IsStable)
-                        {
-                            _canWallJump = true;
-                            _wallJumpNormal = hitNormal;
+                         {
+                            Vector3 characterForward = Motor.InitialTickRotation * Vector3.forward; // Character's forward direction
+                            Vector3 wallNormal = hitNormal; // Wall's normal in world space from the collision point
+                            float dotProduct = Vector3.Dot(characterForward, wallNormal); // Dot product between character's forward and wall normal
+
+                            Vector3 simulationForce = Motor.InitialSimulationRotation * AdditionalDirectionForceFromJumpWall; // Simulated force
+                            _additionalDirectionNormalized = Vector3.zero;
+
+                            int sideMultiplier = wallNormal.x < 0 ? 1 : -1; // Determines if the wall is on the left or right side
+                            
+                            if (dotProduct < -0.9f) // Character is facing the wall
+                            {
+                                _additionalDirectionNormalized.x = -simulationForce.x * sideMultiplier;
+                            }
+                            else if (dotProduct > 0.9f) // Character is facing away from the wall
+                            {
+                                _additionalDirectionNormalized.x = (wallNormal.x == 1?-1:1)*simulationForce.x * sideMultiplier;
+                            }
+                            else // Character is looking at the side of the wall
+                            {
+                                float dotSide = Mathf.Sign(Vector3.Dot(wallNormal, Motor.InitialTickRotation * Vector3.right));
+
+                                if (dotSide > 0) // Wall is on the left
+                                {
+                                    _additionalDirectionNormalized.z = simulationForce.z * sideMultiplier;
+                                }
+                                else if (dotSide < 0) // Wall is on the right
+                                {
+                                    _additionalDirectionNormalized.z = simulationForce.z * sideMultiplier;
+                                }
+                            }
+                            if (hitNormal.x > 0) { 
+                                _additionalDirectionNormalized *= -1;
+                                
+                            }
+                            // Set the vertical jump force
+                            _additionalDirectionNormalized.y = AdditionalDirectionForceFromJumpWall.y;
+                             _canWallJump = true;
+                             _wallJumpNormal = hitNormal;
                         }
                         break;
                     }
@@ -804,10 +842,9 @@ namespace Assets.Source.Render.Characters
                                 Vector3 jumpDirection = Motor.CharacterUp;
                                 if (_canWallJump)
                                 {
-                                    jumpDirection = _wallJumpNormal + (new Vector3(
-                                        Mathf.Sign(currentVelocity.x) * Motor.CharacterRight.x * AdditionalDirectionForceFromJumpWall.x, 
-                                        AdditionalDirectionForceFromJumpWall.y,
-                                        Motor.CharacterForward.z * AdditionalDirectionForceFromJumpWall.z));//
+                                    //= (Motor.InitialSimulationRotation * AdditionalDirectionForceFromJumpWall);
+                                    Debug.Log("Question B:" + _additionalDirectionNormalized);
+                                    jumpDirection = _wallJumpNormal + _additionalDirectionNormalized;//
                                     
                                     CharacterAnimator.SetTrigger("OnDoubleJump");
                                 }
