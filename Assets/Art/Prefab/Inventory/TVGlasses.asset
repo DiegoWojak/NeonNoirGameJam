@@ -18,5 +18,5 @@ MonoBehaviour:
   prefab_Game: {fileID: 2146233760333128804, guid: ea979872ee90e3a44b02d171a900d6c6, type: 3}
   "toolt\xEDp_Data":
     tooltipHeader: TV Glasses
-    tooltipText: When wearer, allow the user to see closer. <br> Press Right Click
-      Button to Activate
+    tooltipText: 'When wearer gains: <br> Soul watcher  <br> Close sight <br> Press
+      Right Click Button to Activate'

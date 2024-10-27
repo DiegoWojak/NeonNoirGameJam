@@ -46,6 +46,9 @@ namespace Assets.Source
                 DontDestroyOnLoad(gameObject);
                 return;
             }
+            else { 
+                Destroy(gameObject);
+            }
 
         }
 

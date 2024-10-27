@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05341df4329e1f4ca4e7165b84b57be, type: 3}
   m_Name: WallCatJump
   m_EditorClassIdentifier: 
-  id: reflectCat
-  displayName: CatJump
+  id: ReflectCosmicCat
+  displayName: ReflectCosmicCat
   icon: {fileID: 21300000, guid: 0a1b418241158ad4e82d226fa1ac4312, type: 3}
   prefab_Game: {fileID: 1045804636198614177, guid: 50361a0c7d21eef47a4d95dd60232c49, type: 3}
   "toolt\xEDp_Data":
-    tooltipHeader: Reflex of Cats
-    tooltipText: When wearer, allow the user to wall jump. <br> Press Jump close
-      to a wall
+    tooltipHeader: Cosmic Cat Impulse Jump
+    tooltipText: 'When wearer gains: <br> Impulse Wall jump <br> +10 Max Air Speed'

@@ -24,6 +24,8 @@ public class DialogManager : LoaderBase<DialogManager>
     private Sprite backupSprite;
     [SerializeField]
     private Sprite backupSpriteBtn;
+
+    public Action OnUIClose;
     public override void Init() 
     {
         OnRequestStringChange += ChangeString;
@@ -58,6 +60,7 @@ public class DialogManager : LoaderBase<DialogManager>
                     UIDialog?.gameObject.SetActive(false);
                     GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose);
                     UpdateUItatus(false);
+                    OnUIClose?.Invoke();
                 }
                 else
                 {

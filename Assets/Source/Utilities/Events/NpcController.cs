@@ -1,5 +1,6 @@
 ﻿
 using Assets.Source.Managers;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,6 +33,8 @@ namespace Assets.Source.Utilities.Events
 
             _ta.RelatedActionOnEnter = delegate { GameEvents.Instance?.OnComponentWithTriggerEnter(this, id); };
             _ta.RelatedActionOnLeave = delegate { GameEvents.Instance?.OnComponentWithTriggerExit(this, id); };
+
+            GameEvents.Instance.OnInteract += OnInteract;
         }
 
         public virtual void OnPlayerEnterNpcArea(string id) {
@@ -56,6 +59,11 @@ namespace Assets.Source.Utilities.Events
 
         public void PostAlgo() {
             PostAction?.Invoke();
+            DialogManager.Instance.OnUIClose -= PostAlgo;
+        }
+
+        public void RequestEnding() {
+            GameStarterManager.Instance.CompletetLevel();
         }
 
         private void OnDestroy()
@@ -67,6 +75,11 @@ namespace Assets.Source.Utilities.Events
             }
         }
 
+        private void OnInteract(MonoBehaviour _itself) {
+            if (_itself == this && ((NpcController)_itself).id == this.id) {
+                DialogManager.Instance.OnUIClose += PostAlgo;
+            }
+        }
 
     }
 }

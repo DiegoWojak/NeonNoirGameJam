@@ -18,5 +18,4 @@ MonoBehaviour:
   prefab_Game: {fileID: 5063605537482674254, guid: 50eac729fc907c1438d0592dd780bb18, type: 3}
   "toolt\xEDp_Data":
     tooltipHeader: Wings power
-    tooltipText: When wearer, allow the user to double Jump also increasae jump height.
-      <br> Press Space to Jump
+    tooltipText: 'When wearer: <br> allow the user to double Jump <br> Max Jump height'

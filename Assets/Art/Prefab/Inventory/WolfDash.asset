@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WolfDash
   m_EditorClassIdentifier: 
   id: likeawolf
-  displayName: Like a Wolf
+  displayName: WolfPath
   icon: {fileID: 21300000, guid: 84f6cc95d465b244894346cf49faafa9, type: 3}
   prefab_Game: {fileID: 177940, guid: 0bff5de0452ee2b4ab4d0603fe171d7b, type: 3}
   "toolt\xEDp_Data":
-    tooltipHeader: Spirit of Wolf
+    tooltipHeader: Wolf Mutation
     tooltipText: When wearer, allow the user to dash. <br>With more stack increase
       the stack limit <br> Press Shift to Dash

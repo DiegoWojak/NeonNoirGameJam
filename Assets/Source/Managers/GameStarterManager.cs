@@ -3,10 +3,11 @@ using Assets.Source.Render.Characters;
 using Assets.Source.Utilities;
 using Assets.Source.Utilities.Helpers;
 using System;
-
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
+using static Assets.Source.Managers.SceneLoaderManager;
 
 namespace Assets.Source.Managers
 {
@@ -57,6 +58,8 @@ namespace Assets.Source.Managers
         private GameObject MainCamera;
         [SerializeField]
         private GameObject Player;
+
+        
         public override void Init()
         {
             _camComponent = MainCamera.GetComponent<PostProcessEffect>();
@@ -197,6 +200,30 @@ namespace Assets.Source.Managers
         public void ChangedefaultMaterial(bool change) {
             _change = change;
             ChangeShader();
+        }
+
+        public void CompletetLevel() {
+            UIManager.Instance.RequestOpenUI(this, true, (resu) => {
+                var _status = UIManager.Instance.ShowStatus();
+
+                SceneInformation _scene = SceneLoaderManager.Instance.Scenes[SceneLoaderManager.Instance.SceneTarget];
+
+                _status.RequestWriteMessage(_scene.FinalMessageOnGameEnd,_scene.SomeRanking ,() => {
+                    StartCoroutine(DelayTime(2, () => {
+                        MainCamera.SetActive(false);
+                        Player.SetActive(false);
+                        UIManager.Instance.RequestCloseUI(this, (bo) => {
+                            UIManager.Instance.CloseStatus();
+                        });
+                        SceneLoaderManager.Instance.LoadNextLevel();
+                    }));
+                });
+            });
+        }
+
+        IEnumerator DelayTime(float time ,Action _do) {
+            yield return time;
+            _do.Invoke();
         }
     }
     public enum CharacterViewState

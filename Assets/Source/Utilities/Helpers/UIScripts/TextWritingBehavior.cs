@@ -15,13 +15,15 @@ public class TextWritingBehavior : MonoBehaviour
     private string fullTextA;
     [SerializeField]
     private string fullTextB;
+
+    public bool requested = true;
     private void Start()
     {
+        if (!requested) return;
+
         StartCoroutine(TypeText( () => {
             StartCoroutine(AndDelete());
         }));
-
-        
     }
 
 
@@ -48,7 +50,7 @@ public class TextWritingBehavior : MonoBehaviour
         OnComplete?.Invoke();
     }
 
-    private IEnumerator AndDelete() { 
+    private IEnumerator AndDelete(Action OnComplete=null) { 
 
         for (int i = fullTextB.Length; i >= 0; i--)
         {
@@ -63,6 +65,16 @@ public class TextWritingBehavior : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+
+        OnComplete?.Invoke();
     }
 
+    public void RequestWriteMessage(string TiteA , string subtitle, Action OnComplete = null) {
+        fullTextA = TiteA;
+        fullTextB = subtitle;
+
+        StartCoroutine(TypeText(() => {
+            StartCoroutine(AndDelete(OnComplete));
+        }));
+    }
 }

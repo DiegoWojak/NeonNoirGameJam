@@ -13,8 +13,9 @@ namespace Assets.Source.Managers
         public GameObject Panel { get { return _panel; } }
         [SerializeField]
         private GameObject _panel;
-        public Stack<IInitiable> _currentManagerUsing;     
-
+        public Stack<IInitiable> _currentManagerUsing;
+        [SerializeField]
+        private TextWritingBehavior _status;
         public bool IsAnyUIOpened { get { return _currentManagerUsing.Count > 0; } }
         public override void Init()
         {
@@ -72,5 +73,15 @@ namespace Assets.Source.Managers
             }
         }
 
+
+        public TextWritingBehavior ShowStatus() {
+            _status.gameObject.SetActive(true);
+            return _status;
+        }
+
+        public void CloseStatus()
+        {
+            _status.gameObject.SetActive(false);
+        }
     }
 }

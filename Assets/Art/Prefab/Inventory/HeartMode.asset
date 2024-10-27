@@ -18,5 +18,5 @@ MonoBehaviour:
   prefab_Game: {fileID: 142319460964275420, guid: 9a86da0288870024891c265fa5c2a8c2, type: 3}
   "toolt\xEDp_Data":
     tooltipHeader: Heart Power
-    tooltipText: When wearer, allow the user to talk with animalss. <br> Press E
-      to Interact, they will speak to you
+    tooltipText: 'When wearer gains:  Allow the user to talk with animalss. <br>
+      Press E to Interact, they will speak to you'

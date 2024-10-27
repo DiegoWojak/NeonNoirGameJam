@@ -37,7 +37,7 @@ namespace Assets.Source.Utilities
         public event Action onPlayerFallingOffScreen;
         public event Action<string,Vector3, Quaternion> onCheckPointEnter;
         public event Action<InventoryItemData> onPickableItemEnter;
-
+        public event Action<MonoBehaviour> OnInteract;
 
         public void RequestInteractInteractable() {
             DialogManager.Instance?.RequestOpen();
@@ -47,11 +47,8 @@ namespace Assets.Source.Utilities
                     case ComputerSecurityController c:
                         c.UnlockDoor();
                         break;
-                    case NpcController n:
-                        
-                        break;
                     default:
-                        Debug.LogError("There is not component register, activate debug");
+                        OnInteract?.Invoke(_bufferComponent);
                         break;
                 }
             }

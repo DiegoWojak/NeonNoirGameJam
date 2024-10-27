@@ -9,46 +9,90 @@ namespace Assets.Source.Managers
 {
     public class SceneLoaderManager : LoaderBase<SceneLoaderManager>
     {
-        public List<string> Scenes = new List<string>();
+        [Serializable]
+        public struct SceneInformation {
+            public string SceneName;
+            public string FinalMessageOnGameEnd;
+            public string SomeRanking;
+        }
+
+        public List<SceneInformation> Scenes = new List<SceneInformation>();
         public int SceneTarget;
         public override void Init()
         {
-            /*StartCoroutine(
-                LoadSceneAsync(SceneTarget ,() => { 
-                    isLoaded = true;
-                })
-            );*/
             isLoaded = true;
         }
 
-            private IEnumerator LoadSceneAsync(int sceneIndex,Action post)
-            {
-                AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(Scenes[sceneIndex]);
+        private IEnumerator LoadSceneAsync(int sceneIndex,Action post)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(Scenes[sceneIndex].SceneName);
 
-                while (!asyncLoad.isDone)
-                {
+            while (!asyncLoad.isDone)
+            {
+            float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+            yield return progress;
+            #if UNITY_EDITOR
+                Debug.Log("Loading...");
+            #endif
+            }
+
+            post?.Invoke();
+        }
+
+        private IEnumerator LoadSceneAsync(string sceneNamex, Action post)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNamex);
+
+            while (!asyncLoad.isDone)
+            {
                 float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
                 yield return progress;
-                #if UNITY_EDITOR
-                    Debug.Log("Loading...");
-                #endif
-                }
-
-                post?.Invoke();
+#if UNITY_EDITOR
+                Debug.Log("Loading...");
+#endif
             }
 
-            [ContextMenu("Introduction")]
-            public void ChanceSceneIntroduction() {
-            LoaderManager.Instance.EnqueueProcess(
-                Pre: null,
-                ProcessToLoad: LoadSceneAsync(0,
-                    post: GameStarterManager.Instance.PreStartGame),
-                Post: GameStarterManager.Instance.StartGame);
-            }
+            post?.Invoke();
+        }
+
+        [ContextMenu("Introduction")]
+        public void ChanceSceneIntroduction() {
+        SceneTarget = 0;
+        LoaderManager.Instance.EnqueueProcess(
+            Pre: null,
+            ProcessToLoad: LoadSceneAsync(SceneTarget,
+                post: GameStarterManager.Instance.PreStartGame),
+            Post: GameStarterManager.Instance.StartGame);
+        }
 
         [ContextMenu("Second Level")]
         public void ChangeSceneSecondLevel() {
-            LoaderManager.Instance.EnqueueProcess(null, LoadSceneAsync(1, null), null);
+            SceneTarget = 1;
+            LoaderManager.Instance.EnqueueProcess(
+                Pre: null,
+                ProcessToLoad: LoadSceneAsync(SceneTarget,
+                    post: GameStarterManager.Instance.PreStartGame),
+                Post: GameStarterManager.Instance.StartGame);
+        }
+
+
+        public void LoadNextLevel() {
+            if (SceneTarget < Scenes.Count - 1)
+            {
+                SceneTarget++;
+
+                LoaderManager.Instance.EnqueueProcess(
+                Pre: null,
+                ProcessToLoad: LoadSceneAsync(SceneTarget,
+                    post: GameStarterManager.Instance.PreStartGame),
+                Post: GameStarterManager.Instance.StartGame);
+            }
+            else {
+                LoaderManager.Instance.EnqueueProcess(
+                Pre: null,
+                ProcessToLoad: LoadSceneAsync("10_MainMenu",
+                null), null);
+            }
         }
     }
 }

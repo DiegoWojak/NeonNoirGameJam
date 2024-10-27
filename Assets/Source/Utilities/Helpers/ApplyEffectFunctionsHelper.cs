@@ -1,5 +1,6 @@
 ﻿
 using Assets.Source.Managers;
+using Assets.Source.Render.Characters;
 using UnityEngine;
 
 namespace Assets.Source.Utilities.Helpers
@@ -13,6 +14,9 @@ namespace Assets.Source.Utilities.Helpers
         public bool _CanWallJump;
         public bool _CanSwim;
         public bool _CanSpeakAnimal;
+
+        public float _AdditionalAirVelocity;
+
         public void EquipTVGlasses(bool equip) {
             _hasTVGlasses = equip;
         }
@@ -43,5 +47,15 @@ namespace Assets.Source.Utilities.Helpers
             _CanSpeakAnimal = equip;
         }
 
+
+        public void AddAdditionalAirVelocity(float value) {
+            _AdditionalAirVelocity += value;
+            My3DHandlerPlayer.Instance.Character.ModifyAdditionalAirMaxFromItem(_AdditionalAirVelocity);
+        }
+
+        public void RemoveAdditionalAirVelocity(float value) {
+            _AdditionalAirVelocity -= value;
+            My3DHandlerPlayer.Instance.Character.ModifyAdditionalAirMaxFromItem(0);
+        }
     }
 }
