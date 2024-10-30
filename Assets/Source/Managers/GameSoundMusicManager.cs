@@ -57,50 +57,50 @@ namespace Assets.Source.Managers
         {
             SoundDictionary = new Dictionary<PredefinedSounds, EventReference>();
 
-            var _sound = EventReference.Find("event:/UI/Okay2");
+            var _sound = RuntimeManager.PathToEventReference("event:/UI/Okay2");
             EvaluateEventRef(ref _sound, PredefinedSounds.ComputerTurning);
 
-            _sound = EventReference.Find("event:/Interactables/ComputerInteract");
+            _sound = RuntimeManager.PathToEventReference("event:/Interactables/ComputerInteract");
             EvaluateEventRef(ref _sound, PredefinedSounds.ComputerInteracting);
 
-            _sound = EventReference.Find("event:/UI/Cancel");
+            _sound = RuntimeManager.PathToEventReference("event:/UI/Cancel");
             EvaluateEventRef(ref _sound, PredefinedSounds.ComputerClose);
 
-            _sound = EventReference.Find("event:/Character/Door Open");
+            _sound = RuntimeManager.PathToEventReference("event:/Character/Door Open");
             EvaluateEventRef(ref _sound, PredefinedSounds.OpenDoor);
 
-            _sound = EventReference.Find("event:/Character/Door Close");
+            _sound = RuntimeManager.PathToEventReference("event:/Character/Door Close");
             EvaluateEventRef(ref _sound, PredefinedSounds.CloseDoor);
 
-            _sound = EventReference.Find("event:/Character/Player Footsteps");
+            _sound = RuntimeManager.PathToEventReference("event:/Character/Player Footsteps");
             EvaluateEventRef(ref _sound, PredefinedSounds.PlayerFootStep);
 
-            _sound = EventReference.Find("event:/Character/Dash2");
+            _sound = RuntimeManager.PathToEventReference("event:/Character/Dash2");
             EvaluateEventRef(ref _sound, PredefinedSounds.PlayerDash);
 
-            _sound = EventReference.Find("event:/Character/Jump");
+            _sound = RuntimeManager.PathToEventReference("event:/Character/Jump");
             EvaluateEventRef(ref _sound, PredefinedSounds.PlayerJump);
 
-            _sound = EventReference.Find("event:/Interactables/MaleNpc");
+            _sound = RuntimeManager.PathToEventReference("event:/Interactables/MaleNpc");
             EvaluateEventRef(ref _sound, PredefinedSounds.NpcMaleInteract);
 
-            _sound = EventReference.Find("event:/Character/NewItem");
+            _sound = RuntimeManager.PathToEventReference("event:/Character/NewItem");
             EvaluateEventRef(ref _sound, PredefinedSounds.NewItem);
 
-            _sound = EventReference.Find("event:/Interactables/Checkpoint");
+            _sound = RuntimeManager.PathToEventReference("event:/Interactables/Checkpoint");
             EvaluateEventRef(ref _sound, PredefinedSounds.Checkpoint);
             
-            _sound = EventReference.Find("event:/UI/Cancel");
+            _sound = RuntimeManager.PathToEventReference("event:/UI/Cancel");
             EvaluateEventRef(ref _sound, PredefinedSounds.FallingFromVoid);
 
             MusicsDictionary = new Dictionary<PredefinedMusics, EventReference>();
 
-            var _music = EventReference.Find("event:/Music/Introduction");
+            var _music = RuntimeManager.PathToEventReference("event:/Music/Introduction");
             if (!_music.IsNull) {
                 MusicsDictionary.Add(PredefinedMusics.Introduction,_music);
             }
 
-            _music = EventReference.Find("event:/Music/NIvel1");
+            _music = RuntimeManager.PathToEventReference("event:/Music/NIvel1");
             if (!_music.IsNull)
             {
                 MusicsDictionary.Add(PredefinedMusics.Nivel1, _music);
@@ -143,14 +143,18 @@ namespace Assets.Source.Managers
         {
             if (_sound.IsNull)
             {
-                string _msg = DebugUtils.GetMessageFormat($"Sound not Found for {_sound.Path} ", 0);
+#if UNITY_EDITOR
+                string _msg = DebugUtils.GetMessageFormat($"Sound not Found for {_sound} ", 0);
                 Debug.Log(_msg);
+#endif
             }
             else
             {
-                string _msg = DebugUtils.GetMessageFormat($"Found Sounds for {_sound.Path} ", 2);
-                SoundDictionary.Add(_key, _sound);
+#if UNITY_EDITOR
+                string _msg = DebugUtils.GetMessageFormat($"Found Sounds for {_sound} ", 2);
                 Debug.Log(_msg);
+#endif
+                SoundDictionary.Add(_key, _sound);
             }
         }
 
