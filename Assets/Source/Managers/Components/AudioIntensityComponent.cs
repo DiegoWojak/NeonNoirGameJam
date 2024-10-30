@@ -22,6 +22,10 @@ namespace Assets.Source.Utilities.Events
             _c.PostAction?.Invoke();
         }
 
+        public void CleanAudioIntensity() {
+            _audioEmiter.SetParameter("Intensity", 0);
+            _audioEmiter.SetParameter("Progression", 0);
+        }
 
     }
 

@@ -17,19 +17,20 @@ namespace Assets.Source.Utilities.Events
         public Sprite btnIcon;
         public InventoryItemData Gift;
         public GameObject IconAlert;
-
+        [SerializeField]
+        bool isMan = true;
         [SerializeField]
         public UnityEvent PostAction;
         public bool HasNewInteractions { get; private set; }
         private void Start()
         {
             HasNewInteractions = true;
+            var _ta = GetComponent<TriggerArea>();
+            id = _ta.id;
             #region Callbacks
             GameEvents.Instance.onNpcTriggerEnter += OnPlayerEnterNpcArea;
             GameEvents.Instance.onNpcTriggerExit += OnPlayerExitNpcArea;
             #endregion
-            var _ta = GetComponent<TriggerArea>();
-            id = _ta.id;
 
             _ta.RelatedActionOnEnter = delegate { GameEvents.Instance?.OnComponentWithTriggerEnter(this, id); };
             _ta.RelatedActionOnLeave = delegate { GameEvents.Instance?.OnComponentWithTriggerExit(this, id); };
@@ -78,7 +79,7 @@ namespace Assets.Source.Utilities.Events
         private void OnInteract(MonoBehaviour _itself) {
             if (_itself == this && ((NpcController)_itself).id == this.id) {
                 DialogManager.Instance.OnUIClose += PostAlgo;
-            }
+                GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(isMan?PredefinedSounds.NpcMaleInteract:PredefinedSounds.NewItem);            }
         }
 
     }

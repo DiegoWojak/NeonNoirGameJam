@@ -1,4 +1,5 @@
 ﻿
+using Assets.Source.Managers;
 using System;
 using System.Collections.Generic;
 
@@ -17,8 +18,8 @@ namespace Assets.Source.Utilities.Events.ComputerDoor
 
         protected override void LinkTriggers()
         { 
-            _ta.RelatedActionOnEnter = delegate { GameEvents.Instance?.OnComponentWithTriggerEnter(this, id); };
-            _ta.RelatedActionOnLeave = delegate { GameEvents.Instance?.OnComponentWithTriggerExit(this, id); };
+            _ta.RelatedActionOnEnter = delegate { GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerTurning); GameEvents.Instance?.OnComponentWithTriggerEnter(this, id); };
+            _ta.RelatedActionOnLeave = delegate { GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose); GameEvents.Instance?.OnComponentWithTriggerExit(this, id); };
         }
 
 

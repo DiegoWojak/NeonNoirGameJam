@@ -40,12 +40,11 @@ public class DialogManager : LoaderBase<DialogManager>
                 if (_request)
                 {
                     UIDialog?.gameObject.SetActive(true);
-                    GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerInteracting);
                     UpdateUItatus(true);
                 }
                 else 
                 {
-                    GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose);
+                    
                 }
             });
         }
@@ -58,13 +57,13 @@ public class DialogManager : LoaderBase<DialogManager>
                 if (_request)
                 {
                     UIDialog?.gameObject.SetActive(false);
-                    GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose);
+                    
                     UpdateUItatus(false);
                     OnUIClose?.Invoke();
                 }
                 else
                 {
-                    GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerTurning);
+                    
                 }
             });
         }

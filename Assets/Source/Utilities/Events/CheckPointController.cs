@@ -1,5 +1,6 @@
 ﻿
 
+using Assets.Source.Managers;
 using UnityEngine;
 
 namespace Assets.Source.Utilities.Events
@@ -13,6 +14,7 @@ namespace Assets.Source.Utilities.Events
             id = _te.id;
             _te.RelatedActionOnEnter = delegate {
                 GameEvents.Instance?.OnComponentWithTriggerEnter(this, id);
+                GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.Checkpoint);
                 gameObject.SetActive(false);
             };
         }

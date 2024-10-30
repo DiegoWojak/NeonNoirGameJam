@@ -1,4 +1,5 @@
 ﻿
+using Assets.Source.Managers;
 using UnityEngine;
 
 namespace Assets.Source.Utilities.Events
@@ -11,7 +12,7 @@ namespace Assets.Source.Utilities.Events
         private void Start()
         {
             var _te = GetComponent<TriggerArea>();
-            _te.RelatedActionOnEnter = delegate { GameEvents.Instance?.OnComponentWithTriggerEnter(this, id); };
+            _te.RelatedActionOnEnter = delegate { GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.FallingFromVoid); GameEvents.Instance?.OnComponentWithTriggerEnter(this, id); };
         }
 
 

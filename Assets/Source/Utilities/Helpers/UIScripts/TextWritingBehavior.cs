@@ -12,9 +12,9 @@ public class TextWritingBehavior : MonoBehaviour
     public float delayBetweenText = 1.0f;
     public float deletingSpeed = 0.03f;
     [SerializeField]
-    private string fullTextA;
+    public string fullTextA;
     [SerializeField]
-    private string fullTextB;
+    public string fullTextB;
 
     public bool requested = true;
     private void Start()

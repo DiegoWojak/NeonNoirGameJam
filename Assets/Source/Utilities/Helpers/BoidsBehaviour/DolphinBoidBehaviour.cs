@@ -1,4 +1,5 @@
 ﻿
+using Assets.Source.Utilities.Events;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -86,6 +87,15 @@ namespace Assets.Source.Utilities.Helpers.BoidsBehaviour
                 }
             }
             
+        }
+
+        public void GetHappy() {
+            dolphinStatus = DolphinStatus.Happy;
+            var _v = GetComponent<NpcController>();
+            if(_v != null)
+            {
+                _v.DialogText = "Yo, my friend got me this glasses know i can see them. Friends can be so cool, right?";
+            }
         }
 
         int GetNewIndex() {

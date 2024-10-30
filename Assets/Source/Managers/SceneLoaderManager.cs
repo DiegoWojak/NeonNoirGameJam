@@ -14,6 +14,9 @@ namespace Assets.Source.Managers
             public string SceneName;
             public string FinalMessageOnGameEnd;
             public string SomeRanking;
+            public string ChapterIntro;
+            public string ChapterSubName;
+            public PredefinedMusics MusicBackgroundURL;
         }
 
         public List<SceneInformation> Scenes = new List<SceneInformation>();

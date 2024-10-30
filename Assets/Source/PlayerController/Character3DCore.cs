@@ -1,6 +1,7 @@
 ﻿
 using Assets.Source.Managers;
 using Assets.Source.Utilities;
+using Assets.Source.Utilities.Helpers;
 using Assets.Source.Utilities.Helpers.Gizmo;
 using KinematicCharacterController;
 
@@ -206,6 +207,7 @@ namespace Assets.Source.Render.Characters
         private float _targetRightAxis;
         private Vector3 _rootMotionPositionDelta;
         private Quaternion _rootMotionRotationDelta;
+        public float ForwardAxis { get { return _forwardAxis; } }
         #endregion
 
         public static Action<LayerMask> OnCollisionDetected;
@@ -221,7 +223,7 @@ namespace Assets.Source.Render.Characters
         private int currentChargeDash; // Current available dashes
         private float recoveryTimer; // Tracks time passed to restore charges
         private bool isRecovering = false; // Tracks if recovery is in process
-        [SerializeField]
+        [Serializable]
         public struct DashFrameBehaviour {
             [HideInInspector]
             public float lastDashTime;
@@ -392,8 +394,13 @@ namespace Assets.Source.Render.Characters
             }
 
             void AxisInputs(float axisForward, float axisRight) {
-                _targetForwardAxis = axisForward;
-                _targetRightAxis = axisRight;
+                float targetForwardEase =CustomMathFuctions.EaseOut(Mathf.Abs(axisForward)) * Mathf.Sign(axisForward); // Keeping the direction
+                float targetRightEase = CustomMathFuctions.EaseOut(Mathf.Abs(axisRight)) * Mathf.Sign(axisRight);
+
+                _targetForwardAxis = targetForwardEase;
+                _targetRightAxis = targetRightEase;
+                //_targetForwardAxis = axisForward;
+                //_targetRightAxis = axisRight;
             }
 
             void InputJumpDown(bool inputPress) {
@@ -797,7 +804,7 @@ namespace Assets.Source.Render.Characters
                                 {
                                     Motor.ForceUnground(0.1f);
 
-                                    currentVelocity += (Motor.CharacterUp * JumpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
+                                    currentVelocity += (Motor.CharacterUp * JumpSpeedModified()) - Vector3.Project(currentVelocity, Motor.CharacterUp);
                                     CharacterAnimator.SetTrigger("OnDoubleJump");
                                     GameSoundMusicManager.Instance?.PlaySoundByPredefinedKey(PredefinedSounds.PlayerJump);
                                     _jumpRequested = false;
@@ -832,7 +839,7 @@ namespace Assets.Source.Render.Characters
                                         _wallJumpNormal.x += currentVelocity.x * 0.5f; // Adjust based on additional force in X direction
                                     }
                                     jumpDirection = _wallJumpNormal + perpendicularForce;
-
+                                    _doubleJumpConsumed = false;
                                     CharacterAnimator.SetTrigger("OnDoubleJump");
                                 }
                                 else if (Motor.GroundingStatus.FoundAnyGround && !Motor.GroundingStatus.IsStableOnGround)
@@ -843,7 +850,7 @@ namespace Assets.Source.Render.Characters
 
                                 Motor.ForceUnground(0.1f);
 
-                                currentVelocity += (jumpDirection * JumpSpeed) - Vector3.Project(currentVelocity, Motor.CharacterUp);
+                                currentVelocity += (jumpDirection * JumpSpeedModified()) - Vector3.Project(currentVelocity, Motor.CharacterUp);
                                 _jumpRequested = false;
                                 _jumpConsumed = true;
                                 _jumpedThisFrame = true;
@@ -1030,8 +1037,19 @@ namespace Assets.Source.Render.Characters
             return Time.time >= _dashFrameBehavior.lastDashTime + _dashFrameBehavior.framerateCooldown;
         }
 
+        float JumpSpeedModified() {
+            return JumpSpeed + _addedMaxAirFromItems;
+        }
+
         public void ModifyAdditionalAirMaxFromItem(float value) {
             _addedMaxAirFromItems = value;
         }
+
+        public void ModifyAdditionalHeightMaxJump(float value)
+        {
+            _addedMaxAirFromItems = value;
+        }
+
+
     }
 }

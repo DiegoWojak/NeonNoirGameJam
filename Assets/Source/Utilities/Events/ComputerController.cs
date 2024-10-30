@@ -1,4 +1,5 @@
 ﻿
+using Assets.Source.Managers;
 using UnityEngine;
 
 namespace Assets.Source.Utilities.Events
@@ -51,8 +52,8 @@ namespace Assets.Source.Utilities.Events
 
         protected virtual void LinkTriggers() 
         {
-            _ta.RelatedActionOnEnter = delegate { GameEvents.Instance?.OnComponentWithTriggerEnter(this, id); };
-            _ta.RelatedActionOnLeave = delegate { GameEvents.Instance?.OnComponentWithTriggerExit(this, id); };
+            _ta.RelatedActionOnEnter = delegate { GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerTurning); GameEvents.Instance?.OnComponentWithTriggerEnter(this, id); };
+            _ta.RelatedActionOnLeave = delegate { GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.ComputerClose); GameEvents.Instance?.OnComponentWithTriggerExit(this, id); };
         }
     }
 }

@@ -837,63 +837,6 @@ MonoBehaviour:
   FromWater: {fileID: 2100000, guid: 619fd5581d70a7742ab8fe5af7ff7282, type: 2}
   FromRGBGlasses: {fileID: 2100000, guid: 43322c58cdf2ceb47a3524463fef1c47, type: 2}
   d_Effect:
-  - _relatedItem: {fileID: 11400000, guid: e6f264894acc5f54fa3bbd410043a5b3, type: 2}
-    OnEquippingItemEffect:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2322594368075457904}
-          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
-            Assembly-CSharp
-          m_MethodName: EquipWolfSkill
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 2692068412584349235}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-    OnRemoveItemEffect:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2322594368075457904}
-          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
-            Assembly-CSharp
-          m_MethodName: EquipWolfSkill
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 2692068412584349235}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
   - _relatedItem: {fileID: 11400000, guid: b713f9356af6b764b9f3264c2e5ba15e, type: 2}
     OnEquippingItemEffect:
       m_PersistentCalls:
@@ -1277,6 +1220,63 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - _relatedItem: {fileID: 11400000, guid: e6f264894acc5f54fa3bbd410043a5b3, type: 2}
+    OnEquippingItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipWolfSkill
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 2692068412584349235}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    OnRemoveItemEffect:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: EquipWolfSkill
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2692068412584349235}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - _relatedItem: {fileID: 11400000, guid: b74451fa30452ed48826b53ca0ed4cc0, type: 2}
     OnEquippingItemEffect:
       m_PersistentCalls:
@@ -1306,6 +1306,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: AddAdditionalHeighJump
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 25
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
     OnRemoveItemEffect:
       m_PersistentCalls:
         m_Calls:
@@ -1314,6 +1327,19 @@ MonoBehaviour:
             Assembly-CSharp
           m_MethodName: EquipWings
           m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2322594368075457904}
+          m_TargetAssemblyTypeName: Assets.Source.Utilities.Helpers.ApplyEffectFunctionsHelper,
+            Assembly-CSharp
+          m_MethodName: RemoveAdditionalHeighJump
+          m_Mode: 4
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1338,6 +1364,7 @@ MonoBehaviour:
   Director: {fileID: 1434165264}
   MainCamera: {fileID: 8055693110090037400}
   Player: {fileID: 8055693109427399082}
+  _textWritingBehavior: {fileID: 482944934601141502}
 --- !u!1 &651277333082556401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85983c93fbb3c5c419ac373d6c7e1d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayBetweenFootStepSound: 0
   _audioEmiter: {fileID: 8055693109559977733}
 --- !u!1 &651277333182859223
 GameObject:
@@ -2173,6 +2201,7 @@ MonoBehaviour:
   _CanSwim: 0
   _CanSpeakAnimal: 0
   _AdditionalAirVelocity: 0
+  _addtionalHeighJump: 0
 --- !u!1 &1205583041523881718
 GameObject:
   m_ObjectHideFlags: 0
@@ -2344,10 +2373,10 @@ RectTransform:
   m_Father: {fileID: 9061519302334134089}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 800, y: -306.64825}
-  m_SizeDelta: {x: 800, y: 494.41376}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8097442187560787742
 CanvasRenderer:
@@ -2519,10 +2548,10 @@ RectTransform:
   m_Father: {fileID: 392615867419117427}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 55, y: -50}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &8279573447916544530
 CanvasRenderer:
@@ -3171,10 +3200,10 @@ RectTransform:
   m_Father: {fileID: 9061519302334134089}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -588.5758}
-  m_SizeDelta: {x: 800, y: 49.441376}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &501429368390139307
 CanvasRenderer:
@@ -4051,10 +4080,10 @@ RectTransform:
   m_Father: {fileID: 9061519302334134089}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -711.64825}
-  m_SizeDelta: {x: 800, y: 176.70348}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1779224146147819251
 CanvasRenderer:
@@ -6077,10 +6106,10 @@ RectTransform:
   m_Father: {fileID: 392615867419117427}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &1264322889192572743
 CanvasRenderer:
@@ -6366,8 +6395,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Scenes:
   - SceneName: 01_Introduction
-    FinalMessageOnGameEnd: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa <br> aaaaaaaaaaaaaaaa
+    FinalMessageOnGameEnd: "The target, a defective android, has been found under
+      the control of the Conclave. <br> This android is the driving force of your
+      mission\u2014activating it is the key to beginning the purge. Modifications
+      grant you supernatural abilities, but she will be able to use them in due time.
+      Though trapped within, the soul of an angel was sealed inside the android during
+      an experiment by the Conclave. Now, to carry out the plan, Kael must discover
+      what happened to Llaka and repair the core functionalities."
     SomeRanking: Wind Toes
+    ChapterIntro: Limbo
+    ChapterSubName: Waking up at the top of the city
+    MusicBackgroundURL: 0
+  - SceneName: 02_Rincon
+    FinalMessageOnGameEnd: "\"The resonator...\",  thought they would\u2019ve dismantled
+      everything when she was taken. Listen, you don\u2019t have much time. The Conclave\u2019s
+      sent a retrieval unit after you. If you don\u2019t get her activated soon,
+      we\u2019re finished.\u201D"
+    SomeRanking: Air Swimmer
+    ChapterIntro: Chapter 1
+    ChapterSubName: First thing first
+    MusicBackgroundURL: 1
   SceneTarget: 0
 --- !u!1 &6852509221163925437
 GameObject:
@@ -6403,10 +6450,10 @@ RectTransform:
   m_Father: {fileID: 9061519302334134089}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -24.720688}
-  m_SizeDelta: {x: 800, y: 49.441376}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1264630808119420702
 CanvasRenderer:
@@ -6777,7 +6824,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 56.4, y: 0}
+  m_AnchoredPosition: {x: 56.399902, y: 0}
   m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1249443340431323462
@@ -7076,10 +7123,10 @@ RectTransform:
   m_Father: {fileID: 392615867419117427}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 110, y: -50}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &736148881054457683
 CanvasRenderer:
@@ -7613,6 +7660,10 @@ PrefabInstance:
     - target: {fileID: 8055693109115397759, guid: a2cfeba9588e96542808a270891c9c12, type: 3}
       propertyPath: m_Color.r
       value: 0.60784316
+      objectReference: {fileID: 0}
+    - target: {fileID: 8055693109144613082, guid: a2cfeba9588e96542808a270891c9c12, type: 3}
+      propertyPath: PlayEvent
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8055693109817343604, guid: a2cfeba9588e96542808a270891c9c12, type: 3}
       propertyPath: m_RootOrder

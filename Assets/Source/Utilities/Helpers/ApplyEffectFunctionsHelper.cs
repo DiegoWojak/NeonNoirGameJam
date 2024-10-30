@@ -16,7 +16,7 @@ namespace Assets.Source.Utilities.Helpers
         public bool _CanSpeakAnimal;
 
         public float _AdditionalAirVelocity;
-
+        public float _addtionalHeighJump;
         public void EquipTVGlasses(bool equip) {
             _hasTVGlasses = equip;
         }
@@ -49,13 +49,27 @@ namespace Assets.Source.Utilities.Helpers
 
 
         public void AddAdditionalAirVelocity(float value) {
-            _AdditionalAirVelocity += value;
+            _AdditionalAirVelocity = value;
             My3DHandlerPlayer.Instance.Character.ModifyAdditionalAirMaxFromItem(_AdditionalAirVelocity);
         }
 
         public void RemoveAdditionalAirVelocity(float value) {
-            _AdditionalAirVelocity -= value;
+            _AdditionalAirVelocity = Mathf.Clamp(0, _AdditionalAirVelocity, _AdditionalAirVelocity - value);
+
             My3DHandlerPlayer.Instance.Character.ModifyAdditionalAirMaxFromItem(0);
+        }
+
+        public void AddAdditionalHeighJump(float value) {
+
+            // My3DHandlerPlayer.Instance.Character.ModifyAdditionalAirMaxFromItem(_AdditionalAirVelocity);
+            _addtionalHeighJump = value;
+            My3DHandlerPlayer.Instance.Character.ModifyAdditionalHeightMaxJump(_addtionalHeighJump);
+        } 
+
+        public void RemoveAdditionalHeighJump(float value)
+        {
+            _addtionalHeighJump = 0;
+            My3DHandlerPlayer.Instance.Character.ModifyAdditionalHeightMaxJump(_addtionalHeighJump);
         }
     }
 }

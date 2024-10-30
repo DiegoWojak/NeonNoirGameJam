@@ -79,7 +79,7 @@ Material:
     - _DstBlend: 0
     - _EmissionEnabled: 0
     - _FlipbookMode: 0
-    - _Frenquency: 21
+    - _Frenquency: 4.9
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -93,7 +93,7 @@ Material:
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
-    - _Speed: 1.95
+    - _Speed: 1.07
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1

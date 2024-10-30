@@ -1,4 +1,5 @@
 ﻿
+using Assets.Source.Managers;
 using Assets.Source.Utilities.Events;
 using Assets.Source.Utilities.Events.ComputerDoor;
 using System;
@@ -48,9 +49,10 @@ namespace Assets.Source.Utilities
                         c.UnlockDoor();
                         break;
                     default:
-                        OnInteract?.Invoke(_bufferComponent);
+                        
                         break;
                 }
+                OnInteract?.Invoke(_bufferComponent);
             }
         }
 
@@ -58,6 +60,7 @@ namespace Assets.Source.Utilities
         public void OnPickableItemEnter(InventoryItemData data) {
             if (data != null) {
                 onPickableItemEnter(data);
+                GameSoundMusicManager.Instance.PlaySoundByPredefinedKey(PredefinedSounds.NewItem);
             }
         }
 

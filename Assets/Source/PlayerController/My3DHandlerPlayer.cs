@@ -3,6 +3,7 @@ using Assets.Source.Managers;
 using System.Linq;
 
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 namespace Assets.Source.Render.Characters
@@ -112,7 +113,9 @@ namespace Assets.Source.Render.Characters
                 characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.Z);
                 characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.Z);
                 characterInputs.CrouchHeld = Input.GetKey(KeyCode.Z);
+#if UNITY_EDITOR
                 characterInputs.NoClipDown = Input.GetKeyUp(KeyCode.O);
+#endif
                 //characterInputs.ClimbLadder = Input.GetKeyUp(KeyCode.E);
                 characterInputs.Interaction = Input.GetKeyUp(KeyCode.E);
                 characterInputs.ShootHeld = Input.GetButton("Fire1");
@@ -134,7 +137,13 @@ namespace Assets.Source.Render.Characters
             {
                 characterInputs.Dash = Input.GetKeyDown(KeyCode.LeftShift);
                 Character.Motor.ForceUnground(0.1f);
-                Character.AddVelocity(Vector3.one * 5f);
+                if (Character.Motor.GroundingStatus.IsStableOnGround)
+                {
+                    Character.AddVelocity(Vector3.up * 10f + Vector3.forward * 15f );
+                }
+                else { 
+                    Character.AddVelocity(Vector3.up * 5f + Vector3.forward * 30f);
+                }
             }
 
             Character.SetInputs(ref characterInputs);

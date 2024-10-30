@@ -96,7 +96,6 @@ GameObject:
   - component: {fileID: 3321054131001562680}
   - component: {fileID: 762317164096023068}
   - component: {fileID: 762317164096023071}
-  - component: {fileID: 5202726853124194306}
   m_Layer: 7
   m_Name: Computer_REd
   m_TagString: Untagged
@@ -147,9 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  DialogText: Reward Paredes
-  sprite: {fileID: 0}
-  ButtonIcon: {fileID: 0}
+  DialogText: Te cuidado de caer
+  sprite: {fileID: 21300000, guid: a3ced8f7044b9de4787602a9e9b20ea7, type: 3}
+  ButtonIcon: {fileID: 21300000, guid: 65f0e363b74cf5845ab8c3fbc14f39ac, type: 3}
 --- !u!114 &762317164096023071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,37 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: ComputerD
---- !u!114 &5202726853124194306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5383193899350520777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 586415830
-      Data2: 1342122821
-      Data3: 1364428202
-      Data4: -840343620
-    Path: event:/Character/Health
-  Event: 
-  PlayEvent: 3
-  StopEvent: 4
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1001 &1730093120955587376
 PrefabInstance:
   m_ObjectHideFlags: 0

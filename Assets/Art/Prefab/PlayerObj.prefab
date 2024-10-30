@@ -3382,9 +3382,13 @@ MonoBehaviour:
   ForceOppositeToNormalWall: 18
   ForceAdditionalFromJumpWall: 2.5
   maxChargeDash: 3
-  periodOfDashRecovery: 5
+  periodOfDashRecovery: 4.5
+  _dashFrameBehavior:
+    lastDashTime: 0
+    dashStarttime: 0
+    framerateCooldown: 0.1
   Visor: {fileID: 3641452397233012187}
-  m_StepDistance: 1.65
+  m_StepDistance: 1.9777
   FromPoint: {fileID: 3641452397233012186}
   DeviceNpcLayer:
     serializedVersion: 2
@@ -4428,7 +4432,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

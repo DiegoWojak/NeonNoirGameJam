@@ -4,9 +4,11 @@ using Assets.Source.Utilities;
 using Assets.Source.Utilities.Helpers;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+
 using UnityEngine.Playables;
+
 using static Assets.Source.Managers.SceneLoaderManager;
 
 namespace Assets.Source.Managers
@@ -58,8 +60,8 @@ namespace Assets.Source.Managers
         private GameObject MainCamera;
         [SerializeField]
         private GameObject Player;
-
-        
+        [SerializeField]
+        private TextWritingBehavior _textWritingBehavior;
         public override void Init()
         {
             _camComponent = MainCamera.GetComponent<PostProcessEffect>();
@@ -150,10 +152,15 @@ namespace Assets.Source.Managers
 
             RespawntoCheckPointForce(true);
             My3DHandlerPlayer.Instance.SetCamera();
+            GameSoundMusicManager.Instance.StartBackgroundMusic();
 
             if (Director != null)
             {
                 BlockInteraction();
+                var _s = SceneLoaderManager.Instance;
+                var _s2 = _s.Scenes[_s.SceneTarget];
+                _textWritingBehavior.fullTextA = _s2.ChapterIntro;
+                _textWritingBehavior.fullTextB = _s2.ChapterSubName;
                 Debug.Log($"PlayCinematic");
                 Director.Play();
             }
@@ -215,6 +222,8 @@ namespace Assets.Source.Managers
                         UIManager.Instance.RequestCloseUI(this, (bo) => {
                             UIManager.Instance.CloseStatus();
                         });
+                        GameBegin = false;
+                        GameSoundMusicManager.Instance.StopBackgroundMusic();
                         SceneLoaderManager.Instance.LoadNextLevel();
                     }));
                 });

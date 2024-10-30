@@ -4,6 +4,7 @@ using Assets.Source.Utilities.Events;
 using Assets.Source.Utilities.Helpers;
 using Assets.Source.Utilities.Helpers.Gizmo;
 using FMODUnity;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,12 +17,9 @@ namespace Assets.Source.Managers
     [Serializable]
     public class GameSoundMusicManager : LoaderBase<GameSoundMusicManager>
     {
+        public float delayBetweenFootStepSound;
         public Dictionary<PredefinedSounds, EventReference> SoundDictionary;
-
-        /*public List<GameObject> computers = new List<GameObject>();
-        [SerializeField]
-        public GameObjectSoundConfig Doors = new GameObjectSoundConfig();*/
-
+        public Dictionary<PredefinedMusics, EventReference> MusicsDictionary;
         public AudioIntensityComponent _audioIntensityController { get; private set; }
         [SerializeField]
         private StudioEventEmitter _audioEmiter;
@@ -44,8 +42,6 @@ namespace Assets.Source.Managers
         IEnumerator SoundInitialization(Action Callback)
         {
             yield return InitDictionary();
-            /*yield return InitComputers();
-            yield return InitDoors();*/
 
             Callback?.Invoke();
 
@@ -57,43 +53,14 @@ namespace Assets.Source.Managers
         }
 
 
-        /*IEnumerator InitComputers()
-        {
-            if (SoundDictionary.TryGetValue(PredefinedSounds.ComputerTurning, out EventReference _sound))
-            {
-                for (int i = 0; i < computers.Count; i++)
-                {
-                    if (computers[i].GetComponent<StudioEventEmitter>() == null)
-                    {
-                        GameObject _b = computers[i];
-                        yield return FmodAutomaticHelper.CreateSoundEmitirForComputer(ref _b, _sound);
-                    }
-                }
-            }
-        }
-
-        IEnumerator InitDoors()
-        {
-            for (int i = 0; i < Doors._CAV.Count; i++)
-            {
-                if (Doors._CAV[i].GetComponent<StudioEventEmitter>() == null)
-                {
-                    GameObject _b = Doors._CAV[i];
-                    yield return FmodAutomaticHelper.CreateSoundEmitirForDoor(ref _b,
-                        SoundDictionary[PredefinedSounds.OpenDoor], SoundDictionary[PredefinedSounds.CloseDoor]
-                        , Doors.ForOpen, Doors.ForLeave);
-                }
-            }
-        }*/
-
         IEnumerator InitDictionary()
         {
             SoundDictionary = new Dictionary<PredefinedSounds, EventReference>();
 
-            var _sound = EventReference.Find("event:/VO/Welcome");
+            var _sound = EventReference.Find("event:/UI/Okay2");
             EvaluateEventRef(ref _sound, PredefinedSounds.ComputerTurning);
 
-            _sound = EventReference.Find("event:/UI/Okay");
+            _sound = EventReference.Find("event:/Interactables/ComputerInteract");
             EvaluateEventRef(ref _sound, PredefinedSounds.ComputerInteracting);
 
             _sound = EventReference.Find("event:/UI/Cancel");
@@ -108,26 +75,67 @@ namespace Assets.Source.Managers
             _sound = EventReference.Find("event:/Character/Player Footsteps");
             EvaluateEventRef(ref _sound, PredefinedSounds.PlayerFootStep);
 
-            _sound = EventReference.Find("event:/Character/Dash");
+            _sound = EventReference.Find("event:/Character/Dash2");
             EvaluateEventRef(ref _sound, PredefinedSounds.PlayerDash);
 
             _sound = EventReference.Find("event:/Character/Jump");
             EvaluateEventRef(ref _sound, PredefinedSounds.PlayerJump);
 
-            yield return null;
+            _sound = EventReference.Find("event:/Interactables/MaleNpc");
+            EvaluateEventRef(ref _sound, PredefinedSounds.NpcMaleInteract);
+
+            _sound = EventReference.Find("event:/Character/NewItem");
+            EvaluateEventRef(ref _sound, PredefinedSounds.NewItem);
+
+            _sound = EventReference.Find("event:/Interactables/Checkpoint");
+            EvaluateEventRef(ref _sound, PredefinedSounds.Checkpoint);
+            
+            _sound = EventReference.Find("event:/UI/Cancel");
+            EvaluateEventRef(ref _sound, PredefinedSounds.FallingFromVoid);
+
+            MusicsDictionary = new Dictionary<PredefinedMusics, EventReference>();
+
+            var _music = EventReference.Find("event:/Music/Introduction");
+            if (!_music.IsNull) {
+                MusicsDictionary.Add(PredefinedMusics.Introduction,_music);
+            }
+
+            _music = EventReference.Find("event:/Music/NIvel1");
+            if (!_music.IsNull)
+            {
+                MusicsDictionary.Add(PredefinedMusics.Nivel1, _music);
+            }
+
+            yield return null; 
         }
+
 
         public void PlayPlayerFootStep()
         {
             if (!isLoaded) return;
-            if (!SoundDictionary[PredefinedSounds.PlayerFootStep].IsNull)
-            {
-                FMOD.Studio.EventInstance e = RuntimeManager.CreateInstance(SoundDictionary[PredefinedSounds.PlayerFootStep]);
-                e.set3DAttributes(RuntimeUtils.To3DAttributes((Vector3)My3DHandlerPlayer.Instance?.Character.Motor.InitialTickPosition));
 
-                e.start();
-                e.release();//Release each event instance immediately, there are fire and forget, one-shot instances. 
+             { 
+                if (!SoundDictionary[PredefinedSounds.PlayerFootStep].IsNull)
+                {
+                    FMOD.Studio.EventInstance e = RuntimeManager.CreateInstance(SoundDictionary[PredefinedSounds.PlayerFootStep]);
+                    e.set3DAttributes(RuntimeUtils.To3DAttributes((Vector3)My3DHandlerPlayer.Instance?.Character.Motor.InitialTickPosition));
+
+                    e.start();
+                    e.release();//Release each event instance immediately, there are fire and forget, one-shot instances. 
+                }
             }
+        }
+
+        public void StartBackgroundMusic() {
+            int level= SceneLoaderManager.Instance.SceneTarget;
+            var key = SceneLoaderManager.Instance.Scenes[level].MusicBackgroundURL;
+            _audioEmiter.EventReference = MusicsDictionary[key];
+            _audioIntensityController.CleanAudioIntensity();
+            _audioEmiter.Play();
+        }
+
+        public void StopBackgroundMusic() {
+            _audioEmiter.Stop();
         }
 
 
@@ -157,7 +165,18 @@ namespace Assets.Source.Managers
         ComputerInteracting,
         ComputerClose,
         OpenDoor,
-        CloseDoor
+        CloseDoor,
+        NpcMaleInteract,
+        NewItem,
+        Checkpoint,
+        FallingFromVoid
+    }
+
+    [Serializable]
+    public enum PredefinedMusics 
+    {
+        Introduction,
+        Nivel1
     }
 
     [Serializable]
